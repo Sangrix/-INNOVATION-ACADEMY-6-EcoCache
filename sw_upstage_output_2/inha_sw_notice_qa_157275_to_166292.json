@@ -1,0 +1,343 @@
+[
+  {
+    "qa_id": "inha_notice_qa_001",
+    "source_doc_id": "inha_sw_notice_166292",
+    "question": {
+      "text": "2025 '소중한 배움, 큰 변화' 에세이 공모전 시상식은 언제 어디서 진행되나요?"
+    },
+    "answer": {
+      "text": "시상식은 11월 26일(수) 오후 2시, 60주년 1401B호에서 진행됩니다. 수상자들은 반드시 참석해 주시기 바랍니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/166292/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_002",
+    "source_doc_id": "inha_sw_notice_165626",
+    "question": {
+      "text": "AI 교육 수요조사 설문에 참여하면 어떤 혜택이 있나요?"
+    },
+    "answer": {
+      "text": "응답자 중 200명을 추첨하여 커피 기프티콘(1매)을 증정합니다. 이벤트 참여 희망자는 학번과 휴대전화번호를 필수로 기입해야 하며, 설문 기간은 2025년 11월 21일(금)까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/165626/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_003",
+    "source_doc_id": "inha_sw_notice_165438",
+    "question": {
+      "text": "Physical AI와 미래 특강은 언제 어디서 열리나요?"
+    },
+    "answer": {
+      "text": "특강은 2025년 11월 12일(수) 오후 3시(15:00)에 60주년 기념관 1401B호에서 진행됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/165438/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_004",
+    "source_doc_id": "inha_sw_notice_165183",
+    "question": {
+      "text": "2025 MS 기업탐방 셔틀버스 이용자는 어디서 몇 시까지 소집해야 하나요?"
+    },
+    "answer": {
+      "text": "셔틀버스 이용자는 60주년 112호에서 오전 12시까지 소집해야 합니다. 개별 이동자는 서울특별시 종로구 종로1길 50 더케이트윈타워 A동 1층에서 오후 1시 50분까지 소집해야 합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/165183/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_005",
+    "source_doc_id": "inha_sw_notice_164532",
+    "question": {
+      "text": "2025 MS 기업탐방의 참여 대상, 일시, 장소는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "참여 대상은 인하대학교 소속 학부생(15명 선정 예정, 컴퓨터공학과·인공지능공학과 3학년 이상 우선 선발)이며, 일시는 2025년 11월 20일(목) 14:00~16:00, 장소는 한국마이크로소프트 본사(광화문역)입니다. 인하대↔광화문 왕복 셔틀버스가 지원되며 점심도 제공됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/164532/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_006",
+    "source_doc_id": "inha_sw_notice_164086",
+    "question": {
+      "text": "컴퓨터공학과 대학원 설명회는 몇 차에 걸쳐 어떤 주제로 진행되나요?"
+    },
+    "answer": {
+      "text": "세미나는 세 차례에 걸쳐 진행됩니다. 1차(11/4): 컴퓨터시스템/네트워크/보안, 2차(11/11): 컴퓨터그래픽스/비전/알고리즘, 3차(11/18): 인공지능/데이터마이닝이며, 각 세션은 18:30~19:30에 열립니다. 사전 신청자에게는 간단한 식사(햄버거)가 제공됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/164086/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_007",
+    "source_doc_id": "inha_sw_notice_163909",
+    "question": {
+      "text": "2025 생성형 AI 활용 쇼츠 공모전 참여 대상과 신청 마감일은 언제인가요?"
+    },
+    "answer": {
+      "text": "참여 대상은 인하대학교 학부생 및 대학원생이며, 개인 또는 최대 3인 팀으로 참가할 수 있습니다. 신청 마감일은 2025년 11월 22일(토)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163909/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_008",
+    "source_doc_id": "inha_sw_notice_163835",
+    "question": {
+      "text": "2025-2 AI-POT 자격증 취득 지원 프로그램 참여자로 선발되지 않은 경우에도 장학금을 받을 수 있나요?"
+    },
+    "answer": {
+      "text": "아니오. 장학금은 프로그램 참여자에 한해 자격증 취득 시 지원됩니다. 참여자가 아닐 경우 장학금 지원이 불가합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163835/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_009",
+    "source_doc_id": "inha_sw_notice_163788",
+    "question": {
+      "text": "2025 '소중한 배움, 큰 변화' 에세이 공모전의 참여 자격과 접수 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "인하대학교 학부생 및 대학원생이 참여할 수 있으며, 2022학년도 2학기 ~ 2025학년도 1학기 SW비교과프로그램 참여 경험이 있는 학생이 대상입니다. 기간이 연장되어 접수 마감은 2025년 11월 14일(금)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163788/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_010",
+    "source_doc_id": "inha_sw_notice_163720",
+    "question": {
+      "text": "AI VOYAGE 2025 경진대회에 선발된 후 해야 할 절차는 무엇인가요?"
+    },
+    "answer": {
+      "text": "선발된 학생들은 개별 발송된 이메일을 통해 최종 참여 여부를 확인하고 설문에 응답해야 합니다. 팀 배정은 최종 참여가 확정된 후 진행됩니다. 참여를 포기할 경우 후순위자로 추가 선발될 수 있습니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163720/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_011",
+    "source_doc_id": "inha_sw_notice_163701",
+    "question": {
+      "text": "연극영화학과 AI 창작 영상 상영회는 언제 어디서 진행되나요?"
+    },
+    "answer": {
+      "text": "AI 창작 영상 상영회는 2025년 10월 15일(수)부터 17일(금)까지 정석학술정보관 1층 메타스페이스에서 진행됩니다. 연극영화학과 학생들이 AI를 활용하여 창작한 영상과 관련 설명이 상영될 예정입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163701/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_012",
+    "source_doc_id": "inha_sw_notice_163675",
+    "question": {
+      "text": "2025 AIoT 국제전시회 버스 대절이 취소된 이유는 무엇이며, 참여를 원하면 어떻게 해야 하나요?"
+    },
+    "answer": {
+      "text": "저조한 신청으로 인해 버스 대절이 취소되었습니다. 행사 참여를 희망하는 학생들은 개별적으로 이동해야 합니다. 행사는 2025년 11월 28일(금) 11시에 코엑스에서 진행될 예정입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163675/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_013",
+    "source_doc_id": "inha_sw_notice_163633",
+    "question": {
+      "text": "2025-2학기 i-PAC 인증 콘테스트의 참여 대상, 일정, 사용 언어는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "참여 대상은 컴퓨터공학과 및 인공지능공학과 재학생(자료구조 PASS 필수, 2025-2학기 정규·부분등록자)이며, 사용 언어는 C/C++입니다. 콘테스트는 1차(11/7 금 17:30~21:30)와 2차(11/15 토 12:00~16:00)로 나뉘어 하이테크 322호 또는 324호에서 진행됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/163633/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_014",
+    "source_doc_id": "inha_sw_notice_162911",
+    "question": {
+      "text": "인하대 Apple 개발자 아카데미 홍보 워크숍의 일시와 장소는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "워크숍은 2025년 11월 6일(목) 오후 12시부터 1시 30분까지, 인하대학교 60주년 기념관 1401B호에서 진행됩니다. AI 시대에도 흔들리지 않는 자기계발 방법과 나만의 키워드를 찾는 내용으로 구성됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/162911/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_015",
+    "source_doc_id": "inha_sw_notice_162514",
+    "question": {
+      "text": "AI-POT 자격증이란 무엇이며, 2025-2학기 프로그램 신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "AI-POT(Prompt Operator Test)는 생성형 AI에 대한 기본 소양과 실무 활용 능력을 검정하는 한국생산성본부(KPC) 운영 민간자격증입니다. 2025-2학기 AI-POT 자격증 취득 지원 프로그램 참여 신청 기간은 10월 9일(목)부터 10월 15일(수)까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/162514/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_016",
+    "source_doc_id": "inha_sw_notice_162375",
+    "question": {
+      "text": "K-해양 AI 챌린지 2025 참가팀으로 확정되면 어떻게 해야 하나요?"
+    },
+    "answer": {
+      "text": "대회 참여는 자율이며, 참가팀으로 확정될 경우 SW중심대학사업단으로 연락해 주시면 대회 참여를 지원해 드립니다. 참가 신청 기간은 9월 15일부터 10월 23일까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/162375/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_017",
+    "source_doc_id": "inha_sw_notice_162368",
+    "question": {
+      "text": "AI VOYAGE 2025 경진대회 참여 자격 및 모집 인원은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "인하대학교 소속 학부재학생 20명을 모집하며(1개 팀당 10명 배정), 휴학생 및 졸업유예생은 참여 불가합니다. 학년·전공 무관으로 기본적인 SW 코딩 역량을 보유한 학생이면 신청 가능합니다. 신청 마감은 10월 2일이며, 대회 장소는 수영만 요트경기장 및 광안리 아르피나 호텔(예정)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/162368/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_018",
+    "source_doc_id": "inha_sw_notice_162094",
+    "question": {
+      "text": "AI-POT 자격증 취득 지원 프로그램 튜터 지원 자격과 모집 인원은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "AI-POT 자격증 취득자로서 본교 재학생(휴학생·수료생·졸업생 불가)이어야 하며, 국가연구과제 사업 참여가 가능한 자가 지원할 수 있습니다. 모집 인원은 2명(1급, 2급 각 1명)이며, 신청 마감은 9월 28일(일)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/162094/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_019",
+    "source_doc_id": "inha_sw_notice_161981",
+    "question": {
+      "text": "2025 Advantech AIoT Innoworks Project에 선발된 팀들은 언제 오리엔테이션을 진행하나요?"
+    },
+    "answer": {
+      "text": "총 10개 팀이 선정되었으며, 선발된 학생들은 9월 17일(수) 오후 7시에 온라인 오리엔테이션을 진행합니다. 예비팀으로는 이슬Zero, 인하 정밀 TECH가 선정되었습니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/161981/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_020",
+    "source_doc_id": "inha_sw_notice_161888",
+    "question": {
+      "text": "INHA NEXT CAMPUS Challenge 프로그램의 주제와 모집 마감일은 언제인가요?"
+    },
+    "answer": {
+      "text": "프로그램 주제는 인하대학교 학내 문제 해결 및 시스템 개선에 기여할 수 있는 혁신적인 SW 개발입니다. 우수 프로젝트는 실제 학내 시스템에 적용될 수 있는 기회가 주어지며, 모집 마감일은 9월 26일입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/161888/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_021",
+    "source_doc_id": "inha_sw_notice_161508",
+    "question": {
+      "text": "제24회 TOPCIT 정기평가 단체접수는 누가 신청할 수 있으며, 응시료는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "컴퓨터공학과 및 인공지능공학과 재학생(1·2학년 포함)이 신청 가능합니다. SW중심대학사업단에서 응시료를 전액 지원하며, 신청 마감은 9월 19일입니다. 컴퓨터공학과 재학생의 경우 TOPCIT 정기평가 2회 이상 응시가 졸업 필수 요건입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/161508/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_022",
+    "source_doc_id": "inha_sw_notice_161288",
+    "question": {
+      "text": "2025-2 탄소중립 INNOVATION ACADEMY 5기 설명회는 언제 진행되나요?"
+    },
+    "answer": {
+      "text": "설명회는 2025년 9월 8일(월)에 진행됩니다. 자세한 일정 및 장소는 공지사항의 포스터를 참고하시기 바랍니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/161288/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_023",
+    "source_doc_id": "inha_sw_notice_160349",
+    "question": {
+      "text": "생성형 AI 프롬프트 활용 능력 자격증 취득 지원 프로그램 장학금 신청 대상과 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "신청 대상은 2025 프로그램 참여자 중 자격 시험 합격자이며, 2025학년도 2학기 기준 학부 재학생이어야 합니다. 휴학생·수료생·졸업생·대학원생은 신청이 불가합니다. 신청 기간은 8월 28일부터 9월 8일까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/160349/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_024",
+    "source_doc_id": "inha_sw_notice_159628",
+    "question": {
+      "text": "2025-2 탄소중립 INNOVATION ACADEMY 5기의 참여 대상과 신청 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "참여 대상은 인하대학교 학부생(전공 무관)이며, 신청 기간은 연장되어 2025년 9월 3일(수)까지입니다. COEIC 사이트(coeic.ai)에서 신청할 수 있으며, COEIC 응시 권한 오류 시 codetree.channel.io/home 1:1 실시간 채팅 상담으로 문의하시면 됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159628/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_025",
+    "source_doc_id": "inha_sw_notice_159627",
+    "question": {
+      "text": "제14회 아랩 액셀러레이팅 프로그램에 참가하면 어떤 혜택을 받을 수 있나요?"
+    },
+    "answer": {
+      "text": "팀당 학생 활동 지원비 100만원 지원, 교육 프로그램 지원, 창업 공간(꿈터 및 창업드림라운지) 입주 지원, SW/AI 활용 창업 1팀 창업지원금 200만원 제공 등의 혜택이 있습니다. 모집 기간은 9월 12일(금) 24시까지이며, 인하대학교 학부 재학생(1~6명 팀)이 지원 가능합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159627/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_026",
+    "source_doc_id": "inha_sw_notice_159294",
+    "question": {
+      "text": "2025 오픈소스SW 페스티벌 참여 자격과 신청 마감일은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "인하대학교 소속 학부생 전체가 참여 가능하며, 개인 또는 5인 이내 팀으로 참여할 수 있습니다. 휴학생 및 수료생은 참가 불가합니다. 작품은 오픈소스SW를 활용하여 개발한 결과물이어야 하며, 신청 마감은 9월 30일입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159294/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_027",
+    "source_doc_id": "inha_sw_notice_159228",
+    "question": {
+      "text": "CEN 마일리지 리워드 기념품은 언제까지 어디서 수령해야 하나요?"
+    },
+    "answer": {
+      "text": "기념품은 2025년 9월 1일(월)부터 9월 12일(금) 18:00까지(점심시간 12:00~13:00 제외) 60주년 1401호에서 수령해야 합니다. 기간 내 미수령 시 수령이 불가하오니 기한을 반드시 지켜주시기 바랍니다. 기념품은 안뇽이 쿠션(쿠션 안에 담요 포함)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159228/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_028",
+    "source_doc_id": "inha_sw_notice_159216",
+    "question": {
+      "text": "SW중심대학 마이크로전공은 어떤 교양 영역 과목을 수강하면 이수할 수 있나요?"
+    },
+    "answer": {
+      "text": "일반교양 7영역 교과목을 수강하면 SW중심대학 마이크로전공을 이수할 수 있습니다. 자세한 이수 방법과 해당 교과목 목록은 공지사항의 안내 이미지를 참고하시기 바랍니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159216/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_029",
+    "source_doc_id": "inha_sw_notice_159202",
+    "question": {
+      "text": "2025 TOPCIT 개정모델 파일럿테스트의 응시 일정과 장소는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "응시일자는 2025년 9월 11일(목) 15:00~17:30(14:50까지 입실)이며, 응시 장소는 하이테크 322호입니다. 모집 대상은 컴퓨터공학과 및 인공지능공학과 3·4학년 재학생으로, 선착순 20명을 모집합니다. 컴퓨터공학과 학생들은 졸업요건에 TOPCIT이 포함되어 있으니 이번 기회를 활용하시기 바랍니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159202/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_030",
+    "source_doc_id": "inha_sw_notice_159179",
+    "question": {
+      "text": "2025 Advantech AIoT Innoworks Project 주관 기업은 어떤 회사이며, 팀 모집 마감은 언제인가요?"
+    },
+    "answer": {
+      "text": "주관 및 후원기업은 어드밴텍KR(Advantech KR)로, IoT 기반 산업 플랫폼 구축 글로벌 기업입니다. IoT로 연결된 더 똑똑한 지구를 만들기 위해 하드웨어부터 소프트웨어까지 토탈 솔루션을 제공합니다. 참여 팀 모집 마감은 2025년 9월 11일(목)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/159179/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_031",
+    "source_doc_id": "inha_sw_notice_157275",
+    "question": {
+      "text": "2025 생성형 AI 프롬프트 활용 능력 자격증 취득 지원 프로그램 참여자 선발 결과는 어디서 확인할 수 있나요?"
+    },
+    "answer": {
+      "text": "선발 결과는 SW중심대학사업단 홈페이지 공지사항에서 확인할 수 있습니다. 선발된 학생들은 공지된 명단을 통해 본인의 이름을 확인해 주시기 바랍니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/157275/artclView.do"
+    }
+  }
+]
