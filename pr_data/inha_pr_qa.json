@@ -1,0 +1,475 @@
+[
+  {
+    "qa_id": "inha_pr_qa_043",
+    "source_doc_id": "inha_pr_043",
+    "question": {
+      "text": "Blaybus에서 주관하는 '서비스 문제 해결 개발 공모전'의 모집 기간과 수행 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "모집 기간은 2026년 4월 2일(목)부터 4월 19일(일)까지이며, 실제 프로젝트 수행 기간은 2026년 4월 21일(화)부터 4월 30일(목)까지 10일간 진행됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE3OTkyMSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_042",
+    "source_doc_id": "inha_pr_042",
+    "question": {
+      "text": "'비즈니스 문제 해결 데이터 분석 공모전'의 단계별 미션은 무엇인가요?"
+    },
+    "answer": {
+      "text": "미션은 총 4단계로 구성됩니다. STEP 1은 데이터 구조 및 주요 지표 분석, STEP 2는 핵심 문제 정의 및 원인 파악, STEP 3은 데이터 기반 인사이트 도출, STEP 4는 의사결정 및 실행 전략 제안입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE3OTI3MiUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_041",
+    "source_doc_id": "inha_pr_041",
+    "question": {
+      "text": "2026년 오픈소스 컨트리뷰션 아카데미 체험형 프로그램의 활동 내용과 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "오픈소스 프로젝트 참여를 위한 필수 협업 도구인 Git 활용과 분야별 프로젝트 컨트리뷰션을 체험하는 기초 과정으로, 총 6주 동안 활동이 진행됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE3NzMzNSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_040",
+    "source_doc_id": "inha_pr_040",
+    "question": {
+      "text": "「코디세이 AI 올인원 과정」 1기의 교육생 혜택과 교육 기간은 무엇인가요?"
+    },
+    "answer": {
+      "text": "기준 충족 시 매월 100만 원의 장학금을 18개월 동안 지급하며, 교육은 2026년 3월 30일부터 2027년 9월까지 총 18개월간 몰입형으로 운영됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE3MjEzMSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_039",
+    "source_doc_id": "inha_pr_039",
+    "question": {
+      "text": "국민대학교 코딩 역량 인증제의 테스트 분야와 사용 가능 언어는 무엇인가요?"
+    },
+    "answer": {
+      "text": "알고리즘 분야에 대해 총 3문제가 출제되며, 사용 가능한 프로그래밍 언어는 C++, Java, Python입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE3MTA0NiUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_038",
+    "source_doc_id": "inha_pr_038",
+    "question": {
+      "text": "한성대학교 Physical AI 해커톤의 신청 페이지 주소는 어디인가요?"
+    },
+    "answer": {
+      "text": "해커톤 신청은 https://roboseasy.ai/hackathon 페이지를 통해 가능합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE3MDI0NCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_037",
+    "source_doc_id": "inha_pr_037",
+    "question": {
+      "text": "제4회 2026 블레이버스 MVP 개발 해커톤의 팀 구성 필수 조건은 무엇인가요?"
+    },
+    "answer": {
+      "text": "최종 팀 구성 시 PM 1명 이상, 디자이너 1명 이상, 개발자 2명 이상을 필수로 포함해야 하며, 팀당 최대 인원은 10명입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2OTA1MyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_036",
+    "source_doc_id": "inha_pr_036",
+    "question": {
+      "text": "LG Aimers 8기의 지원 대상 및 참가 혜택은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "만 19세~29세의 미취업 청년(학력 및 전공 무관)이 대상이며, 해커톤 수상자에게는 상금과 LG 그룹 계열사 지원 시 서류 면제 혜택이 제공됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2NzU5MCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_035",
+    "source_doc_id": "inha_pr_035",
+    "question": {
+      "text": "Global AI Frontiers Symposium 2025의 주요 참석 연사는 누구인가요?"
+    },
+    "answer": {
+      "text": "뉴욕대 얀 르쿤 및 조경현 교수, 스탠포드대 최예진 교수가 참여하며 제프리 힌튼과 조슈아 벤지오 교수의 축전 영상이 제공됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2NDA4NSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_034",
+    "source_doc_id": "inha_pr_034",
+    "question": {
+      "text": "Open Source Tech Day 2025의 주제와 개최 일시는 언제인가요?"
+    },
+    "answer": {
+      "text": "주제는 '지식의 공유와 AI 혁신의 시작, 오픈소스'이며, 2025년 10월 21일 (화) 10:00 ~ 17:00까지 양재 aT센터에서 개최됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2MzIxMyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_033",
+    "source_doc_id": "inha_pr_033",
+    "question": {
+      "text": "2025 SW중심대학 에세이 공모전의 주제와 응모 자격은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "주제는 '나를 있게 한 소프트웨어중심대학, SW중심대학 덕분에'이며, SW중심대학 참여대학의 재학생 및 졸업생이면 누구나 응모 가능합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2MjUzNSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_032",
+    "source_doc_id": "inha_pr_032",
+    "question": {
+      "text": "2025 전국 대학생 SW창업 아이디어톤의 시상 내역은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "대상 1개팀(200만원), 최우수상 1개팀(150만원), 우수상 1개팀(100만원), 장려상 3개팀(각 50만원)에게 한양대학교 총장상이 수여됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2MTg2OCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_031",
+    "source_doc_id": "inha_pr_031",
+    "question": {
+      "text": "구글 'AI Startup School'의 주요 교육 커리큘럼은 무엇인가요?"
+    },
+    "answer": {
+      "text": "창업가 정신 워크숍, 아이디어 피칭 스토리텔링, 리더십 원칙, AI 및 클라우드 도구 소개, AI Studio를 활용한 서비스 구축, 스타트업 창업가 패널토크로 구성됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2MDkwMSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_030",
+    "source_doc_id": "inha_pr_030",
+    "question": {
+      "text": "제19회 전국 iTOP 경진대회의 신청 접수 마감일은 언제인가요?"
+    },
+    "answer": {
+      "text": "신청 접수는 2025년 9월 2일까지 진행됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE2MDI4NSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_029",
+    "source_doc_id": "inha_pr_029",
+    "question": {
+      "text": "2025 디지털윤리 창작콘텐츠 공모의 상세 내용을 확인할 수 있는 주소는 어디인가요?"
+    },
+    "answer": {
+      "text": "https://디지털윤리.kr (한글 도메인)의 창작콘텐츠 공모 페이지에서 상세 내용을 확인할 수 있습니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1OTU0MiUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QxJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_028",
+    "source_doc_id": "inha_pr_028",
+    "question": {
+      "text": "서강대에서 개최하는 AI도구활용 역량강화 워크숍의 개최 일자는 언제인가요?"
+    },
+    "answer": {
+      "text": "워크숍은 2025년 8월 20일에 개최됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1OTIwNSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_027",
+    "source_doc_id": "inha_pr_027",
+    "question": {
+      "text": "경기대학교 2025 CSTS 썸머 특강의 교육 내용과 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "2025년 7월 21일부터 23일까지 3일간 진행되며, 테스트 개요, 설계 기법, 테스트 프로세스 등 CSTS 자격시험 대비 이론 및 실습 교육이 이루어집니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1NzU1OSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_026",
+    "source_doc_id": "inha_pr_026",
+    "question": {
+      "text": "인하대학교에서 개최되는 Google I/O Extended Incheon 2025의 인하대생 혜택은 무엇인가요?"
+    },
+    "answer": {
+      "text": "일반 학생 티켓 가격은 25,000원이지만, 인하대생은 전용 초대코드를 입력하여 10,000원에 티켓을 구매할 수 있는 혜택이 제공됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1NzQxNCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_025",
+    "source_doc_id": "inha_pr_025",
+    "question": {
+      "text": "HL FMA 2025 자율주행 경진대회의 주관 기관은 어디인가요?"
+    },
+    "answer": {
+      "text": "한라대학교 SW중심대학사업단에서 본 경진대회를 모집 및 운영합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1NDQ4NCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_024",
+    "source_doc_id": "inha_pr_024",
+    "question": {
+      "text": "2025년 오픈소스 개발자대회의 접수 마감일은 언제인가요?"
+    },
+    "answer": {
+      "text": "한국오픈소스협회에서 개최하는 본 대회의 접수는 2025년 6월 30일까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1NDQ2NyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_023",
+    "source_doc_id": "inha_pr_023",
+    "question": {
+      "text": "LG Aimers 7기의 온라인 해커톤(Phase 2) 일정은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "LG Aimers 7기의 온라인 해커톤은 2025년 8월 1일부터 8월 25일까지 진행됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1NDQ0MiUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_022",
+    "source_doc_id": "inha_pr_022",
+    "question": {
+      "text": "'AI 융합 기획자 양성 프로그램' 참여자 모집 마감일은 언제인가요?"
+    },
+    "answer": {
+      "text": "인텔코리아와 한국생산성본부가 함께하는 본 프로그램의 모집 마감일은 2025년 6월 13일(금)입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1MzYxOSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQl)M0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_021",
+    "source_doc_id": "inha_pr_021",
+    "question": {
+      "text": "2025 ACPC(전국 대학생 프로그래밍 경진대회) 본선의 장소와 일시는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "본선은 2025년 5월 25일(일) 13:00~17:00에 서울 강남구 센터필드 EAST 빌딩에 위치한 AWS 코리아 본사에서 오프라인으로 개최됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1MjI0NyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_020",
+    "source_doc_id": "inha_pr_020",
+    "question": {
+      "text": "2025 서울특별시장애청소년IT챌린지 대학생 서포터즈의 활동 혜택은 무엇인가요?"
+    },
+    "answer": {
+      "text": "VMS 봉사시간 제공, 공식 활동증명서 발급, 행사 참여 기념품 제공, 장애 이해 교육 및 체험형 프로그램 운영 실무 경험 등이 제공됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1MTkzMiUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_019",
+    "source_doc_id": "inha_pr_019",
+    "question": {
+      "text": "제8회 국민대학교 자율주행 경진대회의 참가 대상 자격은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "전국 대학 학부 재학생, 휴학생, 수료생(3~5인 팀)이면 참가 가능하나, 졸업생 및 대학원생은 지원이 불가합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1MTkxNyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_018",
+    "source_doc_id": "inha_pr_018",
+    "question": {
+      "text": "GDG 인천의 'Hello World & Build with AI in Incheon' 행사는 어디에서 열리나요?"
+    },
+    "answer": {
+      "text": "본 행사는 2025년 4월 5일(토) 인하대학교 60주년 기념관에서 개최됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjE1OTQwOCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_017",
+    "source_doc_id": "inha_pr_017",
+    "question": {
+      "text": "25년 초거대 AI 학습용 데이터 구축 사업 수요조사의 목적은 무엇인가요?"
+    },
+    "answer": {
+      "text": "25년 인공지능 데이터 신규 후보 과제 발굴 및 과제 기획을 위한 기초 자료로 활용하기 위함입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzOTg2MCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_016",
+    "source_doc_id": "inha_pr_016",
+    "question": {
+      "text": "2024 전국 SW 프로그래밍 경진대회의 주최 및 주관 기관은 어디인가요?"
+    },
+    "answer": {
+      "text": "한양대학교 ERICA SW중심대학사업단과 코드트리가 공동으로 주최 및 주관합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzOTU3OSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_015",
+    "source_doc_id": "inha_pr_015",
+    "question": {
+      "text": "2024 블록체인 진흥주간 취업컨설팅의 지원 내용과 자격은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "만 34세 이하의 블록체인 및 IT 분야 취업 준비생을 대상으로 1:1 자기소개서 컨설팅과 1:5 모의면접 컨설팅을 지원합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzODkxOCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_014",
+    "source_doc_id": "inha_pr_014",
+    "question": {
+      "text": "오름캠프 프론트엔드 개발과정의 교육 비용과 혜택은 무엇인가요?"
+    },
+    "answer": {
+      "text": "교육비는 전액 무료이며, 참여 교육생에게는 매월 316,000원의 지원금이 지급됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzNTU0NyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QyJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_013",
+    "source_doc_id": "inha_pr_013",
+    "question": {
+      "text": "소프트웨어융합대학에서 현재 모집 중인 단체는 어디인가요?"
+    },
+    "answer": {
+      "text": "소프트웨어융합대학에서 인공지능학회원을 모집하고 있습니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMzE0MyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_012",
+    "source_doc_id": "inha_pr_012",
+    "question": {
+      "text": "2024 SW중심대학 에세이 공모전의 응모 기간은 언제까지인가요?"
+    },
+    "answer": {
+      "text": "응모 기간은 2024년 9월 2일(월)부터 9월 20일(금) 17:00까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMjk2NiUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_011",
+    "source_doc_id": "inha_pr_011",
+    "question": {
+      "text": "Inno Venture ConnecT X K-기업가정신 토크콘서트의 연사는 누구인가요?"
+    },
+    "answer": {
+      "text": "언바운드랩 조용민 대표와 (주)현대벤디스(식권대장) 조정호 대표가 연사로 참여합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMjk1NSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_010",
+    "source_doc_id": "inha_pr_010",
+    "question": {
+      "text": "2024 제1회 국방 AI 아이디어톤의 공모 주제는 무엇인가요?"
+    },
+    "answer": {
+      "text": "주제는 'AI 기술 활용을 통한 미래 국방분야 발전 방향'입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMjk0NSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_009",
+    "source_doc_id": "inha_pr_009",
+    "question": {
+      "text": "2024 국민대학교 코딩역량 인증제에서 인증서를 발급받기 위한 조건은 무엇인가요?"
+    },
+    "answer": {
+      "text": "알고리즘 테스트에서 레벨 1 이상을 취득하면 국민대학교 소프트웨어융합대학장 명의의 인증서가 발급됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMjgyNSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_008",
+    "source_doc_id": "inha_pr_008",
+    "question": {
+      "text": "K-ICT 창업멘토 육성과정의 참여 대상과 혜택은 무엇인가요?"
+    },
+    "answer": {
+      "text": "스타트업 CEO 경력 3년 이상의 전담 멘토 희망자가 대상이며, 과정 이수 시 향후 K-ICT창업멘토링센터 전담 멘토 선정 시 가점이 부여됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMjQ1MSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_007",
+    "source_doc_id": "inha_pr_007",
+    "question": {
+      "text": "한국저작권위원회에서 진행하는 오픈소스SW 라이선스 대학생 교육의 신청 마감일은 언제인가요?"
+    },
+    "answer": {
+      "text": "교육 신청은 2024년 8월 24일까지 가능합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMTcxMyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_006",
+    "source_doc_id": "inha_pr_006",
+    "question": {
+      "text": "카이스트 SW중심대학이 한국천문연구원과 함께 개최하는 행사는 무엇인가요?"
+    },
+    "answer": {
+      "text": "두 기관은 공동으로 AI 경진대회를 개최합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMTYyNSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_005",
+    "source_doc_id": "inha_pr_005",
+    "question": {
+      "text": "2024년 하반기 K-Global 창업멘토링 지원사업의 주요 지원 내용은 무엇인가요?"
+    },
+    "answer": {
+      "text": "전담형/선택형 멘토링, 실전창업교육, IR·데모데이 등 창업기업의 성장 단계를 고려한 맞춤형 프로그램을 제공합니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMDg4MSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_004",
+    "source_doc_id": "inha_pr_004",
+    "question": {
+      "text": "2024 블레이버스 MVP 개발 해커톤의 주제와 상금 규모는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "주제는 '창업 아이템 MVP 개발'이며, 총 상금은 200만 원 규모입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEzMDI3OCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_003",
+    "source_doc_id": "inha_pr_003",
+    "question": {
+      "text": "경산이노베이션아카데미에서 진행하는 챌린지의 공식 명칭과 홈페이지 주소는 무엇인가요?"
+    },
+    "answer": {
+      "text": "명칭은 '미래융합인재발굴 소프트웨어 챌린지'이며, 홈페이지 주소는 http://www.gsia-sw.kr/01_sub/01_sub.html 입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEyOTAwOCUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_002",
+    "source_doc_id": "inha_pr_002",
+    "question": {
+      "text": "KOICA-청년중기봉사단(디지털)의 파견 국가와 활동 기간은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "라오스, 캄보디아, 르완다, 탄자니아 4개국에 파견되며, 활동 기간은 1개월의 온라인 활동과 4개월의 현지 활동을 포함하여 2024년 8월부터 12월까지입니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEyOTAwNyUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  },
+  {
+    "qa_id": "inha_pr_qa_001",
+    "source_doc_id": "inha_pr_001",
+    "question": {
+      "text": "2024년 공개SW 개발자 대회의 과제 유형은 무엇인가요?"
+    },
+    "answer": {
+      "text": "과제 유형은 자유과제, 지정과제(기업형, 사회문제형), 지속발전과제 등 총 3개 유형으로 구성됩니다.",
+      "reference_url": "https://swuniv.inha.ac.kr/swuniv/15747/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc3d1bml2JTJGMzgwMSUyRjEyOTAwNSUyRmFydGNsVmlldy5kbyUzRnBhZ2UlM0QzJTI2c3JjaENvbHVtbiUzRCUyNnNyY2hXcmQlM0QlMjZiYnNDbFNlcSUzRCUyNmJic09wZW5XcmRTZXElM0QlMjZyZ3NCZ25kZVN0ciUzRCUyNnJnc0VuZGRlU3RyJTNEJTI2aXNWaWV3TWluZSUzRGZhbHNlJTI2cGFzc3dvcmQlM0QlMjY%3D"
+    }
+  }
+]
