@@ -1,0 +1,343 @@
+[
+  {
+    "qa_id": "inha_notice_qa_001",
+    "source_doc_id": "inha_notice_001",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "| 신청기간: | 4월 1일(수) ~ 28일(화) |\n| 신청접수: | 구글 설문지 제출(SW역량평가 점수 제출) |\n| 선정안내: | 선정 후 별도 안내 (4월 29일) |\n| 문의사항: | swcore@inha.ac.kr / 032-860-9503 |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/179914/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_002",
+    "source_doc_id": "inha_notice_002",
+    "question": {
+      "text": "지원 대상은 누구인가요?"
+    },
+    "answer": {
+      "text": "지원대상 : 인하대학교 소속 학부생 전원\n평가일정 : 2026. 5. 16. (토) 9:30 ~ 12:00 (9:00까지 입실 완료)\n응시장소 : 인하대학교 강의실 (추후 장소 확정 후 안내)\n신청기한 : ~2026. 4.8.(수)까지",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/179410/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_003",
+    "source_doc_id": "inha_notice_003",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "- 모집 기간: 2026년 3월 16일(월) ~ 3월 28일(토)",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/179203/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_004",
+    "source_doc_id": "inha_notice_004",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "※ 지원가능한 기업 현황 안내 및 지원 일정은 추천(선발)학생 대상 개별 안내 예정# 인턴십 기간6개월 (26. 7월 ~ 26. 12월)인턴십 기업미국 실리콘밸리 AI, SW 기업* 참여 기업 현황은 추후 안내 예정(첨부파일) 지원 안내사항(필독) 꼭 확인하고 신청서 작성해주세요!!# 지원사항신청 기간 및 방법- · 체재 준비금 : 왕복 항공료(편도당 100만원 이내),\n- 의료보험 및 비자발급 수수료 등\n- 실습생 수당 : 월 $2,000 이상\n- 실습생 지원금 : 최대 월 150만원",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/178326/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_005",
+    "source_doc_id": "inha_notice_005",
+    "question": {
+      "text": "선발 결과는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "2026 AI-POT 자격증 취득 지원 프로그램(2차) 참여자 선발 결과를 안내드립니다.\n아래의 명단 확인 부탁드립니다. (이름 가나다순 정렬)\n※ 프로그램 참여자에 한해 자격증 취득 시 장학금 지원 *참여자가 아닐 경우, 장학금 지원X\n[표 1]\n| 연번 | 소속학과명 (줄임말X) | 학번 | 이름 |\n| --- | --- | --- | --- |\n| 1 | 컴퓨터공학과 | 121***00 | 강*우 |\n| 2 | 생명공학과 | 122***09 | 고*균 |\n| 3 | 컴퓨터공학과 | 122***86 | 권*록 |\n| 4 | 경영학과 | 122***28 | 권*은 |\n| 5 | 전기전자공학부 | 122***18 | 김*연 |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/178045/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_006",
+    "source_doc_id": "inha_notice_006",
+    "question": {
+      "text": "지원 대상은 누구인가요?"
+    },
+    "answer": {
+      "text": "ㅇ대상: AI·SW중심대학 소속 학부생\n- 참가 접수일(5. 11.~6. 8.) 기준, 재학생 및 휴학생 참여 가능(전공 무관)\n- 졸업생 참여 불가\n- 동일인 2개 부문 중복 접수 불가",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177669/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_007",
+    "source_doc_id": "inha_notice_007",
+    "question": {
+      "text": "설명회는 언제 어디서 진행되나요?"
+    },
+    "answer": {
+      "text": "ACADEMY (6기)설명회2026. 3. 11. (수) 11:50\n60주년기념관-1401B# 실무프로젝트 경험\n# 전공무관\n# 문제해결능력강화",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177445/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_008",
+    "source_doc_id": "inha_notice_008",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "8. 1.(토)~8. 5.(수)",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177422/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_009",
+    "source_doc_id": "inha_notice_009",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "2. 실적 제출 기한\n: 2026. 7. 24.(\n금\n)",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177418/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_010",
+    "source_doc_id": "inha_notice_010",
+    "question": {
+      "text": "배점 기준은 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "[표 1]\n| 유형 | 프로그램명 | 세부 항목 | 활동 시간 | 기준 | 점수 | 비고 | 핵심역량 | 단계 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 대회 /공모전 | SW 해커톤 | 교내·외 SW관련 해커톤, 경진대회 | 단기 | 24시간 or 3일 이하 | 2 | SW중심대학 공동해커톤 INHA SW NET-ZERO 공동해커톤 SOCIAL IMPACT 해커톤 등 | 창의사고 | 개발 |\n| 대회 /공모전 | SW 해커톤 | 교내·외 SW관련 해커톤, 경진대회 | 장기 | 160시간 초과 | 5 | 상명대-인하대 공동 데이터 콘서트 SW중심대학 디지털 경진대회 등 | 지식활용 | 인식 |\n| 대회 /공모전 | TOPCIT | TOPCIT | 수준1 | 150 미만 | 1 | 응시자 최종 명단 확인 후 확정 | 지식활용 | 인식 |\n| 대회 /공모전 | TOPCIT | TOPCIT | 수준2 | 150~339 | 2 | 응시자 최종 명단 확인 후 확정 | 지식활용 | 인식 |\n| 대회 /공모전 | TOPCIT | TOPCIT | 수준3 | 400~649 | 3 | 응시자 최종 명단 확인 후 확정 | 지식활용 | 인식 |\n| 대회 /공모전 | TOPCIT | TOPCIT | 수준4 이상 | 650~1000 | 4 | 응시자 최종 명단 확인 후 확정 | 지식활용 | 인식 |\n| 대회 /공모전 | TOPCIT | TOPCIT | 수상 | 대학 특별상 이상 | 5 | 대상, 금상, 은상, 동상, 여학생 특별상, 기관 특별상, 대학 특별상(총장상) ※ 수상자는 수상 점수와 수준별 점수를 모두 부여 | 지식활용 | 인식 |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177388/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_011",
+    "source_doc_id": "inha_notice_011",
+    "question": {
+      "text": "지원 대상은 누구인가요?"
+    },
+    "answer": {
+      "text": "혹은 기존 교과목 SW·AI 적용 방안 개발※ 개발한 교과목은 2026-2학기 혹은 2027-1 학기 설강 필요# I 참여대상 - · 하단 표기된 SW중심대 비참여, 비SW학과 소속 교원\n- 1인 이상 1개 팀 구성하여 지원 가능\n※ 비전임교원의 경우 전임교원과 팀을 이룰 경우 지원 가능| 1 | 경영대학(경영학과, 아태물류학과 제외) |\n| --- | --- |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177326/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_012",
+    "source_doc_id": "inha_notice_012",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "제출 기한\n: 2026. 3. 31.(\n화\n)",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/177064/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_013",
+    "source_doc_id": "inha_notice_013",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "2/26~3/5",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/172220/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_014",
+    "source_doc_id": "inha_notice_014",
+    "question": {
+      "text": "일정은 언제인가요?"
+    },
+    "answer": {
+      "text": "[표 1]\n| 회차 | 단체 접수일자 ( 예정 ) | 시험일자 | 성적발표 |\n| --- | --- | --- | --- |\n| 제 25 회 | 2026.03.30.( 월 )~04.08.( 수 ) | 2026.05.16.( 토 ) | 2026.06.15.( 월 ) |\n| 제 26 회 | 2026.08.24.( 월 )~09.04.( 금 ) | 2026.10.10.( 토 ) | 2026.11.09.( 월 ) |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/171821/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_015",
+    "source_doc_id": "inha_notice_015",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "∙ 신청 기간: 2026. 3. 5.(목) ~ 3. 11.(수) *온라인 원서접수 기간과 동일\n∙ 최종 참여자 선발 결과 발표: 2026. 3. 13.(금) *사업단 홈페이지 공지 및 이메일 연락",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/171818/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_016",
+    "source_doc_id": "inha_notice_016",
+    "question": {
+      "text": "신청 방법은 무엇인가요?"
+    },
+    "answer": {
+      "text": "신청 방법1. COEIC 역량평가[필수]* COEIC : Comprehensive Online Exam Intensive Coding\n문제 해결 역량을 평가하는 코딩 역량 검증 시스템사이트: inha.codetree.ai인하대계정(.edu) 로그인/회원가입 필수2. 신청서 제출합격자발표(SMS개별): 3. 10. (화)문의: SW중심대학사업단(032-860-9506)\n신청서 제출 QR탄소중립\nINNOVATION\nACADEMY 안내 자료",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/171813/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_017",
+    "source_doc_id": "inha_notice_017",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "신청 기간 내 지원 취소 및\n재지원은 가능하나\n, 종료 이후\n추가 신청 및 변경 불가",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/170202/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_018",
+    "source_doc_id": "inha_notice_018",
+    "question": {
+      "text": "선발 결과는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "2026\n년도 AI·\nSW\n마에스트로 과정 제\n[표 1]\n| 연번 | 학과 | 학번 | 이름 |\n| --- | --- | --- | --- |\n| 1 | 컴퓨터공학과 | 122***06 | 조*하 |\n| 2 | 컴퓨터공 학과 | 122***69 | 김*우 |\n| 3 | 컴퓨터공학과 | 121***88 | 김*회 |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/170179/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_019",
+    "source_doc_id": "inha_notice_019",
+    "question": {
+      "text": "신청 방법은 무엇인가요?"
+    },
+    "answer": {
+      "text": "접수방법\n(1) 서울센터 : 누리집\nwww.swmaestro.ai\n에서 신청 접수\n(2) 부산센터 : 누리집\nwww.swmaestro.ai/busan",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/169765/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_020",
+    "source_doc_id": "inha_notice_020",
+    "question": {
+      "text": "선발 결과는 어떻게 되나요?"
+    },
+    "answer": {
+      "text": "2026 AI-POT 자격증 취득 지원 프로그램(1차) 참여자 선발 결과를 안내드립니다.\n아래의 명단 확인 부탁드립니다. (이름 가나다순 정렬)\n※ 프로그램 참여자에 한해 자격증 취득 시 장학금 지원\n*\n[표 1]\n| 연번 | 소속학과명 | 학번 | 이름 |\n| --- | --- | --- | --- |\n| 1 | 컴퓨터공학과 | 122***41 | 강*아 |\n| 2 | 인공지능공학과 | 122***44 | 강*원 |\n| 3 | 해양과학과 | 121***66 | 강*재 |\n| 4 | 생명공학과 | 122***09 | 고*균 |\n| 5 | 컴퓨터공학과 | 122***54 | 고*영 |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/169568/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_021",
+    "source_doc_id": "inha_notice_021",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "신청 기간\n:\n~ 2026. 1. 14. (수\n)",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/169534/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_022",
+    "source_doc_id": "inha_notice_022",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "for Innovation & Integration)주제디지털 소외계층을 위한 안전하고 포용적인 기술2026. 1.30. (금) - 1.31. (토), 무박 2일# 대회 일정| 모집 기간 | 1차: 2026. 1.7. (수) ~ 1.16. (금) 2차: 2026. 1. 19. (월) ~ 1.23. (금) | 1차: 2026. 1.7. (수) ~ 1.16. (금) 2차: 2026. 1. 19. (월) ~ 1.23. (금) | 단, 1차 모집에서 인원이 충족될 경우, 2차 모집은 진행하지 않음 |\n| --- | --- | --- | --- |\n| 참가자 확정 | 2026. 1. 26. (월), 참가 확정자 개별 안내 | 2026. 1. 26. (월), 참가 확정자 개별 안내 | |\n| 대회 일정 | 2026. 1. 30. (금) ~ 2026. 1. 31. (토) | 2026. 1. 30. (금) ~ 2026. 1. 31. (토) | 아주대학교 혜강관 |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/169449/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_023",
+    "source_doc_id": "inha_notice_023",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "∙ 신청 기간: 2026. 1. 1.(목) ~ 1. 7.(수) *온라인 원서접수 기간과 동일\n∙ 최종 참여자 선발 결과 발표: 2026. 1. 9.(금) *사업단 홈페이지 공지 및 이메일 연락",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/169090/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_024",
+    "source_doc_id": "inha_notice_024",
+    "question": {
+      "text": "지원 대상은 누구인가요?"
+    },
+    "answer": {
+      "text": "현지 기업에서 인턴십 수행① 체재 준비금(정부지원)왕복 항공료, 비자발급 수수료, 의료보험 등② 실습생 수당(기업부담)월US$2,000이상③ 실습생 지원금(정부지원)최대 월 150만원 (기업부담 금액별 상이)25년 사업계획 확정에 따라 일부 변경될 수 업을지원 대상참여대학 참여학과 재학생 중 신청일 기준 교육과정\n75%이상 이수자 (4학년 1학기 이상)* 인턴십기간(3~8월)동안 재학생 신분 유지해야 함\n* 참여가능학과: 총 15개 (컴퓨터공학과, 인공지능공학과, 데이터\n사이언스학과, 스마트모빌리티공학과, 디자인테크놀로지학과,",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/168989/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_025",
+    "source_doc_id": "inha_notice_025",
+    "question": {
+      "text": "발표회는 언제 어디서 진행되나요?"
+    },
+    "answer": {
+      "text": "共創일시 및 장소2025. 12. 18.(목) 13:00 ~ 18:00- 전시회 | 13:00 ~ 15:00 / 60주년 1층 해동 라운지\n- ○ 발표회 15:00 ~ 18:00 / 60주년 112호\n스탬프 투어 이벤트\n전시 관람 후 설문조사 완료 시",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/167437/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_026",
+    "source_doc_id": "inha_notice_026",
+    "question": {
+      "text": "지원 대상은 누구인가요?"
+    },
+    "answer": {
+      "text": "전공인의 밤2025년 12월 23일(화) 14:30# 60주년기념관 112호참여대상 컴퓨터공학과, 인공지능공학과 소속 재학생 (최대 60명)프로그램1. SW중심대학 사업 성과 공유\n2. 특별 강연- AI 시대, 대체되지 않는 개발자로 살아남기 - 실전 이력서 & 취업 준비 A to Z\n(예비 졸업생 - 네이버 백엔드 개발자)\n- 현업 개발자가 전하는 AI 취업 실전 전략과 연구 경험 (졸업생 - 삼성전자 DX AI 직무)3. 각 전공 교육과정 관련 간담회",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/167303/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_027",
+    "source_doc_id": "inha_notice_027",
+    "question": {
+      "text": "발표회는 언제 어디서 진행되나요?"
+    },
+    "answer": {
+      "text": "전시 장소(60주년-1층 로비)에서 전시 관람하고\n선물도 받아가세요!!인하대학교 학생 여러분의 많은 참여 바랍니다.2025년 12월 15일(월) 60주년기념관\n발표 : 09:30~12:00 60주년-B1 월천홀\n전시 : 13:00~15:20 60주년-1층 로비",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/167063/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_028",
+    "source_doc_id": "inha_notice_028",
+    "question": {
+      "text": "최고득점자는 누구인가요?"
+    },
+    "answer": {
+      "text": "최고득점자: 컴퓨터공학과 홍*민\n성적 확인: TOPCIT 공식 홈페이지에서 개별 확인 가능",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/166770/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_029",
+    "source_doc_id": "inha_notice_029",
+    "question": {
+      "text": "시상식은 언제 어디서 진행되나요?"
+    },
+    "answer": {
+      "text": "시상식은 12월 3일(수) 오후 1시, 60주년 112호\n에서 진행됩니다.\n수상자들은 반드시 참석해 주시기 바랍니다.(메일로도 본 내용 안내 드리니 참석이 어려운 경우 회신해 주세요.)\n[표 1]\n| 수상명 | 훈격 | 상금 | 작품명 | 팀명/성명 |\n| --- | --- | --- | --- | --- |\n| 최우수상 | SW중심대학사업단장상 | 각 30만 원 | Racing for Air! | 배*현 |\n| 안뇽이와 함께하는 일상 속 탄소중립 실천 루틴 | 탄소잡는 안뇽이 | | | |\n| 우수상 | SW중심대학사업단장상 | 각 20만 원 | 같은 하루, 다른 탄소 | 유*희 |\n| 텀블러를 사용한 작은 실천 | 박*현 | | | |\n| 에코히어로,일상을 지켜줘! | 이*석 | | | |",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/166708/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_030",
+    "source_doc_id": "inha_notice_030",
+    "question": {
+      "text": "신청 기간은 언제인가요?"
+    },
+    "answer": {
+      "text": "11/27~12/4",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/166545/artclView.do"
+    }
+  },
+  {
+    "qa_id": "inha_notice_qa_031",
+    "source_doc_id": "inha_notice_031",
+    "question": {
+      "text": "기프티콘은 어떻게 발송되나요?"
+    },
+    "answer": {
+      "text": "기프티콘은 입력해준 핸드폰 번호를 기준으로 발송되며, 문자 메시지를 확인해주시기 바랍니다.(수정발송, 재발송 불가)\n다시 한 번 응답해주신 모든 학생들에게 감사드립니다.\n(학과명 가나다순 정렬)",
+      "reference_url": "https://swuniv.inha.ac.kr/bbs/swuniv/3113/166456/artclView.do"
+    }
+  }
+]
