@@ -1,0 +1,11 @@
+# Qdrant
+./qdrant_data
+
+# Logs
+./eval_log.jsonl
+
+# Python cache
+./__pycache__
+
+# Environment variables
+./.env
