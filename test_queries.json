@@ -1,0 +1,202 @@
+[
+  {
+    "id": "TQ-001",
+    "category": "exact_match",
+    "query": "2026년 AI-POT 자격증 취득 지원 프로그램 1차 신청 기간은 언제인가요?",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_093", "inha_notice_023"],
+    "notes": "QA 파일에 정확히 일치하는 질문 존재 → qa_pairs 히트 확인용"
+  },
+  {
+    "id": "TQ-002",
+    "category": "exact_match",
+    "query": "2026년 ICT학점연계프로젝트인턴십 상반기 글로벌과정 신청 마감일은 언제인가요?",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_092", "inha_notice_024"],
+    "notes": "배치3 QA 정확 매칭"
+  },
+  {
+    "id": "TQ-003",
+    "category": "exact_match",
+    "query": "2025-2학기 SW캡스톤디자인 성과발표회는 언제 열리나요?",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_089", "inha_notice_027"],
+    "notes": "배치3 QA 정확 매칭"
+  },
+  {
+    "id": "TQ-004",
+    "category": "paraphrase",
+    "query": "AI-POT 자격증 프로그램 1차 지원 일정",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_notice_093", "inha_notice_023"],
+    "notes": "명사형 축약 → 의미 검색 성능 확인"
+  },
+  {
+    "id": "TQ-005",
+    "category": "paraphrase",
+    "query": "캡스톤 성과 발표 날짜 알려줘",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_notice_089", "inha_notice_027"],
+    "notes": "구어체 변환 → 검색 강건성 확인"
+  },
+  {
+    "id": "TQ-006",
+    "category": "paraphrase",
+    "query": "i-PAC 참여 신청 마감은 언제까지예요?",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_notice_072", "inha_sw_notice_163633", "inha_notice_001"],
+    "notes": "콘테스트→참여 신청 paraphrase"
+  },
+  {
+    "id": "TQ-007",
+    "category": "specific_info",
+    "query": "TOPCIT 정기평가 단체접수 신청 방법과 지원 혜택은 무엇인가요?",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_notice_002", "inha_sw_notice_161508"],
+    "notes": "신청 방법·혜택 복합 질문"
+  },
+  {
+    "id": "TQ-008",
+    "category": "specific_info",
+    "query": "MS 기업탐방 참여 대상과 모집 일정은?",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"],
+    "notes": "배치2·3 공통 문서 — 중복 chunk 처리 확인"
+  },
+  {
+    "id": "TQ-009",
+    "category": "specific_info",
+    "query": "CEN 마일리지 장학금 신청 기간과 배점표는 어디서 확인하나요?",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_008", "inha_notice_009", "inha_notice_010"],
+    "notes": "여러 공지에 분산된 정보 — 다중 문서 커버리지 확인"
+  },
+  {
+    "id": "TQ-010",
+    "category": "specific_info",
+    "query": "2025 에세이 공모전 신청 마감일과 제출 방법",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_sw_notice_163788", "inha_notice_076"],
+    "notes": "기간연장 공지 포함 — 최신 정보 우선 반환 여부 확인"
+  },
+  {
+    "id": "TQ-011",
+    "category": "general_topic",
+    "query": "인하대 SW중심대학에서 지원하는 장학금 종류를 알려주세요",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_008", "inha_notice_013", "inha_notice_030"],
+    "notes": "장학금 전반 — 복수 문서 집계 필요"
+  },
+  {
+    "id": "TQ-012",
+    "category": "general_topic",
+    "query": "해커톤 대회 참가 신청 안내",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_022", "inha_sw_notice_162368", "inha_pr_037"],
+    "notes": "공지·외부홍보 모두 걸치는 폭넓은 토픽"
+  },
+  {
+    "id": "TQ-013",
+    "category": "general_topic",
+    "query": "탄소중립 이노베이션 아카데미 참여 방법",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_016", "inha_notice_007", "inha_sw_notice_159628"],
+    "notes": "INNOVATION ACADEMY 관련 복수 공지"
+  },
+  {
+    "id": "TQ-014",
+    "category": "external_program",
+    "query": "LG Aimers 프로그램 모집 안내",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_pr_036", "inha_pr_023"],
+    "notes": "외부홍보(pr_data) 검색 성능 확인"
+  },
+  {
+    "id": "TQ-015",
+    "category": "external_program",
+    "query": "오픈소스 개발자 대회 신청 방법",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_pr_001", "inha_pr_024", "inha_pr_034"],
+    "notes": "외부홍보 오픈소스 관련 다수"
+  },
+  {
+    "id": "TQ-016",
+    "category": "external_program",
+    "query": "자율주행 경진대회 모집 일정과 참가 자격",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_pr_019", "inha_pr_025"],
+    "notes": "외부홍보 경진대회 — 키워드 중복 문서"
+  },
+  {
+    "id": "TQ-017",
+    "category": "cross_source",
+    "query": "SW중심대학 에세이 공모전 접수 마감",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_notice_012", "inha_pr_033", "inha_sw_notice_163788"],
+    "notes": "공지 + 외부홍보 동시에 관련 문서 존재"
+  },
+  {
+    "id": "TQ-018",
+    "category": "cross_source",
+    "query": "생성형 AI 프롬프트 자격증 취득 지원 프로그램 장학금 신청",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_sw_notice_160349", "inha_sw_notice_157275"],
+    "notes": "배치2 내 연속 공지 — 순서 구분 확인"
+  },
+  {
+    "id": "TQ-019",
+    "category": "edge_low_relevance",
+    "query": "기숙사 신청 방법",
+    "expected_source": "documents",
+    "expected_doc_ids": [],
+    "notes": "데이터셋에 없는 토픽 → 낮은 유사도 반환 확인"
+  },
+  {
+    "id": "TQ-020",
+    "category": "edge_low_relevance",
+    "query": "수강신청 일정",
+    "expected_source": "documents",
+    "expected_doc_ids": [],
+    "notes": "데이터셋에 없는 토픽"
+  },
+  {
+    "id": "TQ-021",
+    "category": "edge_ambiguous",
+    "query": "선발 결과는 어떻게 되나요?",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": [],
+    "notes": "배치1 QA에 이 질문이 여러 문서에 반복됨 — 중의적 질문 처리 확인"
+  },
+  {
+    "id": "TQ-022",
+    "category": "edge_ambiguous",
+    "query": "신청 기간은 언제인가요?",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": [],
+    "notes": "배치1 QA에서 가장 자주 반복되는 질문 — 특정 문서 없이 범용 히트"
+  },
+  {
+    "id": "TQ-023",
+    "category": "detail_retrieval",
+    "query": "Physical AI와 미래 특강 일시와 장소",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_sw_notice_165438", "inha_notice_082"],
+    "notes": "시간·장소 세부 정보 추출"
+  },
+  {
+    "id": "TQ-024",
+    "category": "detail_retrieval",
+    "query": "컴퓨터공학과 대학원 설명회 참석 신청 방법",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"],
+    "notes": "배치2·3 중복 문서 — 동일 청크 중복 반환 여부 확인"
+  },
+  {
+    "id": "TQ-025",
+    "category": "detail_retrieval",
+    "query": "SW마에스트로 17기 우수자 추천 선발 결과 안내",
+    "expected_source": "either",
+    "expected_doc_ids": ["inha_notice_018", "inha_notice_019"],
+    "notes": "연속 관련 공지 2건 — 순위 정확도 확인"
+  }
+]

@@ -14,13 +14,17 @@
 - [x] Phase 4: embed_pipeline.py — BGE-m3-ko 임베딩 + upsert 완성
 - [x] Phase 5: query.py — rag_search() + CLI 인터페이스
 
-### 다음 작업 (Phase 6: 검증)
-- [ ] Docker로 Qdrant 실행: `docker run -p 6333:6333 -v $(pwd)/qdrant_data:/qdrant/storage qdrant/qdrant`
-- [ ] 패키지 설치: `pip install -r requirements.txt`
-- [ ] 파이프라인 실행: `python embed_pipeline.py`
-- [ ] 벡터 수 확인: documents ≥ 136, qa_pairs == 136
-- [ ] 샘플 쿼리 5개 테스트: `python query.py "i-PAC 콘테스트 신청 기간"`
+### 완료된 작업 (세션 2 — Phase 6: 검증)
+- [x] Qdrant Docker 실행 (사용자 완료)
+- [x] 패키지 설치 (사용자 완료)
+- [x] `embed_pipeline.py` `vectors_count` → `points_count` 버그 수정
+- [x] `sw_upstage_output_2` QA qa_id 중복 수정 (31건 재정의)
+- [x] `query.py` `client.search()` → `client.query_points()` 버그 수정
+- [x] 파이프라인 실행 성공: documents 189포인트, qa_pairs 136포인트
+- [x] 검증 통과 (assert 모두 통과)
+- [x] 샘플 쿼리 5개 정상 응답 확인
 
-### 메모
-- 노트북 CPU 환경 고려: EMBED_BATCH_SIZE=8 기본값 검토 필요
-- 최장 문서 5,929자 ≈ 8,894 토큰 — BGE-m3-ko 8,192 한도 근접, 청킹으로 안전 처리
+### 최종 상태
+- 모든 6개 Phase 완료 ✓
+- GPU(cuda) 환경에서 실행, 임베딩 성능 양호
+- RAG 검색 정상 작동 확인

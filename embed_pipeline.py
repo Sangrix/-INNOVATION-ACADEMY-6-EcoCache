@@ -241,11 +241,11 @@ def run_pipeline() -> None:
     logger.info("검증")
     info_doc = client.get_collection(config.COLLECTION_DOCS)
     info_qa  = client.get_collection(config.COLLECTION_QA)
-    logger.info(f"  documents  벡터 수: {info_doc.vectors_count} (업서트: {n_docs})")
-    logger.info(f"  qa_pairs   벡터 수: {info_qa.vectors_count}  (업서트: {n_qas})")
+    logger.info(f"  documents  벡터 수: {info_doc.points_count} (업서트: {n_docs})")
+    logger.info(f"  qa_pairs   벡터 수: {info_qa.points_count}  (업서트: {n_qas})")
 
-    assert info_doc.vectors_count >= 136, "문서 벡터 수 부족"
-    assert info_qa.vectors_count  == 136, "QA 벡터 수 불일치"
+    assert info_doc.points_count >= 136, "문서 벡터 수 부족"
+    assert info_qa.points_count  == 136, "QA 벡터 수 불일치"
     logger.info("검증 통과 ✓")
     logger.info("=" * 60)
 

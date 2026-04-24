@@ -40,3 +40,15 @@ COLLECTION_QA   = "qa_pairs"
 # ── 검색 ──────────────────────────────────────────────────────────────────────
 QA_SIMILARITY_THRESHOLD = 0.75
 TOP_K = 5
+
+# ── LM Studio ─────────────────────────────────────────────────────────────────
+LM_STUDIO_URL    = os.getenv("LM_STUDIO_URL",   "http://localhost:1234/v1")
+LM_STUDIO_MODEL  = os.getenv("LM_STUDIO_MODEL", "")
+LM_TEMPERATURE   = 0.3
+LM_MAX_TOKENS    = 512
+LM_CONTEXT_LIMIT = 2000
+LM_SYSTEM_PROMPT = (
+    "당신은 인하대학교 SW중심대학사업단 공지사항 안내 도우미입니다.\n"
+    "아래 참고 문서를 바탕으로 질문에 간결하고 정확하게 답하세요.\n"
+    "참고 문서에 없는 내용은 '해당 정보를 찾을 수 없습니다'라고 답하세요."
+)

@@ -5,7 +5,7 @@ spec.md 기반으로 인하대 SW중심대학 공지사항·외부홍보 136개 
 dragonkue/BGE-m3-ko 모델로 임베딩하여 Qdrant 벡터 DB에 적재하는 파이프라인을 구축한다.
 
 ## Current Phase
-Phase 6 — 검증 실행 대기 (Qdrant Docker 실행 필요)
+모든 Phase 완료 ✓
 
 ## Phases
 
@@ -16,7 +16,7 @@ Phase 6 — 검증 실행 대기 (Qdrant Docker 실행 필요)
 | 3 | 데이터 로더 및 전처리 | complete | `load_all_docs/qas()`, `prepare_doc_chunks()` ✓ |
 | 4 | 임베딩 파이프라인 구현 | complete | `embed_pipeline.py` 완성 ✓ |
 | 5 | 쿼리 인터페이스 구현 | complete | `query.py` (CLI + `rag_search()`) ✓ |
-| 6 | 검증 실행 | pending | Qdrant 실행 후 `python embed_pipeline.py` 필요 |
+| 6 | 검증 실행 | complete | documents 189, qa_pairs 136 — 검증 통과 ✓ |
 
 ## Key Decisions (spec.md 기반)
 
@@ -42,4 +42,6 @@ Phase 6 — 검증 실행 대기 (Qdrant Docker 실행 필요)
 
 | Error | Attempt | Resolution |
 |-------|---------|------------|
-| (없음) | — | — |
+| `CollectionInfo` has no attribute `vectors_count` | 1 | `points_count`로 교체 (Qdrant 신버전 API 변경) |
+| `qa_pairs` 포인트 수 105/136 불일치 | 1 | `sw_upstage_output_2` QA 파일 `qa_id` 중복 수정 (`inha_notice_qa_` → `inha_sw_notice_qa_`) |
+| `QdrantClient` has no attribute `search` | 1 | `query_points()`로 교체 (Qdrant 신버전 API 변경) |
