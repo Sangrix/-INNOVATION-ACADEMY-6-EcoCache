@@ -7,3 +7,5 @@ torch>=2.0.0
 streamlit>=1.35.0
 altair>=5.0.0
 openai>=1.0.0
+codecarbon>=3.0.0
+pynvml>=11.5.0

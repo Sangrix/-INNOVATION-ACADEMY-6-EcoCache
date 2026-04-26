@@ -67,6 +67,7 @@ pip install -r requirements.txt
 | `torch` | 임베딩 연산 |
 | `streamlit`, `altair` | 평가 대시보드 |
 | `openai` | LM Studio API 호출 (OpenAI 호환) |
+| `codecarbon`, `pynvml` | 탄소/전력 측정 |
 
 ### 2. Qdrant 실행 (Docker)
 
@@ -225,6 +226,7 @@ streamlit run eval_dashboard.py
 
 ```
 EcoCache/
+├── carbon_monitor.py       # 탄소 측정 모듈 (CodeCarbon + GPU 전력 샘플링)
 ├── config.py               # 모든 설정 상수 (모델, 청킹, Qdrant, LM Studio)
 ├── embed_pipeline.py       # JSON → 임베딩 → Qdrant 업서트
 ├── query.py                # RAG 검색 + LLM 답변 생성 + 평가 로깅
@@ -233,6 +235,11 @@ EcoCache/
 ├── test_queries.json       # 25개 테스트 질문 세트
 ├── eval_log.jsonl          # 평가 결과 누적 로그 (자동 생성)
 ├── requirements.txt        # Python 의존성
+├── docs/
+│   └── carbon_monitor.md   # 탄소 측정 모듈 설명 및 통합 지점
+├── examples/
+│   ├── carbon_metrics_sample.json
+│   └── carbon_run_summary.md
 ├── spec.md                 # 임베딩 파이프라인 명세
 ├── spec_llm.md             # LLM 연결 명세 (LM Studio)
 ├── .env                    # 환경변수 (git 미포함)
@@ -260,8 +267,74 @@ EcoCache/
 | `LM_TEMPERATURE` | `0.3` | LLM 생성 온도 (사실 기반 답변) |
 | `LM_MAX_TOKENS` | `512` | LLM 최대 출력 토큰 수 |
 | `LM_CONTEXT_LIMIT` | `2000` | 프롬프트 컨텍스트 최대 문자 수 |
+| `CARBON_MONITOR_ENABLED` | `true` | 탄소 측정 활성화 여부 |
+| `CARBON_INTENSITY_G_PER_KWH` | `350.0` | kWh 당 탄소 배출량(g) |
+| `CARBON_GPU_INDEX` | `0` | 측정 대상 GPU 인덱스 |
+| `CARBON_LOG_PATH` | `carbon_metrics.jsonl` | 탄소 측정 로그 경로 |
 
 GPU가 있는 경우 `EMBED_BATCH_SIZE`를 `8` → `32`로 늘리면 파이프라인 속도가 향상됩니다.
+
+---
+
+## Carbon Monitoring
+
+탄소 측정 모듈은 [carbon_monitor.py](carbon_monitor.py)에 캡슐화되어 있으며,
+기존 파이프라인의 값을 바꾸지 않고 임베딩/검색/생성 단계만 감싸서 계측합니다.
+
+현재 통합된 지점:
+
+- `embed_pipeline.py`
+  - `documents_embedding`
+  - `qa_embedding`
+- `query.py`
+  - `qa_pairs_retrieval`
+  - `documents_retrieval`
+  - `llm_generation`
+
+기본 사용 예시는 다음과 같습니다.
+
+```python
+from carbon_monitor import CarbonMonitor
+
+carbon_monitor = CarbonMonitor.from_config(config)
+
+result, metrics = carbon_monitor.run(
+    "documents_embedding",
+    upsert_chunks,
+    client,
+    config.COLLECTION_DOCS,
+    doc_chunks,
+    model,
+)
+```
+
+로그는 JSON Lines 형식으로 저장되며 각 stage마다 다음 값을 남깁니다.
+
+- `duration_sec`
+- `energy_kwh`
+- `co2_g`
+- `peak_power_W`
+- `avg_power_W`
+
+자세한 설명은 [docs/carbon_monitor.md](docs/carbon_monitor.md)를 참고하세요.
+
+---
+
+## Carbon Monitoring Sample Results
+
+실제 로컬 실행에서 확인한 예시 결과는 다음과 같습니다.
+
+| Stage | Duration (s) | CO2 (g) | Peak Power (W) | Avg Power (W) |
+|------|--------------:|--------:|---------------:|--------------:|
+| `documents_embedding` | 16.8450 | 0.0511 | 30.19 | 22.36 |
+| `qa_embedding` | 2.6760 | 0.0137 | 27.07 | 14.46 |
+| `qa_pairs_retrieval` | 0.4225 | 0.0061 | 8.54 | 6.46 |
+| `documents_retrieval` | 0.1497 | 0.0032 | 4.45 | 3.96 |
+
+샘플 로그와 요약은 아래 파일에 정리했습니다.
+
+- [examples/carbon_metrics_sample.json](examples/carbon_metrics_sample.json)
+- [examples/carbon_run_summary.md](examples/carbon_run_summary.md)
 
 ---
 

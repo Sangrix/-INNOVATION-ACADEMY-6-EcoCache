@@ -37,6 +37,13 @@ VECTOR_SIZE     = 1024
 COLLECTION_DOCS = "documents"
 COLLECTION_QA   = "qa_pairs"
 
+CARBON_MONITOR_ENABLED = os.getenv("CARBON_MONITOR_ENABLED", "true").lower() in {"1", "true", "yes", "on"}
+CARBON_INTENSITY_G_PER_KWH = float(os.getenv("CARBON_INTENSITY_G_PER_KWH", "350.0"))
+CARBON_GPU_INDEX = int(os.getenv("CARBON_GPU_INDEX", "0"))
+CARBON_SAMPLE_INTERVAL = float(os.getenv("CARBON_SAMPLE_INTERVAL", "0.1"))
+_carbon_log_path = os.getenv("CARBON_LOG_PATH", "").strip()
+CARBON_LOG_PATH = Path(_carbon_log_path) if _carbon_log_path else BASE_DIR / "carbon_metrics.jsonl"
+
 # ── 검색 ──────────────────────────────────────────────────────────────────────
 QA_SIMILARITY_THRESHOLD = 0.75
 TOP_K = 5

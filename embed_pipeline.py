@@ -16,12 +16,14 @@ from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 
 import config
+from carbon_monitor import CarbonMonitor
 
 logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
+carbon_monitor = CarbonMonitor.from_config(config)
 
 
 # ── 유틸 ──────────────────────────────────────────────────────────────────────
@@ -233,8 +235,26 @@ def run_pipeline() -> None:
     init_collections(client)
 
     # 5. 업서트
-    n_docs = upsert_chunks(client, config.COLLECTION_DOCS, doc_chunks, model)
-    n_qas  = upsert_chunks(client, config.COLLECTION_QA,  qa_chunks,  model)
+    n_docs, doc_metrics = carbon_monitor.run(
+        "documents_embedding",
+        upsert_chunks,
+        client,
+        config.COLLECTION_DOCS,
+        doc_chunks,
+        model,
+        extra={"collection": config.COLLECTION_DOCS, "chunk_count": len(doc_chunks)},
+    )
+    n_qas, qa_metrics = carbon_monitor.run(
+        "qa_embedding",
+        upsert_chunks,
+        client,
+        config.COLLECTION_QA,
+        qa_chunks,
+        model,
+        extra={"collection": config.COLLECTION_QA, "chunk_count": len(qa_chunks)},
+    )
+    logger.info(f"  carbon documents: {doc_metrics}")
+    logger.info(f"  carbon qa_pairs: {qa_metrics}")
 
     # 6. 검증
     logger.info("=" * 60)

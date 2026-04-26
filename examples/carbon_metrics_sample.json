@@ -1,0 +1,50 @@
+[
+  {
+    "stage": "documents_embedding",
+    "duration_sec": 16.845,
+    "energy_kwh": 0.00014592237952754716,
+    "co2_g": 0.0511,
+    "peak_power_W": 30.19,
+    "avg_power_W": 22.36,
+    "extra": {
+      "collection": "documents",
+      "chunk_count": 189
+    }
+  },
+  {
+    "stage": "qa_embedding",
+    "duration_sec": 2.676,
+    "energy_kwh": 3.9284204993927336e-05,
+    "co2_g": 0.0137,
+    "peak_power_W": 27.07,
+    "avg_power_W": 14.46,
+    "extra": {
+      "collection": "qa_pairs",
+      "chunk_count": 136
+    }
+  },
+  {
+    "stage": "qa_pairs_retrieval",
+    "duration_sec": 0.4225,
+    "energy_kwh": 1.7496634577327276e-05,
+    "co2_g": 0.0061,
+    "peak_power_W": 8.54,
+    "avg_power_W": 6.46,
+    "extra": {
+      "collection": "qa_pairs",
+      "top_k": 3
+    }
+  },
+  {
+    "stage": "documents_retrieval",
+    "duration_sec": 0.1497,
+    "energy_kwh": 9.201106989587036e-06,
+    "co2_g": 0.0032,
+    "peak_power_W": 4.45,
+    "avg_power_W": 3.96,
+    "extra": {
+      "collection": "documents",
+      "top_k": 3
+    }
+  }
+]
