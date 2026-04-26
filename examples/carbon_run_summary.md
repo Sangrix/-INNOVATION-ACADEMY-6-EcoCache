@@ -3,16 +3,15 @@
 ## Validation Scope
 
 - embedding pipeline execution
-- retrieval execution
+- single-query retrieval sample
+- 25-query batch evaluation (`test_queries.json`)
 - carbon log output verification
 
-## Sample Query
+## Single Query Sample
 
 - Query: `i-PAC 콘테스트 신청 기간은 언제인가요?`
 - Source selected: `documents`
 - QA top1 score: `0.7188`
-
-## Sample Carbon Results
 
 | Stage | Duration (s) | CO2 (g) | Peak Power (W) | Avg Power (W) |
 |------|--------------:|--------:|---------------:|--------------:|
@@ -21,9 +20,24 @@
 | `qa_pairs_retrieval` | 0.4225 | 0.0061 | 8.54 | 6.46 |
 | `documents_retrieval` | 0.1497 | 0.0032 | 4.45 | 3.96 |
 
-## Interpretation
+## 25-Query Batch Evaluation
 
-- The integration produced per-stage carbon metrics successfully.
-- Retrieval stayed below the current QA threshold for the sample query, so the
-  pipeline correctly fell back to `documents`.
-- No threshold or retrieval values were changed for this branch.
+- Source accuracy: `24/25 (96.0%)`
+- Document hit rate: `20/21 (95.2%)`
+- QA hit count: `6`
+- Document fallback count: `19`
+- Average top-1 similarity: `0.6898`
+- Total retrieval CO2: `0.3852 g`
+- Average retrieval CO2 per query: `0.0154 g`
+
+| Stage | Calls | Total Duration (s) | Avg Duration (s) | Total CO2 (g) | Avg CO2 (g) |
+|------|------:|-------------------:|-----------------:|--------------:|------------:|
+| `qa_pairs_retrieval` | 25 | 55.5169 | 2.2207 | 0.2197 | 0.0088 |
+| `documents_retrieval` | 19 | 41.7692 | 2.1984 | 0.1655 | 0.0087 |
+
+## Notes
+
+- `llm_generation` is integrated in `query.py`.
+- This batch evaluation did not record `llm_generation`, because `run_eval.py`
+  currently exercises retrieval only.
+- No retrieval threshold or model values were changed for this branch.

@@ -53,6 +53,14 @@ The metrics dictionary includes:
 - `documents_retrieval`
 - `llm_generation`
 
+| Stage | Trigger |
+|------|---------|
+| `documents_embedding` | `python embed_pipeline.py` when document chunks are upserted |
+| `qa_embedding` | `python embed_pipeline.py` when QA chunks are upserted |
+| `qa_pairs_retrieval` | Every `rag_search()` call |
+| `documents_retrieval` | Only when `qa_top1_score < 0.75` |
+| `llm_generation` | Only when `python query.py "..." --generate` is used |
+
 ## Usage Pattern
 
 ```python
@@ -100,6 +108,32 @@ Example:
   }
 }
 ```
+
+## Batch Evaluation Notes
+
+The 25-question evaluation set was executed on this branch and the resulting
+retrieval logs were written to:
+
+- `examples/test_set_eval_log.jsonl`
+
+Summary:
+
+- source accuracy: `24/25 (96.0%)`
+- document hit rate: `20/21 (95.2%)`
+- QA hit count: `6`
+- document fallback count: `19`
+- average top-1 similarity: `0.6898`
+- total retrieval CO2 across the batch: `0.3852 g`
+
+Per-stage retrieval totals:
+
+| Stage | Calls | Total Duration (s) | Total CO2 (g) |
+|------|------:|-------------------:|--------------:|
+| `qa_pairs_retrieval` | 25 | 55.5169 | 0.2197 |
+| `documents_retrieval` | 19 | 41.7692 | 0.1655 |
+
+`llm_generation` is integrated in `query.py`, but it was not exercised in this
+batch run because `run_eval.py` currently evaluates retrieval only.
 
 ## Notes
 
