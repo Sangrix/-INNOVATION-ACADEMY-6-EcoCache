@@ -1,21 +1,27 @@
 import requests
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import config  # 기존 설정값 참조
 
 class CarbonAdaptiveOptimizer:
     def __init__(self):
         # 1주차 목표: 정적 프록시 데이터 (한국 시간대별 CI 평균)
-        self.KR_CI_PROXIES = {
+        self.KR_CI_BY_HOUR = {
             0: 430, 3: 415, 6: 420, 9: 410, 12: 385, 15: 375, 18: 400, 21: 420
         }
+        self.DEFAULT_KR_CI = 415
 
     def get_current_ci(self) -> float:
         """현재 시간 기준 탄소 집약도 조회"""
-        hour = datetime.now().hour
-        closest_hour = min(self.KR_CI_PROXIES.keys(), key=lambda x: abs(x - hour))
-        return self.KR_CI_PROXIES[closest_hour]
+        hour = datetime.now(ZoneInfo("Asia/Seoul")).hour
+        closest_hour = min(self.KR_CI_BY_HOUR.keys(), key=lambda x: abs(x - hour))
+        return float(self.KR_CI_BY_HOUR.get(closest_hour, self.DEFAULT_KR_CI))
 
-    def get_adaptive_threshold(self, ci: float = None) -> float:
+    def get_adaptive_threshold(self,
+        ci: float | None = None,
+        alpha: float = 0.15,
+        theta_min: float = 0.70,
+        theta_max: float = 0.95,) -> float:
         """
         θ(t) 동적 조정 알고리즘
         ci 인자가 없으면 자동으로 현재 CI를 가져와 계산함 (통합 편의성)
@@ -32,6 +38,7 @@ class CarbonAdaptiveOptimizer:
 
         # 핵심 수식: CI가 높을수록 theta는 낮아짐 (캐시 히트 유도)
         theta = base_theta - (alpha * (ci_norm - 0.5))
+        theta = max(theta_min, min(theta_max, theta))
         return round(theta, 4)
 
 # ── query.py 연동을 위한 싱글톤 인터페이스 (추가 권장) ──────────────────────
@@ -46,4 +53,5 @@ def get_optimizer():
 if __name__ == "__main__":
     # 인자 없이 호출해도 작동하는지 테스트
     opt = get_optimizer()
-    print(f"현재 시간 기반 동적 θ(t): {opt.get_adaptive_threshold()}")
+    print(f"현재 한국 시간 기준 CI: {opt.get_current_ci()}")
+    print(f"현재 CI 기반 동적 θ(t): {opt.get_adaptive_threshold()}")
