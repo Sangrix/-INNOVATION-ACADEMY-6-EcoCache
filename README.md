@@ -343,6 +343,21 @@ result, metrics = carbon_monitor.run(
 계측이 붙어 있지만, LM Studio 서버가 켜진 상태에서 `--generate` 옵션으로
 실행할 때만 로그에 기록됩니다.
 
+- `documents` fallback 이후 LLM 생성 예시
+  - `duration_sec`: `10.8767`
+  - `co2_g`: `0.0224`
+  - `peak_power_W`: `17.50`
+  - `avg_power_W`: `10.79`
+- `qa_pairs` hit 이후 LLM 생성 예시
+  - `duration_sec`: `9.4051`
+  - `co2_g`: `0.0216`
+  - `peak_power_W`: `18.07`
+  - `avg_power_W`: `11.33`
+
+현재 구현은 `--generate` 옵션을 주면 QA hit 여부와 상관없이 LLM 생성까지
+실행합니다. 탄소 절감 관점에서 더 엄격한 구조로 바꾸려면, 이후 QA hit
+상태에서는 LLM 호출을 생략하는 방식으로 확장할 수 있습니다.
+
 ### 25문항 배치 평가 (`test_queries.json`)
 
 이 브랜치에서 25개 테스트 질문 전체를 실행했고, 결과는
