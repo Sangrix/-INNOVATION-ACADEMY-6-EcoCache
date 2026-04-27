@@ -354,6 +354,17 @@ result, metrics = carbon_monitor.run(
   - `peak_power_W`: `18.07`
   - `avg_power_W`: `11.33`
 
+실행 사례:
+
+- `i-PAC 콘테스트 신청 기간은 언제인가요?`
+  - `source`: `documents`
+  - `qa_top1_score`: `0.7188`
+  - QA 점수가 임계값 `0.75`를 넘지 못해 문서 검색 후 LLM 생성까지 진행
+- `2025-2학기 i-PAC 인증 콘테스트 신청 기간과 참여 대상은 어떻게 되나요?`
+  - `source`: `qa_pairs`
+  - `top1 similarity`: `0.8368`
+  - QA hit로 바로 답을 찾았지만, 현재 구현에서는 `--generate` 옵션 때문에 LLM 생성도 함께 실행
+
 현재 구현은 `--generate` 옵션을 주면 QA hit 여부와 상관없이 LLM 생성까지
 실행합니다. 탄소 절감 관점에서 더 엄격한 구조로 바꾸려면, 이후 QA hit
 상태에서는 LLM 호출을 생략하는 방식으로 확장할 수 있습니다.
