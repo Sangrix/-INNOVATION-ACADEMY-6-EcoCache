@@ -9,3 +9,11 @@
 
 # Environment variables
 ./.env
+
+# Etc
+.idea/
+# 파이썬 컴파일 파일들 제외
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
