@@ -1,17 +1,19 @@
-# Carbon Monitor Integration
+# 탄소 측정 모듈 통합 문서
 
-## Goal
+## 목적
 
-This module adds carbon and power measurement to the existing EcoCache pipeline
-without changing retrieval thresholds, model selection, or prompt logic.
+이 문서는 기존 EcoCache 파이프라인에 탄소 배출량과 전력 사용량 측정을
+어떻게 붙였는지 설명합니다.
 
-The integration is intentionally small:
+이번 통합의 목표는 다음과 같습니다.
 
-- one reusable monitor module
-- a few wrapper calls around existing pipeline stages
-- one JSONL log file for later analysis
+- retrieval threshold는 바꾸지 않기
+- 모델 선택이나 프롬프트 로직은 건드리지 않기
+- 기존 파이프라인 단계만 감싸서 측정값을 남기기
 
-## Files
+즉, 파이프라인 동작을 바꾸는 것이 아니라 **측정 레이어를 얹는 것**이 핵심입니다.
+
+## 관련 파일
 
 - `carbon_monitor.py`
 - `config.py`
@@ -19,49 +21,48 @@ The integration is intentionally small:
 - `query.py`
 - `requirements.txt`
 
-## What The Module Measures
+## 무엇을 측정하나
 
-Each monitored stage returns both:
+측정 대상 함수는 실행 결과와 함께 metrics 딕셔너리를 반환합니다.
 
-- the original function result
-- a metrics dictionary
+metrics에는 아래 값이 들어갑니다.
 
-The metrics dictionary includes:
+- `stage`: 어떤 단계인지 식별하는 이름
+- `duration_sec`: 실행 시간(초)
+- `energy_kwh`: 사용 에너지(kWh)
+- `co2_g`: 추정 CO2 배출량(g)
+- `peak_power_W`: 실행 중 최대 전력(W)
+- `avg_power_W`: 실행 중 평균 전력(W)
+- `extra`: 컬렉션명, top_k 같은 보조 정보
 
-- `stage`
-- `duration_sec`
-- `energy_kwh`
-- `co2_g`
-- `peak_power_W`
-- `avg_power_W`
-- `extra`
+## 통합 지점
 
-## Integration Points
+### 임베딩 파이프라인
 
-### Embedding pipeline
-
-`embed_pipeline.py` wraps:
+`embed_pipeline.py`에서 아래 단계를 감쌉니다.
 
 - `documents_embedding`
 - `qa_embedding`
 
-### Query pipeline
+### 질의 파이프라인
 
-`query.py` wraps:
+`query.py`에서 아래 단계를 감쌉니다.
 
 - `qa_pairs_retrieval`
 - `documents_retrieval`
 - `llm_generation`
 
-| Stage | Trigger |
-|------|---------|
-| `documents_embedding` | `python embed_pipeline.py` when document chunks are upserted |
-| `qa_embedding` | `python embed_pipeline.py` when QA chunks are upserted |
-| `qa_pairs_retrieval` | Every `rag_search()` call |
-| `documents_retrieval` | Only when `qa_top1_score < 0.75` |
-| `llm_generation` | Only when `python query.py "..." --generate` is used |
+| 단계 | 실행 조건 |
+|------|-----------|
+| `documents_embedding` | `python embed_pipeline.py` 실행 시 문서 청크를 업서트할 때 측정 |
+| `qa_embedding` | `python embed_pipeline.py` 실행 시 QA 청크를 업서트할 때 측정 |
+| `qa_pairs_retrieval` | `rag_search()`가 호출될 때마다 측정 |
+| `documents_retrieval` | `qa_top1_score < 0.75`일 때만 추가 측정 |
+| `llm_generation` | `python query.py "..." --generate`로 생성까지 실행할 때만 측정 |
 
-## Usage Pattern
+## 사용 방식
+
+가장 기본적인 사용 패턴은 아래와 같습니다.
 
 ```python
 from carbon_monitor import CarbonMonitor
@@ -76,9 +77,12 @@ result, metrics = carbon_monitor.run(
 )
 ```
 
-## Configuration
+즉, 기존 함수를 `carbon_monitor.run()`으로 감싸기만 하면
+실행 결과와 측정 결과를 같이 받을 수 있습니다.
 
-Environment variables:
+## 설정값
+
+환경변수는 아래와 같습니다.
 
 ```dotenv
 CARBON_MONITOR_ENABLED=true
@@ -88,11 +92,19 @@ CARBON_SAMPLE_INTERVAL=0.1
 CARBON_LOG_PATH=carbon_metrics.jsonl
 ```
 
-## Output
+각 값의 의미:
 
-The monitor writes a JSON Lines log file.
+- `CARBON_MONITOR_ENABLED`: 측정 기능 사용 여부
+- `CARBON_INTENSITY_G_PER_KWH`: kWh당 CO2 환산값
+- `CARBON_GPU_INDEX`: 측정 대상 GPU 인덱스
+- `CARBON_SAMPLE_INTERVAL`: 전력 샘플링 주기(초)
+- `CARBON_LOG_PATH`: JSONL 로그 저장 경로
 
-Example:
+## 출력 형식
+
+측정 결과는 JSON Lines 형식으로 한 줄씩 저장됩니다.
+
+예시:
 
 ```json
 {
@@ -109,34 +121,34 @@ Example:
 }
 ```
 
-## Batch Evaluation Notes
+## 배치 평가 메모
 
-The 25-question evaluation set was executed on this branch and the resulting
-retrieval logs were written to:
+25개 테스트 질문 세트를 이 브랜치에서 실행했고, retrieval 로그는 아래 파일에 저장했습니다.
 
 - `examples/test_set_eval_log.jsonl`
 
-Summary:
+요약:
 
-- source accuracy: `24/25 (96.0%)`
-- document hit rate: `20/21 (95.2%)`
-- QA hit count: `6`
-- document fallback count: `19`
-- average top-1 similarity: `0.6898`
-- total retrieval CO2 across the batch: `0.3852 g`
+- Source 정확도: `24/25 (96.0%)`
+- Document hit율: `20/21 (95.2%)`
+- QA hit 횟수: `6`
+- Document fallback 횟수: `19`
+- 평균 top-1 유사도: `0.6898`
+- 배치 전체 retrieval CO2: `0.3852 g`
 
-Per-stage retrieval totals:
+단계별 retrieval 총합:
 
-| Stage | Calls | Total Duration (s) | Total CO2 (g) |
-|------|------:|-------------------:|--------------:|
+| 단계 | 호출 수 | 총 실행 시간 (s) | 총 CO2 (g) |
+|------|--------:|------------------:|------------:|
 | `qa_pairs_retrieval` | 25 | 55.5169 | 0.2197 |
 | `documents_retrieval` | 19 | 41.7692 | 0.1655 |
 
-`llm_generation` is integrated in `query.py`, but it was not exercised in this
-batch run because `run_eval.py` currently evaluates retrieval only.
+`llm_generation`은 [query.py](C:\Users\gunhu\project\eco_cache_branch\query.py)에
+통합되어 있지만, `run_eval.py`는 현재 retrieval만 평가하므로 배치 실행에서는
+LLM 생성 단계가 기록되지 않았습니다.
 
-## Notes
+## 참고 사항
 
-- This branch focuses on attaching the carbon monitor only.
-- It does not tune thresholds or retrieval logic.
-- It does not change the RAG pipeline design.
+- 이 브랜치는 탄소 측정 모듈을 붙이는 데 초점을 둡니다.
+- retrieval threshold나 검색 로직은 조정하지 않습니다.
+- RAG 파이프라인의 기본 설계는 유지합니다.
