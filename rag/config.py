@@ -42,7 +42,34 @@ QA_SIMILARITY_THRESHOLD = 0.75
 TOP_K = 5
 
 # ── LM Studio ─────────────────────────────────────────────────────────────────
-LM_STUDIO_URL    = os.getenv("LM_STUDIO_URL",   "http://localhost:1234/v1")
+def _lm_studio_url() -> str:
+    """
+    WSL2 환경에서 LM_STUDIO_URL이 localhost를 가리킬 경우
+    Windows 호스트 IP(기본 게이트웨이)로 자동 교체.
+    """
+    url = os.getenv("LM_STUDIO_URL", "http://localhost:1234/v1")
+    if "localhost" not in url and "127.0.0.1" not in url:
+        return url  # 이미 외부 IP가 지정된 경우 그대로 사용
+    # WSL2 여부 확인: /proc/version에 "microsoft" 포함
+    try:
+        is_wsl = "microsoft" in Path("/proc/version").read_text().lower()
+    except OSError:
+        return url
+    if not is_wsl:
+        return url
+    # 기본 게이트웨이(= Windows 호스트) IP 추출
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["ip", "route", "show", "default"],
+            capture_output=True, text=True, timeout=2
+        )
+        gateway = result.stdout.split()[2]
+        return url.replace("localhost", gateway).replace("127.0.0.1", gateway)
+    except Exception:
+        return url
+
+LM_STUDIO_URL    = _lm_studio_url()
 LM_STUDIO_MODEL  = os.getenv("LM_STUDIO_MODEL", "")
 LM_TEMPERATURE   = 0.3
 LM_MAX_TOKENS    = 512

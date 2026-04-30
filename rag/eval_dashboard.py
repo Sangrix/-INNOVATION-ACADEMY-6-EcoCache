@@ -35,7 +35,8 @@ def status_icon(qa_score: float | None, threshold: float, margin: float) -> str:
 
 def config_label(cfg: dict) -> str:
     model = cfg["embed_model"].split("/")[-1]
-    return f"{model} | th={cfg['qa_similarity_threshold']} | chunk={cfg['chunk_size']}"
+    mode  = cfg.get("mode", "unknown")
+    return f"[{mode}] {model} | th={cfg['qa_similarity_threshold']} | chunk={cfg['chunk_size']}"
 
 
 def entries_to_df(entries: list[dict], threshold: float, margin: float) -> pd.DataFrame:
@@ -60,7 +61,9 @@ def entries_to_df(entries: list[dict], threshold: float, margin: float) -> pd.Da
 
 with st.sidebar:
     st.title("⚙️ 설정")
-    log_path = st.text_input("로그 파일", value="eval_log.jsonl")
+    log_path  = st.text_input("로그 파일 (주)", value="eval_log.jsonl")
+    log_path2 = st.text_input("로그 파일 (비교용, 선택)", value="",
+                               placeholder="예: eval_log_pure_rag.jsonl")
     threshold = st.slider("QA Threshold", 0.50, 1.00, 0.75, 0.01)
     margin    = st.slider("경계 마진 (±)", 0.01, 0.10, 0.05, 0.01)
     st.caption(
@@ -79,7 +82,13 @@ all_entries = load_log(Path(log_path))
 if not all_entries:
     st.error(f"로그를 찾을 수 없습니다: {log_path}"); st.stop()
 
-entries = [e for e in all_entries if e["source"] in source_filter]
+all_entries2: list[dict] = []
+if log_path2.strip():
+    all_entries2 = load_log(Path(log_path2.strip()))
+
+# 두 로그를 합쳐서 단일 필터 적용 (Tab 1~3), Tab 4에서 분리해서 비교
+combined_entries = all_entries + all_entries2
+entries = [e for e in combined_entries if e["source"] in source_filter]
 if model_kw:
     entries = [e for e in entries if model_kw in e["config"]["embed_model"]]
 
@@ -336,81 +345,139 @@ with tab3:
     else:
         st.info("qa_top1_score 데이터가 없습니다.")
 
-# ── Tab 4: 실험 비교 ──────────────────────────────────────────────────────────
+# ── Tab 4: Baseline 비교 ──────────────────────────────────────────────────────
 
 with tab4:
-    st.subheader("⚖️ Config별 실험 비교")
+    st.subheader("⚖️ Baseline 비교 (pure_rag vs semantic_cache)")
 
-    groups: dict[str, list] = {}
-    for e in entries:
-        groups.setdefault(config_label(e["config"]), []).append(e)
+    # 모드별 그룹 (combined_entries 전체 사용 — 필터 미적용)
+    mode_groups: dict[str, list] = {}
+    for e in combined_entries:
+        m = e["config"].get("mode", "unknown")
+        mode_groups.setdefault(m, []).append(e)
 
-    if len(groups) == 1:
+    available_modes = sorted(mode_groups.keys())
+
+    if len(available_modes) < 2:
         st.info(
-            "현재 로그에 실험 그룹이 1개입니다.\n\n"
-            "다른 config(모델·threshold·chunk_size)로 `python run_eval.py --log-file other.jsonl`을 실행한 뒤 "
-            "두 파일을 합쳐서 로드하면 여기서 비교됩니다."
+            "현재 로그에 모드가 1개뿐입니다.\n\n"
+            "아래 명령어로 두 베이스라인을 각각 실행한 뒤 사이드바에서 두 번째 로그 파일을 지정하세요.\n\n"
+            "```bash\n"
+            "python run_eval.py --mode pure_rag       --log-file eval_pure_rag.jsonl\n"
+            "python run_eval.py --mode semantic_cache --log-file eval_semantic_cache.jsonl\n"
+            "```"
         )
 
-    # 요약 테이블
+    # ── 요약 테이블 ───────────────────────────────────────────────────────────
     summary = []
-    for key, grp in groups.items():
+    for mode_key, grp in mode_groups.items():
         s  = [e["results"][0]["score"] for e in grp if e["results"]]
-        qs = [e["qa_top1_score"] for e in grp if e.get("qa_top1_score") is not None]
+        qs = [e.get("qa_top1_score") for e in grp if e.get("qa_top1_score") is not None]
         qh = sum(1 for e in grp if e["source"] == "qa_pairs")
         summary.append({
-            "Config":       key,
-            "쿼리 수":      len(grp),
-            "qa_pairs":     qh,
-            "qa 비율":      f"{qh/len(grp)*100:.1f}%",
-            "Top1 평균":    f"{sum(s)/len(s):.4f}"  if s  else "-",
-            "QA Top1 평균": f"{sum(qs)/len(qs):.4f}" if qs else "-",
+            "모드":          mode_key,
+            "쿼리 수":       len(grp),
+            "qa_pairs 히트": qh,
+            "qa 히트율":     f"{qh/len(grp)*100:.1f}%" if grp else "-",
+            "Top1 평균":     f"{sum(s)/len(s):.4f}"   if s  else "-",
+            "QA Top1 평균":  f"{sum(qs)/len(qs):.4f}" if qs else "-",
         })
     st.dataframe(pd.DataFrame(summary), use_container_width=True, hide_index=True)
 
-    if len(groups) > 1:
-        # 박스플롯 비교
+    if len(available_modes) >= 2:
+        # ── 박스플롯 비교 ─────────────────────────────────────────────────────
         box_rows = []
-        for key, grp in groups.items():
+        for mode_key, grp in mode_groups.items():
             for e in grp:
                 if e["results"]:
-                    box_rows.append({"Config": key, "Top1": e["results"][0]["score"]})
+                    box_rows.append({"모드": mode_key, "Top1": e["results"][0]["score"]})
         box_df = pd.DataFrame(box_rows)
 
         box = (
             alt.Chart(box_df)
             .mark_boxplot(extent="min-max")
             .encode(
-                x=alt.X("Config:N", title="실험 Config"),
-                y=alt.Y("Top1:Q",   title="Top1 유사도",
+                x=alt.X("모드:N", title="Baseline 모드"),
+                y=alt.Y("Top1:Q", title="Top1 유사도",
                         scale=alt.Scale(domain=[0.3, 1.0])),
-                color="Config:N",
+                color=alt.Color("모드:N",
+                                scale=alt.Scale(domain=["pure_rag", "semantic_cache"],
+                                                range=["#2196F3", "#4CAF50"])),
             )
-            .properties(height=380, title="Config별 Top1 Score 분포")
+            .properties(height=320, title="Baseline별 Top1 Score 분포")
         )
         st.altair_chart(box, use_container_width=True)
 
-        # 쿼리별 차이 히트맵 (같은 쿼리 비교)
-        pivot_rows = []
-        for key, grp in groups.items():
-            for e in grp:
-                pivot_rows.append({
-                    "Config": key,
-                    "쿼리":   e["query"][:30] + ("…" if len(e["query"]) > 30 else ""),
-                    "Top1":   e["results"][0]["score"] if e["results"] else 0,
+        # ── 쿼리별 점수 비교 (같은 쿼리가 두 모드에 모두 있을 때) ────────────
+        st.subheader("쿼리별 점수 비교")
+        mode_a, mode_b = available_modes[0], available_modes[1]
+        map_a = {e["query"]: e["results"][0]["score"] for e in mode_groups[mode_a] if e["results"]}
+        map_b = {e["query"]: e["results"][0]["score"] for e in mode_groups[mode_b] if e["results"]}
+        common_queries = sorted(set(map_a) & set(map_b))
+
+        if common_queries:
+            cmp_rows = []
+            for q in common_queries:
+                sa, sb = map_a[q], map_b[q]
+                cmp_rows.append({
+                    "쿼리":       q[:40] + ("…" if len(q) > 40 else ""),
+                    mode_a:       round(sa, 4),
+                    mode_b:       round(sb, 4),
+                    "차이 (B−A)": round(sb - sa, 4),
+                    "승자":       mode_b if sb > sa else (mode_a if sa > sb else "동일"),
                 })
-        pivot_df = pd.DataFrame(pivot_rows)
-        if not pivot_df.empty:
-            heat = (
-                alt.Chart(pivot_df)
-                .mark_rect()
+            cmp_df = pd.DataFrame(cmp_rows).sort_values("차이 (B−A)", ascending=False)
+            st.dataframe(cmp_df, use_container_width=True, hide_index=True)
+
+            # 산점도: mode_a Top1 vs mode_b Top1
+            scatter_cmp = (
+                alt.Chart(cmp_df)
+                .mark_circle(size=80, opacity=0.8)
                 .encode(
-                    x=alt.X("Config:N"),
-                    y=alt.Y("쿼리:N",   sort=None),
-                    color=alt.Color("Top1:Q",
-                                    scale=alt.Scale(scheme="blues", domain=[0.4, 1.0])),
-                    tooltip=["쿼리:N", "Config:N", "Top1:Q"],
+                    x=alt.X(f"{mode_a}:Q", scale=alt.Scale(domain=[0.3, 1.0]),
+                            title=f"{mode_a} Top1"),
+                    y=alt.Y(f"{mode_b}:Q", scale=alt.Scale(domain=[0.3, 1.0]),
+                            title=f"{mode_b} Top1"),
+                    color=alt.condition(
+                        alt.datum["차이 (B−A)"] > 0,
+                        alt.value("#4CAF50"),
+                        alt.value("#F44336"),
+                    ),
+                    tooltip=["쿼리:N", f"{mode_a}:Q", f"{mode_b}:Q", "차이 (B−A):Q"],
                 )
-                .properties(title="쿼리×Config Top1 히트맵")
+                .properties(height=380,
+                            title=f"대각선 위 = {mode_b} 우세, 아래 = {mode_a} 우세")
             )
-            st.altair_chart(heat, use_container_width=True)
+            diag_line = (
+                alt.Chart(pd.DataFrame({"x": [0.3, 1.0], "y": [0.3, 1.0]}))
+                .mark_line(color="gray", strokeDash=[4, 4], opacity=0.5)
+                .encode(x="x:Q", y="y:Q")
+            )
+            st.altair_chart(scatter_cmp + diag_line, use_container_width=True)
+            st.caption("🟢 = semantic_cache 우세  🔴 = pure_rag 우세")
+        else:
+            st.info(
+                "두 로그에 공통 쿼리가 없습니다.\n"
+                "같은 `test_queries.json`으로 두 모드를 각각 실행하면 쿼리별 비교가 활성화됩니다."
+            )
+
+    # ── Config별 상세 그룹 ────────────────────────────────────────────────────
+    with st.expander("Config별 상세 실험 그룹"):
+        cfg_groups: dict[str, list] = {}
+        for e in combined_entries:
+            cfg_groups.setdefault(config_label(e["config"]), []).append(e)
+
+        cfg_summary = []
+        for key, grp in cfg_groups.items():
+            s  = [e["results"][0]["score"] for e in grp if e["results"]]
+            qs = [e.get("qa_top1_score") for e in grp if e.get("qa_top1_score") is not None]
+            qh = sum(1 for e in grp if e["source"] == "qa_pairs")
+            cfg_summary.append({
+                "Config":       key,
+                "쿼리 수":      len(grp),
+                "qa_pairs":     qh,
+                "qa 비율":      f"{qh/len(grp)*100:.1f}%",
+                "Top1 평균":    f"{sum(s)/len(s):.4f}"  if s  else "-",
+                "QA Top1 평균": f"{sum(qs)/len(qs):.4f}" if qs else "-",
+            })
+        st.dataframe(pd.DataFrame(cfg_summary), use_container_width=True, hide_index=True)

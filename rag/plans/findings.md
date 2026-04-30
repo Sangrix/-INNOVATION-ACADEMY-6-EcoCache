@@ -44,3 +44,31 @@ EcoCache/
 - Docker 실행 시 반드시 볼륨 마운트 필요 (`-v $(pwd)/qdrant_data:/qdrant/storage`)
 - 컬렉션 벡터 차원: 1024 (BGE-m3-ko 출력)
 - 유사도 함수: COSINE
+
+## 아키텍처 분리 설계 (Session 3)
+
+### 현재 query.py 분리 대상 코드
+- `get_model()`, `get_client()` → `retriever_base.py`로 이동
+- `search()`, `build_filter()` → `retriever_base.py`로 이동
+- `rag_search()` → 두 baseline으로 분리:
+  - `baseline_pure_rag.py`: documents만 검색
+  - `baseline_semantic_cache.py`: qa_pairs → documents fallback
+- `generate_answer()`, `log_result()`, `print_results()` → query.py 유지 (표현 계층)
+
+### 공통 반환 dict 형식 (eval_dashboard 호환)
+```python
+{
+    "source": "documents" | "qa_pairs",
+    "results": [{"score": float, "payload": dict}, ...],
+    "query": str,
+    "qa_top1_score": float | None,
+}
+```
+
+### 두 Baseline 차이점
+| | Pure RAG | Semantic Cache RAG |
+|---|---|---|
+| qa_pairs 검색 | 없음 | 항상 먼저 시도 |
+| fallback | 없음 (documents만) | threshold 미달 시 documents |
+| 용도 | 순수 벡터 검색 베이스라인 | 캐시 효과 측정 |
+| source 반환값 | 항상 "documents" | "qa_pairs" 또는 "documents" |
