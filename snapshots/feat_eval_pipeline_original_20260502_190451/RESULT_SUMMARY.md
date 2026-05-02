@@ -1,35 +1,35 @@
-# CO2 Evaluation Result Summary - 2026-05-02
+# CO2 평가 결과 요약 - 2026-05-02
 
-This folder contains the local GPU CO2 remeasurement results for the original `feat/eval-pipeline` branch.
+이 폴더는 원본 `feat/eval-pipeline` 브랜치를 로컬 GPU 환경에서 다시 측정한 CO2 평가 결과를 담고 있습니다.
 
-## Run Setup
+## 실행 설정
 
-- Base commit: `d3a1245`
-- Test set: 50 questions
-- Carbon intensity: `430 gCO2/kWh`
-- LLM generation: disabled
-- CO2 monitor: enabled
+- 기준 커밋: `d3a1245`
+- 테스트 세트: 50문항
+- 탄소 집약도: `430 gCO2/kWh`
+- LLM 생성: 비활성화
+- CO2 모니터링: 활성화
 - GPU: NVIDIA GeForce RTX 3050 4GB Laptop GPU
 
-## Results
+## 결과
 
-| Setting | Source Accuracy | Cache Hit Rate | Avg Latency | Total CO2 | CO2 / Query | Threshold |
+| 설정 | Source 정확도 | 캐시 히트율 | 평균 지연 | 총 CO2 | 질문당 CO2 | 임계값 |
 |---|---:|---:|---:|---:|---:|---|
-| B1 (No Cache) | 66.0% | 0.0% | 18,204 ms | 1.4236 g | 0.02847 g | 1.10 fixed |
-| B2 (Static Cache) | 68.0% | 2.0% | 16,617 ms | 1.0794 g | 0.02159 g | 0.90 fixed |
+| B1 (캐시 없음) | 66.0% | 0.0% | 18,204 ms | 1.4236 g | 0.02847 g | 1.10 고정 |
+| B2 (정적 캐시) | 68.0% | 2.0% | 16,617 ms | 1.0794 g | 0.02159 g | 0.90 고정 |
 | CIASC alpha=0.25 | 72.0% | 6.0% | 20,516 ms | 1.0590 g | 0.02118 g | 0.80 -> 0.95 |
 | CIASC alpha=0.50 | 72.0% | 6.0% | 16,280 ms | 1.0554 g | 0.02111 g | 0.80 -> 0.95 |
 | CIASC alpha=1.00 | 78.0% | 12.0% | 15,827 ms | 1.0154 g | 0.02031 g | 0.76 -> 0.95 |
 
-## Notes
+## 메모
 
-- The CO2 summary issue was caused by `run_eval.py` reading `result["carbon_metrics"]` while `query.py` returns metrics as `result["metrics"]`.
-- This branch fixes the aggregation path so the console summary can read CO2 correctly.
-- CIASC threshold values still follow the original branch behavior.
-- Current branch behavior has two caveats: alpha is hardcoded to `0.15` inside `carbon_optimizer.py`, and threshold values accumulate because the previous threshold is reused as the next base threshold.
+- CO2 요약 오류는 `query.py`가 측정값을 `result["metrics"]`로 반환하는데, `run_eval.py`가 `result["carbon_metrics"]`를 읽고 있어서 발생했습니다.
+- 이 브랜치에서는 콘솔 요약이 CO2를 제대로 읽을 수 있도록 집계 경로를 수정했습니다.
+- CIASC 임계값 변화는 원본 브랜치 동작을 그대로 따릅니다.
+- 현재 브랜치 동작에는 두 가지 주의점이 있습니다. `carbon_optimizer.py` 내부에서 alpha가 `0.15`로 하드코딩되어 있고, 이전 임계값을 다음 기준값으로 다시 사용하기 때문에 임계값이 누적 증가합니다.
 
-## Files
+## 파일 설명
 
-- `*_console.txt`: console output for each mode
-- `*_eval_log.jsonl`: per-question retrieval/evaluation logs
-- `carbon_metrics.jsonl`: raw CodeCarbon/GPU power measurement records
+- `*_console.txt`: 각 모드별 콘솔 출력
+- `*_eval_log.jsonl`: 질문별 검색/평가 로그
+- `carbon_metrics.jsonl`: CodeCarbon/GPU 전력 측정 원본 로그
