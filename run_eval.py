@@ -140,7 +140,7 @@ def run_eval(test_file: Path, log_file: Path,
         log_result(result, log_file=log_file)
 
         # 탄소 수집 (carbon_monitor가 result에 metrics를 붙여주는 경우)
-        carbon_metrics = result.get("carbon_metrics", {})
+        carbon_metrics = result.get("metrics") or result.get("carbon_metrics", {})
         query_co2_g    = sum(
             v.get("co2_g", 0.0)
             for v in carbon_metrics.values()

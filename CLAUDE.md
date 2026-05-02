@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## CO2 Evaluation Note
+
+- `query.py` returns carbon measurement data under `result["metrics"]`.
+- `run_eval.py` summaries should read `result["metrics"]` first, then optionally fall back to `result["carbon_metrics"]`.
+- The local GPU remeasurement results for 2026-05-02 are documented in `docs/co2_eval_results_20260502.md`.
+- Raw artifacts are stored in `snapshots/feat_eval_pipeline_original_20260502_190451/`.
+- The current CIASC branch behavior should be interpreted carefully because alpha is hardcoded in `carbon_optimizer.py` and threshold values can accumulate across questions.
+
 ## 프로젝트 개요
 
 EcoCache는 인하대학교 SW중심대학사업단 공지사항·홍보 게시물을 구조화된 JSON 데이터셋으로 변환하는 프로젝트입니다. 수집된 데이터는 RAG(검색 증강 생성) 기반 학생 Q&A 챗봇의 지식 베이스로 활용하는 것을 목적으로 합니다. 문서 파싱·OCR에는 Upstage Document AI가 사용됩니다.
