@@ -48,6 +48,15 @@ CARBON_LOG_PATH = Path(_carbon_log_path) if _carbon_log_path else BASE_DIR / "ca
 QA_SIMILARITY_THRESHOLD = 0.75
 TOP_K = 5
 
+# CIASC threshold settings
+CIASC_BASE_THRESHOLD = float(os.getenv("CIASC_BASE_THRESHOLD", "0.75"))
+CIASC_CI_MIN = float(os.getenv("CIASC_CI_MIN", "350"))
+CIASC_CI_MAX = float(os.getenv("CIASC_CI_MAX", "500"))
+CIASC_THETA_MIN = float(os.getenv("CIASC_THETA_MIN", "0.70"))
+CIASC_THETA_MAX = float(os.getenv("CIASC_THETA_MAX", "0.95"))
+_ciasc_fixed_ci = os.getenv("CIASC_FIXED_CI", "").strip()
+CIASC_FIXED_CI = float(_ciasc_fixed_ci) if _ciasc_fixed_ci else None
+
 # ── LM Studio ─────────────────────────────────────────────────────────────────
 LM_STUDIO_URL    = os.getenv("LM_STUDIO_URL",   "http://localhost:1234/v1")
 LM_STUDIO_MODEL  = os.getenv("LM_STUDIO_MODEL", "")

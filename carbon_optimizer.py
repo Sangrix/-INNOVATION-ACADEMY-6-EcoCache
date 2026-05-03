@@ -1,48 +1,67 @@
-import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
-import config  # 기존 설정값 참조
+
+import config
+
 
 class CarbonAdaptiveOptimizer:
     def __init__(self):
-        # 1주차 목표: 정적 프록시 데이터 (한국 시간대별 CI 평균)
+        # 한국 시간대별 탄소 집약도 정적 프록시 값(gCO2/kWh).
         self.KR_CI_BY_HOUR = {
-            0: 430, 3: 415, 6: 420, 9: 410, 12: 385, 15: 375, 18: 400, 21: 420
+            0: 430,
+            3: 415,
+            6: 420,
+            9: 410,
+            12: 385,
+            15: 375,
+            18: 400,
+            21: 420,
         }
         self.DEFAULT_KR_CI = 415
 
     def get_current_ci(self) -> float:
-        """현재 시간 기준 탄소 집약도 조회"""
+        """현재 한국 시간 기준 탄소 집약도 값을 반환합니다."""
+        if config.CIASC_FIXED_CI is not None:
+            return float(config.CIASC_FIXED_CI)
+
         hour = datetime.now(ZoneInfo("Asia/Seoul")).hour
         closest_hour = min(self.KR_CI_BY_HOUR.keys(), key=lambda x: abs(x - hour))
         return float(self.KR_CI_BY_HOUR.get(closest_hour, self.DEFAULT_KR_CI))
 
-    def get_adaptive_threshold(self,
+    def get_adaptive_threshold(
+        self,
         ci: float | None = None,
         alpha: float = 0.15,
-        theta_min: float = 0.70,
-        theta_max: float = 0.95,) -> float:
+        theta_min: float | None = None,
+        theta_max: float | None = None,
+    ) -> float:
         """
-        θ(t) 동적 조정 알고리즘
-        ci 인자가 없으면 자동으로 현재 CI를 가져와 계산함 (통합 편의성)
+        CIASC 동적 threshold를 계산합니다.
+
+        원본 브랜치 수식:
+            theta = base_theta - alpha * (ci_norm - 0.5)
+
+        수정 사항:
+        - CLI로 받은 alpha를 그대로 사용합니다.
+        - 직전 threshold가 아닌 고정 base_theta를 기준으로 매번 새로 계산합니다.
         """
         if ci is None:
             ci = self.get_current_ci()
 
-        base_theta = config.QA_SIMILARITY_THRESHOLD  # 0.75
-        alpha = 0.15  # 조정 계수 (2주차 실험 대상)
+        theta_min = config.CIASC_THETA_MIN if theta_min is None else theta_min
+        theta_max = config.CIASC_THETA_MAX if theta_max is None else theta_max
 
-        # CI 350~500 범위를 0~1로 정규화 및 범위 제한(Clamping)
-        ci_norm = (ci - 350) / 150
+        ci_range = config.CIASC_CI_MAX - config.CIASC_CI_MIN
+        ci_norm = 0.0 if ci_range == 0 else (ci - config.CIASC_CI_MIN) / ci_range
         ci_norm = max(0.0, min(1.0, ci_norm))
 
-        # 핵심 수식: CI가 높을수록 theta는 낮아짐 (캐시 히트 유도)
-        theta = base_theta - (alpha * (ci_norm - 0.5))
+        theta = config.CIASC_BASE_THRESHOLD - (alpha * (ci_norm - 0.5))
         theta = max(theta_min, min(theta_max, theta))
         return round(theta, 4)
 
-# ── query.py 연동을 위한 싱글톤 인터페이스 (추가 권장) ──────────────────────
+
 _optimizer = None
+
 
 def get_optimizer():
     global _optimizer
@@ -50,8 +69,10 @@ def get_optimizer():
         _optimizer = CarbonAdaptiveOptimizer()
     return _optimizer
 
+
 if __name__ == "__main__":
-    # 인자 없이 호출해도 작동하는지 테스트
     opt = get_optimizer()
-    print(f"현재 한국 시간 기준 CI: {opt.get_current_ci()}")
-    print(f"현재 CI 기반 동적 θ(t): {opt.get_adaptive_threshold()}")
+    ci = opt.get_current_ci()
+    print(f"현재 한국 시간 기준 CI: {ci}")
+    for alpha in (0.25, 0.5, 1.0):
+        print(f"alpha={alpha}: theta={opt.get_adaptive_threshold(ci=ci, alpha=alpha)}")

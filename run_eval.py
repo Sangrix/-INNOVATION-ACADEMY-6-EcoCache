@@ -65,7 +65,7 @@ def _get_ciasc_threshold(alpha: float = 0.15) -> float:
         from carbon_optimizer import get_optimizer
         opt   = get_optimizer()
         ci    = opt.get_current_ci()
-        theta = opt.get_adaptive_threshold(alpha=alpha)
+        theta = opt.get_adaptive_threshold(ci=ci, alpha=alpha)
         print(f"  [CIASC] 현재 CI={ci:.0f} gCO2/kWh, α={alpha} → θ(t)={theta:.4f}")
         return theta
     except ImportError:
