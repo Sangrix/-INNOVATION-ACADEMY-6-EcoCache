@@ -2,13 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## CO2 평가 메모
+## 최신 CO2 평가 메모
 
-- `query.py`는 탄소 측정값을 `result["metrics"]`에 담아 반환합니다.
-- `run_eval.py` 요약부는 `result["metrics"]`를 먼저 읽고, 필요하면 `result["carbon_metrics"]`로 fallback해야 합니다.
-- 2026-05-02 로컬 GPU 재측정 결과는 `docs/co2_eval_results_20260502.md`에 정리되어 있습니다.
-- 원본 결과 파일은 `snapshots/feat_eval_pipeline_original_20260502_190451/`에 저장되어 있습니다.
-- 현재 CIASC 브랜치 동작은 주의해서 해석해야 합니다. `carbon_optimizer.py` 내부에서 alpha가 하드코딩되어 있고, 질문마다 임계값이 누적 증가할 수 있습니다.
+- 2026-05-02 결과 표는 CIASC alpha 고정/임계값 누적 문제가 남아 있던 이전 실행 결과라 현재 브랜치에서는 제거했습니다.
+- 2026-05-03 CIASC alpha/threshold 수정 후 로컬 GPU 재측정 결과는 `docs/ciasc_fixed_alpha_results_20260503.md`에 정리되어 있습니다.
+- 원본 실행 로그와 CO2 측정 파일은 `snapshots/feat_eval_pipeline_original_20260503_104359/`에 저장되어 있습니다.
 
 ## 프로젝트 개요
 
