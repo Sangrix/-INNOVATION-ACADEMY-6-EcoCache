@@ -5,8 +5,9 @@
 ./eval_log.jsonl
 ./carbon_metrics.jsonl
 
-# Python cache
+# Python cacheg
 ./__pycache__
 
 # Environment variables
 ./.env
+.env
