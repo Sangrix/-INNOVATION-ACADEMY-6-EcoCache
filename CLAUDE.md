@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 최신 CO2 평가 메모
+
+- 2026-05-02 결과 표는 CIASC alpha 고정/임계값 누적 문제가 남아 있던 이전 실행 결과라 현재 브랜치에서는 제거했습니다.
+- 2026-05-03 CIASC alpha/threshold 수정 후 로컬 GPU 재측정 결과는 `docs/ciasc_fixed_alpha_results_20260503.md`에 정리되어 있습니다.
+- 원본 실행 로그와 CO2 측정 파일은 `snapshots/feat_eval_pipeline_original_20260503_104359/`에 저장되어 있습니다.
+
 ## 프로젝트 개요
 
 EcoCache는 인하대학교 SW중심대학사업단 공지사항·홍보 게시물을 구조화된 JSON 데이터셋으로 변환하는 프로젝트입니다. 수집된 데이터는 RAG(검색 증강 생성) 기반 학생 Q&A 챗봇의 지식 베이스로 활용하는 것을 목적으로 합니다. 문서 파싱·OCR에는 Upstage Document AI가 사용됩니다.

@@ -1,0 +1,197 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-03 10:59:38,692 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+============================================================
+ EcoCache 평가 실행
+ 모드    : B2 (Static Cache θ=0.90)
+ 임계값  : 0.9000
+ 질문 수 : 50 | 로그: C:\Users\gunhu\OneDrive - 인하대학교\문서\Playground\EcoCache-eval-pipeline_ORIGINAL_d3a1245\snapshots\feat_eval_pipeline_original_20260503_104359\b2_eval_log.jsonl
+============================================================
+
+[01/50] TQ-001 (exact_match) — 2026년 AI-POT 자격증 취득 지원 프로그램 1차 신청 기간은 언제인가요?
+
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]
+Loading weights:   1%|▏         | 5/391 [00:02<03:46,  1.70it/s]
+Loading weights: 100%|██████████| 391/391 [00:03<00:00, 129.64it/s]
+  ✗ source=documents top1=0.8554  latency=48800ms  (QA top1=0.8423)  CO2=26.200mg
+[02/50] TQ-002 (exact_match) — 2026년 ICT학점연계프로젝트인턴십 상반기 글로벌과정 신청 마감일은 언제인가요?
+  ✓ source=qa_pairs top1=0.9022  latency=9443ms  (QA top1=0.9022)  CO2=14.000mg
+[03/50] TQ-003 (exact_match) — 2025-2학기 SW캡스톤디자인 성과발표회는 언제 열리나요?
+  ✗ source=documents top1=0.8965  latency=18383ms  (QA top1=0.8710)  CO2=28.000mg
+[04/50] TQ-004 (exact_match) — 제24회 TOPCIT 정기평가 단체접수 신청 기한과 평가 일정은 언제인가요?
+  ✗ source=documents top1=0.7082  latency=18923ms  (QA top1=0.8113)  CO2=29.400mg
+[05/50] TQ-005 (exact_match) — 2025-2 AI-POT 자격증 취득 지원 프로그램 장학금 신청 기간은 언제인가요?
+  ✗ source=documents top1=0.8064  latency=19377ms  (QA top1=0.8652)  CO2=29.400mg
+[06/50] TQ-006 (exact_match) — 2025 전공인의 밤 행사는 언제, 어디서 열리나요?
+  ✗ source=documents top1=0.7168  latency=18623ms  (QA top1=0.7834)  CO2=25.200mg
+[07/50] TQ-007 (exact_match) — AI VOYAGE 2025 요트 해커톤 참여 대상과 대회 일자는 언제인가요?
+  ✗ source=documents top1=0.7613  latency=16738ms  (QA top1=0.8335)  CO2=22.800mg
+[08/50] TQ-008 (exact_match) — Physical AI 특강은 언제 어디서 열리나요?
+  ✗ source=documents top1=0.7140  latency=16460ms  (QA top1=0.7336)  CO2=26.200mg
+[09/50] TQ-009 (paraphrase) — AI-POT 자격증 프로그램 1차 지원 일정
+  ✓ source=documents top1=0.7945  latency=16365ms  (QA top1=0.7302)  CO2=24.300mg
+[10/50] TQ-010 (paraphrase) — 캡스톤 성과 발표 날짜 알려줘
+  ✓ source=documents top1=0.5969  latency=17032ms  (QA top1=0.5930)  CO2=24.700mg
+[11/50] TQ-011 (paraphrase) — i-PAC 참여 신청 마감은 언제까지예요?
+  ✓ source=documents top1=0.6270  latency=16921ms  (QA top1=0.6529)  CO2=22.000mg
+[12/50] TQ-012 (paraphrase) — 탄소중립 아카데미 어떻게 신청해요?
+  ✓ source=documents top1=0.7043  latency=16646ms  (QA top1=0.6557)  CO2=21.700mg
+[13/50] TQ-013 (paraphrase) — TOPCIT 시험 접수 언제까지야?
+  ✓ source=documents top1=0.6546  latency=16591ms  (QA top1=0.6566)  CO2=22.000mg
+[14/50] TQ-014 (paraphrase) — 마이크로소프트 기업탐방 모집 마감일
+  ✓ source=documents top1=0.6408  latency=25236ms  (QA top1=0.6689)  CO2=21.900mg
+[15/50] TQ-015 (paraphrase) — 요트 해커톤 신청 어떻게 해요?
+  ✓ source=documents top1=0.6418  latency=16681ms  (QA top1=0.6363)  CO2=22.700mg
+[16/50] TQ-016 (paraphrase) — 실리콘밸리 인턴십 지원 자격 조건
+  ✓ source=documents top1=0.5833  latency=16623ms  (QA top1=0.6303)  CO2=21.900mg
+[17/50] TQ-017 (specific_info) — TOPCIT 정기평가 단체접수 신청 방법과 지원 혜택은 무엇인가요?
+  ✓ source=documents top1=0.7089  latency=16572ms  (QA top1=0.7096)  CO2=22.100mg
+[18/50] TQ-018 (specific_info) — MS 기업탐방 참여 대상과 모집 일정은?
+  ✓ source=documents top1=0.7170  latency=16624ms  (QA top1=0.6987)  CO2=21.900mg
+[19/50] TQ-019 (specific_info) — CEN 마일리지 장학금 신청 기간과 배점표는 어디서 확인하나요?
+  ✓ source=documents top1=0.7118  latency=16545ms  (QA top1=0.5639)  CO2=22.000mg
+[20/50] TQ-020 (specific_info) — 2025 에세이 공모전 신청 마감일과 제출 방법
+  ✓ source=documents top1=0.6288  latency=16541ms  (QA top1=0.6678)  CO2=22.000mg
+[21/50] TQ-021 (specific_info) — 2025-2 AI-POT 자격증 취득 프로그램(2차) 신청 기간과 시험일은 언제인가요?
+  ✗ source=documents top1=0.7958  latency=16625ms  (QA top1=0.8586)  CO2=22.000mg
+[22/50] TQ-022 (specific_info) — 탄소중립 INNOVATION ACADEMY 신청 방법과 합격자 발표 일정
+  ✓ source=documents top1=0.7412  latency=16576ms  (QA top1=0.6748)  CO2=21.900mg
+[23/50] TQ-023 (specific_info) — AI VOYAGE 2025 참여 신청 방법과 이메일 제출 마감은?
+  ✗ source=documents top1=0.6200  latency=16599ms  (QA top1=0.6973)  CO2=22.000mg
+[24/50] TQ-024 (specific_info) — 생성형 AI 활용 쇼츠 공모전 상금과 시상 인원은 어떻게 되나요?
+  ✗ source=documents top1=0.7520  latency=16568ms  (QA top1=0.7756)  CO2=21.900mg
+[25/50] TQ-025 (general_topic) — 인하대 SW중심대학에서 지원하는 장학금 종류를 알려주세요
+  ✓ source=documents top1=0.6392  latency=16673ms  (QA top1=0.5133)  CO2=22.000mg
+[26/50] TQ-026 (general_topic) — 해커톤 대회 참가 신청 안내
+  ✗ source=documents top1=0.6226  latency=16625ms  (QA top1=0.6379)  CO2=21.900mg
+  ⚠ 예상 doc_id 미포함: ['inha_notice_022', 'inha_sw_notice_162368', 'inha_pr_037']
+[27/50] TQ-027 (general_topic) — 탄소중립 이노베이션 아카데미 참여 방법
+  ✓ source=documents top1=0.6968  latency=16614ms  (QA top1=0.6736)  CO2=21.800mg
+[28/50] TQ-028 (general_topic) — 자격증 취득 지원 프로그램에는 어떤 것들이 있나요?
+  ✓ source=documents top1=0.5617  latency=16532ms  (QA top1=0.5376)  CO2=21.800mg
+[29/50] TQ-029 (general_topic) — SW중심대학 비교과 프로그램에는 어떤 것들이 있나요?
+  ✗ source=documents top1=0.5714  latency=16517ms  (QA top1=0.5300)  CO2=21.800mg
+  ⚠ 예상 doc_id 미포함: ['inha_notice_016', 'inha_notice_065', 'inha_notice_068']
+[30/50] TQ-030 (general_topic) — 인하대 SW중심대학 기업탐방 프로그램 안내
+  ✓ source=documents top1=0.6600  latency=16525ms  (QA top1=0.5380)  CO2=21.800mg
+[31/50] TQ-031 (external_program) — LG Aimers 프로그램 모집 안내
+  ✓ source=documents top1=0.7104  latency=16484ms  (QA top1=0.5560)  CO2=22.000mg
+[32/50] TQ-032 (external_program) — 오픈소스 개발자 대회 신청 방법
+  ✓ source=documents top1=0.7030  latency=16482ms  (QA top1=0.6429)  CO2=21.700mg
+[33/50] TQ-033 (external_program) — 자율주행 경진대회 모집 일정과 참가 자격
+  ✓ source=documents top1=0.6014  latency=16525ms  (QA top1=0.5852)  CO2=21.800mg
+[34/50] TQ-034 (external_program) — K-해양 AI 챌린지 본선 일정과 서류 접수 마감은 언제인가요?
+  ✗ source=documents top1=0.7259  latency=16584ms  (QA top1=0.7491)  CO2=22.800mg
+[35/50] TQ-035 (cross_source) — SW중심대학 에세이 공모전 접수 마감
+  ✓ source=documents top1=0.7436  latency=16525ms  (QA top1=0.6807)  CO2=21.900mg
+[36/50] TQ-036 (cross_source) — 생성형 AI 프롬프트 자격증 취득 지원 프로그램 장학금 신청
+  ✓ source=documents top1=0.7401  latency=16586ms  (QA top1=0.7591)  CO2=21.800mg
+[37/50] TQ-037 (cross_source) — 2025 AIoT 관련 행사 일정 및 참여 방법
+  ✓ source=documents top1=0.6680  latency=16581ms  (QA top1=0.6202)  CO2=22.000mg
+[38/50] TQ-038 (cross_source) — TOPCIT 성적 우수자 장학금 혜택과 배점 기준
+  ✓ source=documents top1=0.5469  latency=16517ms  (QA top1=0.5488)  CO2=21.900mg
+[39/50] TQ-039 (edge_low_relevance) — 기숙사 신청 방법
+  ✓ source=documents top1=0.4416  latency=16549ms  (QA top1=0.5018)  CO2=21.900mg
+[40/50] TQ-040 (edge_low_relevance) — 수강신청 일정
+  ✓ source=documents top1=0.5141  latency=16504ms  (QA top1=0.5624)  CO2=22.000mg
+[41/50] TQ-041 (edge_low_relevance) — 도서관 이용 시간
+  ✓ source=documents top1=0.3703  latency=16489ms  (QA top1=0.4068)  CO2=21.900mg
+[42/50] TQ-042 (edge_low_relevance) — 졸업 논문 심사 일정
+  ✓ source=documents top1=0.5167  latency=16544ms  (QA top1=0.5217)  CO2=21.800mg
+[43/50] TQ-043 (edge_ambiguous) — 선발 결과는 어떻게 되나요?
+  ✗ source=documents top1=0.4864  latency=16505ms  (QA top1=0.5654)  CO2=21.900mg
+[44/50] TQ-044 (edge_ambiguous) — 신청 기간은 언제인가요?
+  ✗ source=documents top1=0.5432  latency=16593ms  (QA top1=0.7615)  CO2=21.800mg
+[45/50] TQ-045 (edge_ambiguous) — 참여 대상 알려주세요
+  ✗ source=documents top1=0.5011  latency=16562ms  (QA top1=0.5873)  CO2=21.600mg
+[46/50] TQ-046 (edge_ambiguous) — 발표회 장소가 어디예요?
+  ✗ source=documents top1=0.4645  latency=16495ms  (QA top1=0.6014)  CO2=21.700mg
+[47/50] TQ-047 (detail_retrieval) — Physical AI와 미래 특강 일시와 장소
+  ✓ source=documents top1=0.7782  latency=16520ms  (QA top1=0.7863)  CO2=21.700mg
+[48/50] TQ-048 (detail_retrieval) — 컴퓨터공학과 대학원 설명회 참석 신청 방법
+  ✓ source=documents top1=0.7076  latency=16569ms  (QA top1=0.6702)  CO2=21.700mg
+[49/50] TQ-049 (detail_retrieval) — SW마에스트로 17기 우수자 추천 선발 결과 안내
+  ✓ source=documents top1=0.6715  latency=16536ms  (QA top1=0.4417)  CO2=21.800mg
+[50/50] TQ-050 (detail_retrieval) — 2025 생성형AI 쇼츠 공모전 시상식 날짜와 장소, 최우수상 상금
+  ✗ source=documents top1=0.7840  latency=16600ms  (QA top1=0.7632)  CO2=21.800mg
+
+ ────────────────────────────────────────
+  모드        : B2 (Static Cache θ=0.90)
+  캐시 히트율 : 1/50 (2.0%)
+  총 CO2      : 1126.800 mg  (1.126800 g)
+  평균 지연   : 17435 ms
+ ────────────────────────────────────────
+
+============================================================
+ 평가 요약 — B2 (Static Cache θ=0.90)
+============================================================
+ 총 질문 수     : 50
+ Source 정확도  : 34/50 (68.0%)
+ Doc Hit율      : 40/42 (95.2%)
+ 캐시 히트율    : 1/50 (2.0%)
+ Top-1 유사도   : 평균 0.6650
+ 총 CO2         : 1126.800 mg  (1.126800 g)
+ 평균 지연      : 17435 ms
+
+ [카테고리별 Top-1 평균]
+  cross_source              0.6747  (n=4)
+  detail_retrieval          0.7353  (n=4)
+  edge_ambiguous            0.4988  (n=4)
+  edge_low_relevance        0.4607  (n=4)
+  exact_match               0.7951  (n=8)
+  external_program          0.6852  (n=4)
+  general_topic             0.6253  (n=6)
+  paraphrase                0.6554  (n=8)
+  specific_info             0.7094  (n=8)
+============================================================
+
+ [실패 케이스]
+  TQ-001 | exact_match | 2026년 AI-POT 자격증 취득 지원 프로그램 1차 신청 기간은 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.8554
+  TQ-003 | exact_match | 2025-2학기 SW캡스톤디자인 성과발표회는 언제 열리나요?
+    expected=qa_pairs  got=documents  top1=0.8965
+  TQ-004 | exact_match | 제24회 TOPCIT 정기평가 단체접수 신청 기한과 평가 일정은 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.7082
+  TQ-005 | exact_match | 2025-2 AI-POT 자격증 취득 지원 프로그램 장학금 신청 기간은 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.8064
+  TQ-006 | exact_match | 2025 전공인의 밤 행사는 언제, 어디서 열리나요?
+    expected=qa_pairs  got=documents  top1=0.7168
+  TQ-007 | exact_match | AI VOYAGE 2025 요트 해커톤 참여 대상과 대회 일자는 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.7613
+  TQ-008 | exact_match | Physical AI 특강은 언제 어디서 열리나요?
+    expected=qa_pairs  got=documents  top1=0.7140
+  TQ-021 | specific_info | 2025-2 AI-POT 자격증 취득 프로그램(2차) 신청 기간과 시험일은 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.7958
+  TQ-023 | specific_info | AI VOYAGE 2025 참여 신청 방법과 이메일 제출 마감은?
+    expected=qa_pairs  got=documents  top1=0.6200
+  TQ-024 | specific_info | 생성형 AI 활용 쇼츠 공모전 상금과 시상 인원은 어떻게 되나요?
+    expected=qa_pairs  got=documents  top1=0.7520
+  TQ-026 | general_topic | 해커톤 대회 참가 신청 안내
+    expected=documents  got=documents  top1=0.6226
+  TQ-029 | general_topic | SW중심대학 비교과 프로그램에는 어떤 것들이 있나요?
+    expected=documents  got=documents  top1=0.5714
+  TQ-034 | external_program | K-해양 AI 챌린지 본선 일정과 서류 접수 마감은 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.7259
+  TQ-043 | edge_ambiguous | 선발 결과는 어떻게 되나요?
+    expected=qa_pairs  got=documents  top1=0.4864
+  TQ-044 | edge_ambiguous | 신청 기간은 언제인가요?
+    expected=qa_pairs  got=documents  top1=0.5432
+  TQ-045 | edge_ambiguous | 참여 대상 알려주세요
+    expected=qa_pairs  got=documents  top1=0.5011
+  TQ-046 | edge_ambiguous | 발표회 장소가 어디예요?
+    expected=qa_pairs  got=documents  top1=0.4645
+  TQ-050 | detail_retrieval | 2025 생성형AI 쇼츠 공모전 시상식 날짜와 장소, 최우수상 상금
+    expected=qa_pairs  got=documents  top1=0.7840
+
+전체 로그 요약:
+
+============================================================
+ 로그 분석: C:\Users\gunhu\OneDrive - 인하대학교\문서\Playground\EcoCache-eval-pipeline_ORIGINAL_d3a1245\snapshots\feat_eval_pipeline_original_20260503_104359\b2_eval_log.jsonl  (50건)
+============================================================
+
+ 모델  : dragonkue/BGE-m3-ko
+ 임계값: 0.9  청크크기: 1500  top_k: 5
+ 질문 수: 50  →  qa_pairs: 1  documents: 49
+ Top-1 유사도 평균: 0.6650  QA top1 평균: 0.6651
+
+============================================================

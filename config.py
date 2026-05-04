@@ -37,9 +37,25 @@ VECTOR_SIZE     = 1024
 COLLECTION_DOCS = "documents"
 COLLECTION_QA   = "qa_pairs"
 
+CARBON_MONITOR_ENABLED = os.getenv("CARBON_MONITOR_ENABLED", "true").lower() in {"1", "true", "yes", "on"}
+CARBON_INTENSITY_G_PER_KWH = float(os.getenv("CARBON_INTENSITY_G_PER_KWH", "350.0"))
+CARBON_GPU_INDEX = int(os.getenv("CARBON_GPU_INDEX", "0"))
+CARBON_SAMPLE_INTERVAL = float(os.getenv("CARBON_SAMPLE_INTERVAL", "0.1"))
+_carbon_log_path = os.getenv("CARBON_LOG_PATH", "").strip()
+CARBON_LOG_PATH = Path(_carbon_log_path) if _carbon_log_path else BASE_DIR / "carbon_metrics.jsonl"
+
 # ── 검색 ──────────────────────────────────────────────────────────────────────
 QA_SIMILARITY_THRESHOLD = 0.75
 TOP_K = 5
+
+# CIASC threshold settings
+CIASC_BASE_THRESHOLD = float(os.getenv("CIASC_BASE_THRESHOLD", "0.75"))
+CIASC_CI_MIN = float(os.getenv("CIASC_CI_MIN", "350"))
+CIASC_CI_MAX = float(os.getenv("CIASC_CI_MAX", "500"))
+CIASC_THETA_MIN = float(os.getenv("CIASC_THETA_MIN", "0.70"))
+CIASC_THETA_MAX = float(os.getenv("CIASC_THETA_MAX", "0.95"))
+_ciasc_fixed_ci = os.getenv("CIASC_FIXED_CI", "").strip()
+CIASC_FIXED_CI = float(_ciasc_fixed_ci) if _ciasc_fixed_ci else None
 
 # ── LM Studio ─────────────────────────────────────────────────────────────────
 LM_STUDIO_URL    = os.getenv("LM_STUDIO_URL",   "http://localhost:1234/v1")

@@ -67,6 +67,7 @@ pip install -r requirements.txt
 | `torch` | 임베딩 연산 |
 | `streamlit`, `altair` | 평가 대시보드 |
 | `openai` | LM Studio API 호출 (OpenAI 호환) |
+| `codecarbon`, `pynvml` | 탄소/전력 측정 |
 
 ### 2. Qdrant 실행 (Docker)
 
@@ -225,6 +226,7 @@ streamlit run eval_dashboard.py
 
 ```
 EcoCache/
+├── carbon_monitor.py       # 탄소 측정 모듈 (CodeCarbon + GPU 전력 샘플링)
 ├── config.py               # 모든 설정 상수 (모델, 청킹, Qdrant, LM Studio)
 ├── embed_pipeline.py       # JSON → 임베딩 → Qdrant 업서트
 ├── query.py                # RAG 검색 + LLM 답변 생성 + 평가 로깅
@@ -233,6 +235,11 @@ EcoCache/
 ├── test_queries.json       # 25개 테스트 질문 세트
 ├── eval_log.jsonl          # 평가 결과 누적 로그 (자동 생성)
 ├── requirements.txt        # Python 의존성
+├── docs/
+│   └── carbon_monitor.md   # 탄소 측정 모듈 설명 및 통합 지점
+├── examples/
+│   ├── carbon_metrics_sample.json
+│   └── carbon_run_summary.md
 ├── spec.md                 # 임베딩 파이프라인 명세
 ├── spec_llm.md             # LLM 연결 명세 (LM Studio)
 ├── .env                    # 환경변수 (git 미포함)
@@ -260,8 +267,131 @@ EcoCache/
 | `LM_TEMPERATURE` | `0.3` | LLM 생성 온도 (사실 기반 답변) |
 | `LM_MAX_TOKENS` | `512` | LLM 최대 출력 토큰 수 |
 | `LM_CONTEXT_LIMIT` | `2000` | 프롬프트 컨텍스트 최대 문자 수 |
+| `CARBON_MONITOR_ENABLED` | `true` | 탄소 측정 활성화 여부 |
+| `CARBON_INTENSITY_G_PER_KWH` | `350.0` | kWh 당 탄소 배출량(g) |
+| `CARBON_GPU_INDEX` | `0` | 측정 대상 GPU 인덱스 |
+| `CARBON_LOG_PATH` | `carbon_metrics.jsonl` | 탄소 측정 로그 경로 |
 
 GPU가 있는 경우 `EMBED_BATCH_SIZE`를 `8` → `32`로 늘리면 파이프라인 속도가 향상됩니다.
+
+---
+
+## Carbon Monitoring
+
+탄소 측정 모듈은 [carbon_monitor.py](carbon_monitor.py)에 캡슐화되어 있으며,
+기존 파이프라인의 값을 바꾸지 않고 임베딩/검색/생성 단계만 감싸서 계측합니다.
+
+현재 통합된 지점:
+
+- `embed_pipeline.py`
+  - `documents_embedding`
+  - `qa_embedding`
+- `query.py`
+  - `qa_pairs_retrieval`
+  - `documents_retrieval`
+  - `llm_generation`
+
+| 단계 | 실행 조건 |
+|------|-----------|
+| `documents_embedding` | `python embed_pipeline.py` 실행 시 문서 청크를 업서트할 때 측정 |
+| `qa_embedding` | `python embed_pipeline.py` 실행 시 QA 청크를 업서트할 때 측정 |
+| `qa_pairs_retrieval` | `rag_search()`가 호출될 때마다 측정 |
+| `documents_retrieval` | `qa_top1_score < 0.75`일 때만 추가 측정 |
+| `llm_generation` | `python query.py "..." --generate`로 생성까지 실행할 때만 측정 |
+
+기본 사용 예시는 다음과 같습니다.
+
+```python
+from carbon_monitor import CarbonMonitor
+
+carbon_monitor = CarbonMonitor.from_config(config)
+
+result, metrics = carbon_monitor.run(
+    "documents_embedding",
+    upsert_chunks,
+    client,
+    config.COLLECTION_DOCS,
+    doc_chunks,
+    model,
+)
+```
+
+로그는 JSON Lines 형식으로 저장되며 각 stage마다 다음 값을 남깁니다.
+
+- `duration_sec`
+- `energy_kwh`
+- `co2_g`
+- `peak_power_W`
+- `avg_power_W`
+
+자세한 설명은 [docs/carbon_monitor.md](docs/carbon_monitor.md)를 참고하세요.
+
+---
+
+## 탄소 측정 예시 결과
+
+실제 로컬 실행에서 확인한 예시 결과는 다음과 같습니다.
+
+| 단계 | 실행 시간 (s) | CO2 (g) | 최대 전력 (W) | 평균 전력 (W) |
+|------|--------------:|--------:|---------------:|--------------:|
+| `documents_embedding` | 16.8450 | 0.0511 | 30.19 | 22.36 |
+| `qa_embedding` | 2.6760 | 0.0137 | 27.07 | 14.46 |
+| `qa_pairs_retrieval` | 0.4225 | 0.0061 | 8.54 | 6.46 |
+| `documents_retrieval` | 0.1497 | 0.0032 | 4.45 | 3.96 |
+
+`llm_generation`도 [query.py](C:\Users\gunhu\project\eco_cache_branch\query.py)에
+계측이 붙어 있지만, LM Studio 서버가 켜진 상태에서 `--generate` 옵션으로
+실행할 때만 로그에 기록됩니다.
+
+- `documents` fallback 이후 LLM 생성 예시
+  - `duration_sec`: `10.8767`
+  - `co2_g`: `0.0224`
+  - `peak_power_W`: `17.50`
+  - `avg_power_W`: `10.79`
+- `qa_pairs` hit 이후 LLM 생성 예시
+  - `duration_sec`: `9.4051`
+  - `co2_g`: `0.0216`
+  - `peak_power_W`: `18.07`
+  - `avg_power_W`: `11.33`
+
+실행 사례:
+
+- `i-PAC 콘테스트 신청 기간은 언제인가요?`
+  - `source`: `documents`
+  - `qa_top1_score`: `0.7188`
+  - QA 점수가 임계값 `0.75`를 넘지 못해 문서 검색 후 LLM 생성까지 진행
+- `2025-2학기 i-PAC 인증 콘테스트 신청 기간과 참여 대상은 어떻게 되나요?`
+  - `source`: `qa_pairs`
+  - `top1 similarity`: `0.8368`
+  - QA hit로 바로 답을 찾았지만, 현재 구현에서는 `--generate` 옵션 때문에 LLM 생성도 함께 실행
+
+현재 구현은 `--generate` 옵션을 주면 QA hit 여부와 상관없이 LLM 생성까지
+실행합니다. 탄소 절감 관점에서 더 엄격한 구조로 바꾸려면, 이후 QA hit
+상태에서는 LLM 호출을 생략하는 방식으로 확장할 수 있습니다.
+
+### 25문항 배치 평가 (`test_queries.json`)
+
+이 브랜치에서 25개 테스트 질문 전체를 실행했고, 결과는
+`examples/test_set_eval_log.jsonl`에 저장했습니다.
+
+- Source 정확도: `24/25 (96.0%)`
+- Document hit율: `20/21 (95.2%)`
+- QA hit 횟수: `6`
+- Document fallback 횟수: `19`
+- 평균 top-1 유사도: `0.6898`
+- 배치 전체 retrieval CO2: `0.3852 g`
+
+| 단계 | 호출 수 | 총 실행 시간 (s) | 평균 실행 시간 (s) | 총 CO2 (g) | 평균 CO2 (g) |
+|------|--------:|------------------:|------------------:|------------:|-------------:|
+| `qa_pairs_retrieval` | 25 | 55.5169 | 2.2207 | 0.2197 | 0.0088 |
+| `documents_retrieval` | 19 | 41.7692 | 2.1984 | 0.1655 | 0.0087 |
+
+샘플 로그와 요약은 아래 파일에 정리했습니다.
+
+- [examples/carbon_metrics_sample.json](examples/carbon_metrics_sample.json)
+- [examples/carbon_run_summary.md](examples/carbon_run_summary.md)
+- [examples/test_set_eval_log.jsonl](examples/test_set_eval_log.jsonl)
+- [examples/test_set_carbon_summary.md](examples/test_set_carbon_summary.md)
 
 ---
 
