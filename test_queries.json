@@ -1,402 +1,562 @@
 [
   {
-    "id": "TQ-001",
+    "id": "q001",
+    "query": "TOPCIT 정기평가 신청 기간이 언제인가요?",
     "category": "exact_match",
-    "query": "2026년 AI-POT 자격증 취득 지원 프로그램 1차 신청 기간은 언제인가요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_093", "inha_notice_023"],
-    "notes": "QA 파일에 정확히 일치하는 질문 존재 → qa_pairs 히트 확인용"
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
   },
   {
-    "id": "TQ-002",
+    "id": "q002",
+    "query": "TOPCIT 단체접수 기간이 어떻게 되나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+  },
+  {
+    "id": "q003",
+    "query": "토픽시트 시험 언제 신청해요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+  },
+  {
+    "id": "q004",
+    "query": "TOPCIT 응시료 지원 받을 수 있나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+  },
+  {
+    "id": "q005",
+    "query": "TOPCIT 시험 응시료가 얼마인가요?",
+    "category": "paraphrase",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+  },
+  {
+    "id": "q006",
+    "query": "제25회 TOPCIT 시험일이 언제인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+  },
+  {
+    "id": "q007",
+    "query": "TOPCIT 상위 10% 포상 내용이 어떻게 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_002"]
+  },
+  {
+    "id": "q008",
+    "query": "컴퓨터공학과 졸업하려면 TOPCIT 몇 번 봐야 하나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_161508", "inha_notice_064"]
+  },
+  {
+    "id": "q009",
+    "query": "컴퓨터공학과 TOPCIT 졸업 요건이 뭔가요?",
+    "category": "paraphrase",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_161508", "inha_notice_064"]
+  },
+  {
+    "id": "q010",
+    "query": "i-PAC 콘테스트 신청 방법이 어떻게 되나요?",
     "category": "exact_match",
-    "query": "2026년 ICT학점연계프로젝트인턴십 상반기 글로벌과정 신청 마감일은 언제인가요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_092", "inha_notice_024"],
-    "notes": "배치3 QA 정확 매칭"
+    "expected_doc_ids": ["inha_notice_001"]
   },
   {
-    "id": "TQ-003",
+    "id": "q011",
+    "query": "i-PAC 인증 콘테스트 어떻게 신청하나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_001"]
+  },
+  {
+    "id": "q012",
+    "query": "아이팩 콘테스트 참가 신청 방법 알려주세요",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_001"]
+  },
+  {
+    "id": "q013",
+    "query": "i-PAC 콘테스트 참여 대상이 누구인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_001"]
+  },
+  {
+    "id": "q014",
+    "query": "i-PAC 대상 수상 상금이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_001"]
+  },
+  {
+    "id": "q015",
+    "query": "i-PAC A등급 이상 혜택이 무엇인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_001"]
+  },
+  {
+    "id": "q016",
+    "query": "i-PAC B등급 이상이면 졸업고사 면제되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_001"]
+  },
+  {
+    "id": "q017",
+    "query": "AI-POT 자격증 취득하면 장학금 얼마 받나요?",
     "category": "exact_match",
-    "query": "2025-2학기 SW캡스톤디자인 성과발표회는 언제 열리나요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_089", "inha_notice_027"],
-    "notes": "배치3 QA 정확 매칭"
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
   },
   {
-    "id": "TQ-004",
+    "id": "q018",
+    "query": "AI-POT 합격하면 지원금이 어떻게 되나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+  },
+  {
+    "id": "q019",
+    "query": "생성형 AI 프롬프트 자격증 취득 지원 장학금 금액이 얼마예요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+  },
+  {
+    "id": "q020",
+    "query": "AI-POT 자격증 프로그램 신청 자격이 어떻게 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+  },
+  {
+    "id": "q021",
+    "query": "AI-POT 1급과 2급 중 어느 등급이든 장학금 받을 수 있나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+  },
+  {
+    "id": "q022",
+    "query": "CEN 마일리지 장학금 신청 기간이 언제인가요?",
     "category": "exact_match",
-    "query": "제24회 TOPCIT 정기평가 단체접수 신청 기한과 평가 일정은 언제인가요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_064"],
-    "notes": "배치3 QA 정확 매칭 — 신청 기한·평가일 복합"
+    "expected_doc_ids": ["inha_notice_008"]
   },
   {
-    "id": "TQ-005",
+    "id": "q023",
+    "query": "CEN 마일리지 장학금 언제 신청할 수 있나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_008"]
+  },
+  {
+    "id": "q024",
+    "query": "SW중심대학 CEN 장학금 접수 일정이 어떻게 되나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_008"]
+  },
+  {
+    "id": "q025",
+    "query": "CEN 마일리지 장학금 선발 인원이 몇 명인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_008"]
+  },
+  {
+    "id": "q026",
+    "query": "CEN 마일리지 최고 장학금 금액이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_008"]
+  },
+  {
+    "id": "q027",
+    "query": "CEN 마일리지는 어떻게 적립하나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_008"]
+  },
+  {
+    "id": "q028",
+    "query": "TOPCIT CEN 마일리지 점수가 몇 점인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_010"]
+  },
+  {
+    "id": "q029",
+    "query": "SW 해커톤 참가하면 CEN 마일리지 몇 점 받나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_010"]
+  },
+  {
+    "id": "q030",
+    "query": "탄소중립 이노베이션 아카데미 신청 방법이 어떻게 되나요?",
     "category": "exact_match",
-    "query": "2025-2 AI-POT 자격증 취득 지원 프로그램 장학금 신청 기간은 언제인가요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_086"],
-    "notes": "배치3 QA 정확 매칭"
+    "expected_doc_ids": ["inha_notice_016"]
   },
   {
-    "id": "TQ-006",
+    "id": "q031",
+    "query": "탄소중립 아카데미 어떻게 지원하나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_016"]
+  },
+  {
+    "id": "q032",
+    "query": "이노베이션 아카데미 6기 신청 방법 알려주세요",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_016"]
+  },
+  {
+    "id": "q033",
+    "query": "탄소중립 이노베이션 아카데미 참여 대상이 누구인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_016"]
+  },
+  {
+    "id": "q034",
+    "query": "탄소중립 아카데미 수상 상금이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_016"]
+  },
+  {
+    "id": "q035",
+    "query": "ICT 학점연계 인턴십 글로벌 과정 지원 대상이 어떻게 되나요?",
     "category": "exact_match",
-    "query": "2025 전공인의 밤 행사는 언제, 어디서 열리나요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_090", "inha_notice_026"],
-    "notes": "배치3 QA 정확 매칭"
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
   },
   {
-    "id": "TQ-007",
+    "id": "q036",
+    "query": "ICT 글로벌 인턴십 누가 지원할 수 있나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+  },
+  {
+    "id": "q037",
+    "query": "실리콘밸리 인턴십 지원 자격이 어떻게 되나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+  },
+  {
+    "id": "q038",
+    "query": "ICT 인턴십 실습생 수당이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+  },
+  {
+    "id": "q039",
+    "query": "ICT 글로벌 인턴십 기간이 얼마나 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+  },
+  {
+    "id": "q040",
+    "query": "AX 창업 프로그램 신청 기간이 언제인가요?",
     "category": "exact_match",
-    "query": "AI VOYAGE 2025 요트 해커톤 참여 대상과 대회 일자는 언제인가요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_068"],
-    "notes": "배치3 QA 정확 매칭"
+    "expected_doc_ids": ["inha_notice_003"]
   },
   {
-    "id": "TQ-008",
+    "id": "q041",
+    "query": "AX 창업 프로그램 모집 기간이 어떻게 되나요?",
+    "category": "paraphrase",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_003"]
+  },
+  {
+    "id": "q042",
+    "query": "AI 창업 프로그램 지원비가 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_003"]
+  },
+  {
+    "id": "q043",
+    "query": "AX 창업 프로그램 최대 몇 팀 선발하나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_003"]
+  },
+  {
+    "id": "q044",
+    "query": "에세이 공모전 신청 기간이 언제인가요?",
     "category": "exact_match",
-    "query": "Physical AI 특강은 언제 어디서 열리나요?",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_082"],
-    "notes": "배치3 QA 정확 매칭"
+    "expected_doc_ids": ["inha_notice_012"]
   },
   {
-    "id": "TQ-009",
+    "id": "q045",
+    "query": "SW중심대학 에세이 공모전 마감이 언제예요?",
     "category": "paraphrase",
-    "query": "AI-POT 자격증 프로그램 1차 지원 일정",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_093", "inha_notice_023"],
-    "notes": "명사형 축약 → 의미 검색 성능 확인"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_012"]
   },
   {
-    "id": "TQ-010",
+    "id": "q046",
+    "query": "에세이 공모전 대상 상금이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_012"]
+  },
+  {
+    "id": "q047",
+    "query": "에세이 공모전 글자 수 제한이 어떻게 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_012"]
+  },
+  {
+    "id": "q048",
+    "query": "SW마에스트로 신청 방법이 어떻게 되나요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_019"]
+  },
+  {
+    "id": "q049",
+    "query": "SW마에스트로 어떻게 지원하나요?",
     "category": "paraphrase",
-    "query": "캡스톤 성과 발표 날짜 알려줘",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_089", "inha_notice_027"],
-    "notes": "구어체 변환 → 검색 강건성 확인"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_019"]
   },
   {
-    "id": "TQ-011",
+    "id": "q050",
+    "query": "SW마에스트로 17기 전형 일정이 어떻게 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_019"]
+  },
+  {
+    "id": "q051",
+    "query": "SW중심대학 디지털 경진대회 참가 대상이 누구인가요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_006"]
+  },
+  {
+    "id": "q052",
+    "query": "AI SW 디지털 경진대회 누가 참여할 수 있나요?",
     "category": "paraphrase",
-    "query": "i-PAC 참여 신청 마감은 언제까지예요?",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_072", "inha_sw_notice_163633", "inha_notice_001"],
-    "notes": "콘테스트→참여 신청 paraphrase"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_006"]
   },
   {
-    "id": "TQ-012",
+    "id": "q053",
+    "query": "2026 디지털 경진대회 부문이 어떻게 나뉘나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_006"]
+  },
+  {
+    "id": "q054",
+    "query": "디지털 경진대회 본선 장소가 어디인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_006"]
+  },
+  {
+    "id": "q055",
+    "query": "Advantech AIoT 프로젝트 팀 모집 마감이 언제인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_159179"]
+  },
+  {
+    "id": "q056",
+    "query": "AIoT Innoworks 참여 팀 재료비 지원이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_159179"]
+  },
+  {
+    "id": "q057",
+    "query": "오픈소스SW 페스티벌 제출 마감이 언제인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_159294"]
+  },
+  {
+    "id": "q058",
+    "query": "오픈소스 페스티벌 참여 자격이 어떻게 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_159294"]
+  },
+  {
+    "id": "q059",
+    "query": "MS 기업탐방 참여 대상과 일정이 어떻게 되나요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"]
+  },
+  {
+    "id": "q060",
+    "query": "마이크로소프트 기업탐방 신청 조건이 어떻게 되나요?",
     "category": "paraphrase",
-    "query": "탄소중립 아카데미 어떻게 신청해요?",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_016", "inha_notice_007"],
-    "notes": "INNOVATION ACADEMY → 아카데미 paraphrase + 구어체"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"]
   },
   {
-    "id": "TQ-013",
+    "id": "q061",
+    "query": "생성형 AI 쇼츠 공모전 참여 대상과 마감이 언제인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_163909", "inha_notice_078"]
+  },
+  {
+    "id": "q062",
+    "query": "쇼츠 공모전 최우수상 상금이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_163909", "inha_notice_078"]
+  },
+  {
+    "id": "q063",
+    "query": "전공인의 밤 행사는 언제 어디서 열리나요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_090"]
+  },
+  {
+    "id": "q064",
+    "query": "전공인의 밤 참여 대상이 누구인가요?",
     "category": "paraphrase",
-    "query": "TOPCIT 시험 접수 언제까지야?",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_064", "inha_notice_014"],
-    "notes": "단체접수 신청 기한 구어체 축약"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_090"]
   },
   {
-    "id": "TQ-014",
+    "id": "q065",
+    "query": "SW중심대학 마이크로전공 어떤 과목 들으면 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_159216"]
+  },
+  {
+    "id": "q066",
+    "query": "대학 연합 해커톤 참가 신청 방법이 어떻게 되나요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_022"]
+  },
+  {
+    "id": "q067",
+    "query": "아주대 대학연합 해커톤 상금이 얼마인가요?",
+    "category": "specific_info",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_022"]
+  },
+  {
+    "id": "q068",
+    "query": "컴퓨터공학과 대학원 설명회 일정이 어떻게 되나요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"]
+  },
+  {
+    "id": "q069",
+    "query": "대학원 연구분야 소개 세미나 몇 차례 열리나요?",
     "category": "paraphrase",
-    "query": "마이크로소프트 기업탐방 모집 마감일",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_080"],
-    "notes": "MS → 마이크로소프트 paraphrase + 명사형"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"]
   },
   {
-    "id": "TQ-015",
+    "id": "q070",
+    "query": "Apple 개발자 아카데미 워크숍 언제 어디서 열리나요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_sw_notice_162911", "inha_notice_071"]
+  },
+  {
+    "id": "q071",
+    "query": "애플 디벨로퍼 아카데미 워크숍 일정이 어떻게 되나요?",
     "category": "paraphrase",
-    "query": "요트 해커톤 신청 어떻게 해요?",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_068"],
-    "notes": "AI VOYAGE → 요트 해커톤 paraphrase + 구어체"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_sw_notice_162911", "inha_notice_071"]
   },
   {
-    "id": "TQ-016",
+    "id": "q072",
+    "query": "CEN 마일리지 교외활동 수상실적 등록 기한이 언제인가요?",
+    "category": "exact_match",
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_009"]
+  },
+  {
+    "id": "q073",
+    "query": "교외 수상실적 CEN 마일리지 등록하려면 어떻게 하나요?",
     "category": "paraphrase",
-    "query": "실리콘밸리 인턴십 지원 자격 조건",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"],
-    "notes": "글로벌과정 → 실리콘밸리 인턴십 paraphrase + 명사형"
+    "expected_source": "qa_pairs",
+    "expected_doc_ids": ["inha_notice_009"]
   },
   {
-    "id": "TQ-017",
+    "id": "q074",
+    "query": "CEN 마일리지 교외활동 제출 서류가 무엇인가요?",
     "category": "specific_info",
-    "query": "TOPCIT 정기평가 단체접수 신청 방법과 지원 혜택은 무엇인가요?",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_002", "inha_sw_notice_161508"],
-    "notes": "신청 방법·혜택 복합 질문"
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_009"]
   },
   {
-    "id": "TQ-018",
+    "id": "q075",
+    "query": "AI-POT 자격증이 무엇인가요?",
     "category": "specific_info",
-    "query": "MS 기업탐방 참여 대상과 모집 일정은?",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"],
-    "notes": "배치2·3 공통 문서 — 중복 chunk 처리 확인"
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_162514", "inha_notice_070"]
   },
   {
-    "id": "TQ-019",
+    "id": "q076",
+    "query": "생성형 AI 프롬프트 자격증이 어떤 자격증인가요?",
+    "category": "paraphrase",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_sw_notice_162514", "inha_notice_070"]
+  },
+  {
+    "id": "q077",
+    "query": "SW중심대학사업단 문의 이메일이 어떻게 되나요?",
     "category": "specific_info",
-    "query": "CEN 마일리지 장학금 신청 기간과 배점표는 어디서 확인하나요?",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_008", "inha_notice_009", "inha_notice_010"],
-    "notes": "여러 공지에 분산된 정보 — 다중 문서 커버리지 확인"
+    "expected_doc_ids": ["inha_notice_001", "inha_notice_002"]
   },
   {
-    "id": "TQ-020",
-    "category": "specific_info",
-    "query": "2025 에세이 공모전 신청 마감일과 제출 방법",
+    "id": "q078",
+    "query": "SW중심대학 사업단 연락처가 어떻게 되나요?",
+    "category": "paraphrase",
+    "expected_source": "documents",
+    "expected_doc_ids": ["inha_notice_001", "inha_notice_002"]
+  },
+  {
+    "id": "q079",
+    "query": "인하대 졸업 후 취업 전략 강연이 있나요?",
+    "category": "out_of_scope",
     "expected_source": "either",
-    "expected_doc_ids": ["inha_sw_notice_163788", "inha_notice_076"],
-    "notes": "기간연장 공지 포함 — 최신 정보 우선 반환 여부 확인"
+    "expected_doc_ids": []
   },
   {
-    "id": "TQ-021",
-    "category": "specific_info",
-    "query": "2025-2 AI-POT 자격증 취득 프로그램(2차) 신청 기간과 시험일은 언제인가요?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_070"],
-    "notes": "차수별 신청 기간·시험일 복합 — 1차/2차 혼동 여부 확인"
-  },
-  {
-    "id": "TQ-022",
-    "category": "specific_info",
-    "query": "탄소중립 INNOVATION ACADEMY 신청 방법과 합격자 발표 일정",
+    "id": "q080",
+    "query": "인하대 식당 메뉴가 어떻게 되나요?",
+    "category": "out_of_scope",
     "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_016", "inha_notice_007"],
-    "notes": "신청 방법(COEIC 포함) + 합격자 발표 복합"
-  },
-  {
-    "id": "TQ-023",
-    "category": "specific_info",
-    "query": "AI VOYAGE 2025 참여 신청 방법과 이메일 제출 마감은?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_068"],
-    "notes": "신청 방법(이메일)·마감일 복합"
-  },
-  {
-    "id": "TQ-024",
-    "category": "specific_info",
-    "query": "생성형 AI 활용 쇼츠 공모전 상금과 시상 인원은 어떻게 되나요?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_078"],
-    "notes": "상금·인원 세부 정보 추출"
-  },
-  {
-    "id": "TQ-025",
-    "category": "general_topic",
-    "query": "인하대 SW중심대학에서 지원하는 장학금 종류를 알려주세요",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_008", "inha_notice_013", "inha_notice_030"],
-    "notes": "장학금 전반 — 복수 문서 집계 필요"
-  },
-  {
-    "id": "TQ-026",
-    "category": "general_topic",
-    "query": "해커톤 대회 참가 신청 안내",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_022", "inha_sw_notice_162368", "inha_pr_037"],
-    "notes": "공지·외부홍보 모두 걸치는 폭넓은 토픽"
-  },
-  {
-    "id": "TQ-027",
-    "category": "general_topic",
-    "query": "탄소중립 이노베이션 아카데미 참여 방법",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_016", "inha_notice_007", "inha_sw_notice_159628"],
-    "notes": "INNOVATION ACADEMY 관련 복수 공지"
-  },
-  {
-    "id": "TQ-028",
-    "category": "general_topic",
-    "query": "자격증 취득 지원 프로그램에는 어떤 것들이 있나요?",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_093", "inha_notice_070", "inha_notice_086"],
-    "notes": "AI-POT 시리즈 전반 — 복수 차수 문서 집계"
-  },
-  {
-    "id": "TQ-029",
-    "category": "general_topic",
-    "query": "SW중심대학 비교과 프로그램에는 어떤 것들이 있나요?",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_016", "inha_notice_065", "inha_notice_068"],
-    "notes": "아카데미·챌린지·해커톤 등 비교과 전반"
-  },
-  {
-    "id": "TQ-030",
-    "category": "general_topic",
-    "query": "인하대 SW중심대학 기업탐방 프로그램 안내",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_080", "inha_notice_081"],
-    "notes": "MS 기업탐방 관련 복수 공지 (모집·선발결과)"
-  },
-  {
-    "id": "TQ-031",
-    "category": "external_program",
-    "query": "LG Aimers 프로그램 모집 안내",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_pr_036", "inha_pr_023"],
-    "notes": "외부홍보(pr_data) 검색 성능 확인"
-  },
-  {
-    "id": "TQ-032",
-    "category": "external_program",
-    "query": "오픈소스 개발자 대회 신청 방법",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_pr_001", "inha_pr_024", "inha_pr_034"],
-    "notes": "외부홍보 오픈소스 관련 다수"
-  },
-  {
-    "id": "TQ-033",
-    "category": "external_program",
-    "query": "자율주행 경진대회 모집 일정과 참가 자격",
-    "expected_source": "documents",
-    "expected_doc_ids": ["inha_pr_019", "inha_pr_025"],
-    "notes": "외부홍보 경진대회 — 키워드 중복 문서"
-  },
-  {
-    "id": "TQ-034",
-    "category": "external_program",
-    "query": "K-해양 AI 챌린지 본선 일정과 서류 접수 마감은 언제인가요?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_069"],
-    "notes": "외부 연계 프로그램 — 본선 일정·마감 복합"
-  },
-  {
-    "id": "TQ-035",
-    "category": "cross_source",
-    "query": "SW중심대학 에세이 공모전 접수 마감",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_012", "inha_pr_033", "inha_sw_notice_163788"],
-    "notes": "공지 + 외부홍보 동시에 관련 문서 존재"
-  },
-  {
-    "id": "TQ-036",
-    "category": "cross_source",
-    "query": "생성형 AI 프롬프트 자격증 취득 지원 프로그램 장학금 신청",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_sw_notice_160349", "inha_sw_notice_157275"],
-    "notes": "배치2 내 연속 공지 — 순서 구분 확인"
-  },
-  {
-    "id": "TQ-037",
-    "category": "cross_source",
-    "query": "2025 AIoT 관련 행사 일정 및 참여 방법",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_066", "inha_notice_073", "inha_notice_091"],
-    "notes": "Advantech AIoT 시리즈 — 오리엔테이션·취소공지·발표회 크로스"
-  },
-  {
-    "id": "TQ-038",
-    "category": "cross_source",
-    "query": "TOPCIT 성적 우수자 장학금 혜택과 배점 기준",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_010", "inha_notice_028", "inha_notice_088"],
-    "notes": "배점표(문서)+최고득점자(QA) 크로스 — 다중 소스 연계"
-  },
-  {
-    "id": "TQ-039",
-    "category": "edge_low_relevance",
-    "query": "기숙사 신청 방법",
-    "expected_source": "documents",
-    "expected_doc_ids": [],
-    "notes": "데이터셋에 없는 토픽 → 낮은 유사도 반환 확인"
-  },
-  {
-    "id": "TQ-040",
-    "category": "edge_low_relevance",
-    "query": "수강신청 일정",
-    "expected_source": "documents",
-    "expected_doc_ids": [],
-    "notes": "데이터셋에 없는 토픽"
-  },
-  {
-    "id": "TQ-041",
-    "category": "edge_low_relevance",
-    "query": "도서관 이용 시간",
-    "expected_source": "documents",
-    "expected_doc_ids": [],
-    "notes": "SW중심대학 범위 외 토픽 → 낮은 유사도 확인"
-  },
-  {
-    "id": "TQ-042",
-    "category": "edge_low_relevance",
-    "query": "졸업 논문 심사 일정",
-    "expected_source": "documents",
-    "expected_doc_ids": [],
-    "notes": "데이터셋 범위 외 — fallback 문서 품질 확인"
-  },
-  {
-    "id": "TQ-043",
-    "category": "edge_ambiguous",
-    "query": "선발 결과는 어떻게 되나요?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": [],
-    "notes": "배치1 QA에 이 질문이 여러 문서에 반복됨 — 중의적 질문 처리 확인"
-  },
-  {
-    "id": "TQ-044",
-    "category": "edge_ambiguous",
-    "query": "신청 기간은 언제인가요?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": [],
-    "notes": "배치1 QA에서 가장 자주 반복되는 질문 — 특정 문서 없이 범용 히트"
-  },
-  {
-    "id": "TQ-045",
-    "category": "edge_ambiguous",
-    "query": "참여 대상 알려주세요",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": [],
-    "notes": "지원 대상 질문 다수 문서 중복 — top-1 유사도 분산 확인"
-  },
-  {
-    "id": "TQ-046",
-    "category": "edge_ambiguous",
-    "query": "발표회 장소가 어디예요?",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": [],
-    "notes": "캡스톤/AIoT/전공인의 밤 등 발표회 다수 — 중의적 히트"
-  },
-  {
-    "id": "TQ-047",
-    "category": "detail_retrieval",
-    "query": "Physical AI와 미래 특강 일시와 장소",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_sw_notice_165438", "inha_notice_082"],
-    "notes": "시간·장소 세부 정보 추출"
-  },
-  {
-    "id": "TQ-048",
-    "category": "detail_retrieval",
-    "query": "컴퓨터공학과 대학원 설명회 참석 신청 방법",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"],
-    "notes": "배치2·3 중복 문서 — 동일 청크 중복 반환 여부 확인"
-  },
-  {
-    "id": "TQ-049",
-    "category": "detail_retrieval",
-    "query": "SW마에스트로 17기 우수자 추천 선발 결과 안내",
-    "expected_source": "either",
-    "expected_doc_ids": ["inha_notice_018", "inha_notice_019"],
-    "notes": "연속 관련 공지 2건 — 순위 정확도 확인"
-  },
-  {
-    "id": "TQ-050",
-    "category": "detail_retrieval",
-    "query": "2025 생성형AI 쇼츠 공모전 시상식 날짜와 장소, 최우수상 상금",
-    "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_029", "inha_notice_087"],
-    "notes": "시상식 일시·장소·상금 세부 정보 복합 추출"
+    "expected_doc_ids": []
   }
 ]
