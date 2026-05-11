@@ -72,7 +72,7 @@ def _lm_studio_url() -> str:
 LM_STUDIO_URL    = _lm_studio_url()
 LM_STUDIO_MODEL  = os.getenv("LM_STUDIO_MODEL", "")
 LM_TEMPERATURE   = 0.3
-LM_MAX_TOKENS    = 512
+LM_MAX_TOKENS    = 4096
 LM_CONTEXT_LIMIT = 2000
 LM_SYSTEM_PROMPT = (
     "당신은 인하대학교 SW중심대학사업단 공지사항 안내 도우미입니다.\n"
