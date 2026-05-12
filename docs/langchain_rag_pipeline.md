@@ -48,10 +48,25 @@ python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?" -
 python -m rag.retrieval_eval --query-file test_queries.json --top-k 3 --threshold 0.8 --limit 10
 ```
 
+## 여러 설정 자동 비교
+
+`top_k`와 `threshold` 후보를 한 번에 비교하려면 아래 명령을 사용합니다.
+
+```powershell
+python -m rag.retrieval_sweep --query-file test_queries.json --top-ks 3,5 --thresholds 0.75,0.8,0.85 --limit 10 --output-dir outputs/retrieval_sweep_test
+```
+
+생성되는 파일:
+
+| 파일 | 내용 |
+| --- | --- |
+| `retrieval_sweep_summary.md` | 회의 공유용 요약 표 |
+| `retrieval_sweep_summary.csv` | 엑셀/스프레드시트용 요약 표 |
+| `retrieval_sweep_results.json` | 질문별 상세 결과 포함 전체 로그 |
+
 ## 다음 최적화 지점
 
 - `threshold`: 0.75, 0.80, 0.85 후보 비교
 - `top_k`: 3, 5 후보 비교
 - `chunk_size`: 기존 값 기준으로 필요 시 1000, 1500, 2000 비교
 - `source metadata`: 웹에서 클릭 가능한 `title`, `url`, `doc_id` 유지
-
