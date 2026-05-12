@@ -1,0 +1,53 @@
+from __future__ import annotations
+
+import argparse
+import json
+import time
+from typing import Any
+
+from rag.langchain_config import build_settings
+from rag.response_adapter import to_chat_response
+from rag.semantic_cache_retriever import SemanticCacheRetriever
+
+
+class LangChainRagPipeline:
+    """Retrieval-first RAG pipeline prepared for the web demo."""
+
+    def __init__(
+        self,
+        *,
+        top_k: int | None = None,
+        threshold: float | None = None,
+    ) -> None:
+        self.settings = build_settings(top_k=top_k, qa_threshold=threshold)
+        self.retriever = SemanticCacheRetriever(self.settings)
+
+    def run(
+        self,
+        query: str,
+        *,
+        filters: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        started = time.perf_counter()
+        result = self.retriever.retrieve(query, filters=filters)
+        latency_ms = round((time.perf_counter() - started) * 1000, 1)
+        return to_chat_response(result, latency_ms=latency_ms)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Run the LangChain-style EcoCache RAG pipeline.")
+    parser.add_argument("query", help="User query")
+    parser.add_argument("--top-k", type=int, default=None, help="Number of retrieved candidates")
+    parser.add_argument("--threshold", type=float, default=None, help="QA semantic-cache threshold")
+    parser.add_argument("--board-type", default=None, help="Optional board_type metadata filter")
+    args = parser.parse_args()
+
+    filters = {"board_type": args.board_type} if args.board_type else None
+    pipeline = LangChainRagPipeline(top_k=args.top_k, threshold=args.threshold)
+    response = pipeline.run(args.query, filters=filters)
+    print(json.dumps(response, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+
