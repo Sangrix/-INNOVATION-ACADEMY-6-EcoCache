@@ -88,3 +88,25 @@ python -m rag.retrieval_sweep --query-file test_queries.json --top-ks 3,5 --thre
 - `top_k`: 3, 5 후보 비교
 - `chunk_size`: 기존 값 기준으로 필요 시 1000, 1500, 2000 비교
 - `source metadata`: 웹에서 클릭 가능한 `title`, `url`, `doc_id` 유지
+
+## chunk_size / chunk_overlap 자동 비교
+
+`top_k=5`, `threshold=0.75`를 고정하고 chunk 설정만 비교합니다.
+
+| preset | chunk_size | chunk_overlap |
+| --- | --- | --- |
+| A | 1000 | 100 |
+| B | 1500 | 150 |
+| C | 2000 | 200 |
+
+```powershell
+python -m rag.chunk_sweep --presets A,B,C --top-k 5 --threshold 0.75 --output-dir outputs/chunk_sweep
+```
+
+생성되는 파일:
+
+| 파일 | 내용 |
+| --- | --- |
+| `chunk_sweep_summary.md` | 회의 공유용 요약 표 |
+| `chunk_sweep_summary.csv` | 엑셀/스프레드시트용 요약 표 |
+| `chunk_sweep_results.json` | 전체 결과 JSON |

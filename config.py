@@ -26,9 +26,9 @@ EMBED_MODEL_ID   = "dragonkue/BGE-m3-ko"
 EMBED_BATCH_SIZE = 8   # CPU 환경 기본값; GPU 사용 시 32로 늘릴 것
 
 # ── 청킹 (모두 문자 수 기준) ──────────────────────────────────────────────────
-CHUNK_THRESHOLD = 2000   # 이 이하면 단일 청크
-CHUNK_SIZE      = 1500   # 청킹 적용 시 청크 크기
-CHUNK_OVERLAP   = 150    # 오버랩
+CHUNK_THRESHOLD = int(os.getenv("CHUNK_THRESHOLD", "2000"))   # 이 이하면 단일 청크
+CHUNK_SIZE      = int(os.getenv("CHUNK_SIZE", "1500"))        # 청킹 적용 시 청크 크기
+CHUNK_OVERLAP   = int(os.getenv("CHUNK_OVERLAP", "150"))      # 오버랩
 
 # ── Qdrant ────────────────────────────────────────────────────────────────────
 QDRANT_URL      = os.getenv("QDRANT_URL", "http://localhost:6333")
