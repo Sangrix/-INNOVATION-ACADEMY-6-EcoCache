@@ -75,10 +75,13 @@ class QdrantVectorSearcher:
         if self._client is None:
             from qdrant_client import QdrantClient
 
-            self._client = QdrantClient(
-                url=self.settings.qdrant_url,
-                api_key=self.settings.qdrant_api_key,
-            )
+            if self.settings.qdrant_local_path is not None:
+                self._client = QdrantClient(path=str(self.settings.qdrant_local_path))
+            else:
+                self._client = QdrantClient(
+                    url=self.settings.qdrant_url,
+                    api_key=self.settings.qdrant_api_key,
+                )
         return self._client
 
     def search(

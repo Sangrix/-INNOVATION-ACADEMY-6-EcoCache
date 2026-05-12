@@ -33,6 +33,8 @@ CHUNK_OVERLAP   = 150    # 오버랩
 # ── Qdrant ────────────────────────────────────────────────────────────────────
 QDRANT_URL      = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY  = os.getenv("QDRANT_API_KEY") or None
+_qdrant_local_path = os.getenv("QDRANT_LOCAL_PATH", "").strip()
+QDRANT_LOCAL_PATH = Path(_qdrant_local_path) if _qdrant_local_path else None
 VECTOR_SIZE     = 1024
 COLLECTION_DOCS = "documents"
 COLLECTION_QA   = "qa_pairs"

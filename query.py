@@ -36,7 +36,10 @@ def get_model() -> SentenceTransformer:
 def get_client() -> QdrantClient:
     global _client
     if _client is None:
-        _client = QdrantClient(url=config.QDRANT_URL, api_key=config.QDRANT_API_KEY)
+        if config.QDRANT_LOCAL_PATH is not None:
+            _client = QdrantClient(path=str(config.QDRANT_LOCAL_PATH))
+        else:
+            _client = QdrantClient(url=config.QDRANT_URL, api_key=config.QDRANT_API_KEY)
     return _client
 
 

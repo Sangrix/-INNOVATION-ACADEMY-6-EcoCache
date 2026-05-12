@@ -165,6 +165,8 @@ def safe_encode(model: SentenceTransformer, texts: list[str]) -> list | None:
 # ── Qdrant ────────────────────────────────────────────────────────────────────
 
 def get_qdrant_client() -> QdrantClient:
+    if config.QDRANT_LOCAL_PATH is not None:
+        return QdrantClient(path=str(config.QDRANT_LOCAL_PATH))
     return QdrantClient(url=config.QDRANT_URL, api_key=config.QDRANT_API_KEY)
 
 

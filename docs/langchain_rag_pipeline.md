@@ -34,9 +34,19 @@
 | `rag/response_adapter.py` | 백엔드 응답 스키마 변환 |
 | `rag/retrieval_eval.py` | threshold/top-k 평가 실행 |
 
+## Qdrant 실행 방식
+
+Docker가 있으면 Qdrant 서버를 띄워서 사용할 수 있습니다. Docker가 없으면 `QDRANT_LOCAL_PATH`를 지정해 파일 기반 로컬 Qdrant로 실행할 수 있습니다.
+
+```powershell
+$env:QDRANT_LOCAL_PATH=(Resolve-Path ".").Path + "\qdrant_local"
+```
+
+이 값을 지정하면 `localhost:6333` 서버에 접속하지 않고, `qdrant_local` 폴더에 벡터 데이터를 저장합니다.
+
 ## 단일 질문 실행
 
-Qdrant가 먼저 실행되어 있고, 기존 embedding pipeline으로 컬렉션이 만들어져 있어야 합니다.
+Qdrant 서버 또는 `QDRANT_LOCAL_PATH`가 준비되어 있고, 기존 embedding pipeline으로 컬렉션이 만들어져 있어야 합니다.
 
 ```powershell
 python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?" --top-k 3 --threshold 0.8
