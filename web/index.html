@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoCache — SW중심대학 학사 도우미</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      background: #f5f5f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .chat-container {
+      width: 420px;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 580px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .chat-header {
+      padding: 14px 16px 10px;
+      border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    }
+    .chat-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .chat-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-icon {
+      width: 32px;
+      height: 32px;
+      background: #1D9E75;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+    }
+    .chat-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+    .chat-subtitle {
+      font-size: 11px;
+      color: #888;
+      margin-top: 1px;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #888;
+      font-size: 18px;
+      padding: 2px;
+    }
+    .stats-row {
+      display: flex;
+      gap: 8px;
+    }
+    .stat-pill {
+      flex: 1;
+      background: #f5f5f0;
+      border-radius: 8px;
+      padding: 7px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: #888;
+    }
+    .stat-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1D9E75;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+    }
+    .msg-user {
+      align-self: flex-end;
+      background: #1D9E75;
+      color: white;
+      border-radius: 14px 14px 2px 14px;
+      padding: 9px 13px;
+      font-size: 13px;
+      max-width: 75%;
+      line-height: 1.5;
+    }
+    .msg-bot-wrapper {
+      align-self: flex-start;
+      max-width: 85%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .msg-bot {
+      background: #f5f5f0;
+      border-radius: 2px 14px 14px 14px;
+      padding: 10px 13px;
+      font-size: 13px;
+      color: #1a1a1a;
+      line-height: 1.6;
+      border: 0.5px solid rgba(0,0,0,0.08);
+    }
+    .msg-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .cache-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #E1F5EE;
+      color: #0F6E56;
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .meta-text {
+      font-size: 11px;
+      color: #aaa;
+    }
+    .new-gen-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f5f5f0;
+      color: #888;
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 11px;
+      border: 0.5px solid rgba(0,0,0,0.1);
+    }
+    .source-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #888;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .source-btn:hover {
+      background: #f5f5f0;
+      color: #1D9E75;
+      border-color: #1D9E75;
+    }
+    .chat-input-area {
+      padding: 10px 14px 12px;
+      border-top: 0.5px solid rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .chat-input {
+      flex: 1;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 20px;
+      padding: 9px 14px;
+      font-size: 13px;
+      background: #f5f5f0;
+      color: #1a1a1a;
+      outline: none;
+    }
+    .chat-input:focus {
+      border-color: #1D9E75;
+      box-shadow: 0 0 0 2px rgba(29, 158, 117, 0.15);
+    }
+    .send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1D9E75;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .send-btn:hover { background: #0F6E56; }
+    .chat-footer {
+      font-size: 10px;
+      color: #bbb;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="chat-header-top">
+        <div class="chat-title-row">
+          <div class="chat-icon">
+            <i class="ti ti-leaf"></i>
+          </div>
+          <div>
+            <div class="chat-title">SW중심대학 학사 도우미</div>
+            <div class="chat-subtitle">CacheRAG · 친환경 응답 모드</div>
+          </div>
+        </div>
+        <button class="close-btn"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-pill">
+          <span class="stat-label">누적 캐시 히트율</span>
+          <span class="stat-value" id="hit-rate">68.2%</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">오늘 탄소 절감</span>
+          <span class="stat-value" id="co2-saved">142g CO₂eq</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="messages">
+      <div class="msg-user">졸업 이수학점이 어떻게 되나요?</div>
+      <div class="msg-bot-wrapper">
+        <div class="msg-bot">
+          SW융합학부 기준 총 130학점 이수가 필요하며, 전공 60학점·교양 30학점·일반선택 40학점으로 구성됩니다. 캡스톤디자인 6학점은 필수 포함입니다.
+        </div>
+        <div class="msg-meta">
+          <span class="cache-badge"><i class="ti ti-check"></i> 캐시 히트</span>
+          <span class="meta-text">유사도 0.94 · 응답 0.12s · -0.84g CO₂eq</span>
+        </div>
+      </div>
+
+      <div class="msg-user">2026-1학기 캡스톤 신청 기간 알려줘</div>
+      <div class="msg-bot-wrapper">
+        <div class="msg-bot">
+          2026-1학기 SW 캡스톤디자인 수강신청은 2월 18일(수) 10시부터 2월 24일(화) 17시까지이며, 학과 사무실 사전 면담이 필요합니다.
+        </div>
+        <div class="msg-meta">
+          <span class="new-gen-badge"><i class="ti ti-sparkles"></i> 새로 생성</span>
+          <span class="meta-text">응답 2.41s · CI 412g/kWh · +1.3g CO₂eq</span>
+        </div>
+        <div class="msg-meta">
+          <a href="https://swuniv.inha.ac.kr" target="_blank" class="source-btn">
+            <i class="ti ti-external-link"></i> 출처 보기
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="input-row">
+        <input
+          class="chat-input"
+          type="text"
+          placeholder="학사 정보를 물어보세요"
+          id="user-input"
+          onkeydown="if(event.key==='Enter') sendMsg()"
+        />
+        <button class="send-btn" onclick="sendMsg()">
+          <i class="ti ti-send"></i>
+        </button>
+      </div>
+      <div class="chat-footer">Inha SW중심대학 × CacheRAG · 응답마다 탄소영향이 표시됩니다</div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:8000/chat'; // TODO: 희승님 API 주소로 교체
+
+    function sendMsg() {
+      const input = document.getElementById('user-input');
+      const text = input.value.trim();
+      if (!text) return;
+      const messages = document.getElementById('messages');
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg-user';
+      userMsg.textContent = text;
+      messages.appendChild(userMsg);
+      input.value = '';
+
+      // TODO: 희승님 API 연동 후 아래 fetch 코드 활성화
+      // fetch(API_URL, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ query: text })
+      // })
+      // .then(res => res.json())
+      // .then(data => {
+      //   renderBotMessage(data, messages);
+      // });
+
+      setTimeout(() => {
+        const botWrapper = document.createElement('div');
+        botWrapper.className = 'msg-bot-wrapper';
+        botWrapper.innerHTML = `
+          <div class="msg-bot">API 연동 후 실제 답변이 여기 표시됩니다.</div>
+          <div class="msg-meta">
+            <span class="new-gen-badge"><i class="ti ti-sparkles"></i> 새로 생성</span>
+            <span class="meta-text">응답 대기 중</span>
+          </div>
+        `;
+        messages.appendChild(botWrapper);
+        messages.scrollTop = messages.scrollHeight;
+      }, 800);
+
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function renderBotMessage(data, messages) {
+      const botWrapper = document.createElement('div');
+      botWrapper.className = 'msg-bot-wrapper';
+      const cacheHit = data.result.cache_hit;
+      const badge = cacheHit
+        ? `<span class="cache-badge"><i class="ti ti-check"></i> 캐시 히트</span>`
+        : `<span class="new-gen-badge"><i class="ti ti-sparkles"></i> 새로 생성</span>`;
+      const sources = (data.result.sources || []).map(url =>
+        `<a href="${url}" target="_blank" class="source-btn"><i class="ti ti-external-link"></i> 출처 보기</a>`
+      ).join('');
+      botWrapper.innerHTML = `
+        <div class="msg-bot">${data.result.response}</div>
+        <div class="msg-meta">${badge}
+          <span class="meta-text">유사도 ${data.result.similarity?.toFixed(2) || '-'} · ${data.result.latency}ms · ${data.result.co2_grams?.toFixed(2) || '-'}g CO₂eq</span>
+        </div>
+        ${sources ? `<div class="msg-meta">${sources}</div>` : ''}
+      `;
+      messages.appendChild(botWrapper);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
