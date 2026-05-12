@@ -27,9 +27,11 @@ class LangChainRagPipeline:
         query: str,
         *,
         filters: dict[str, Any] | None = None,
+        qa_top_k: int | None = None,
+        doc_top_k: int | None = None,
     ) -> dict[str, Any]:
         started = time.perf_counter()
-        result = self.retriever.retrieve(query, filters=filters)
+        result = self.retriever.retrieve(query, filters=filters, qa_top_k=qa_top_k, doc_top_k=doc_top_k)
         latency_ms = round((time.perf_counter() - started) * 1000, 1)
         return to_chat_response(result, latency_ms=latency_ms)
 
@@ -38,16 +40,17 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the LangChain-style EcoCache RAG pipeline.")
     parser.add_argument("query", help="User query")
     parser.add_argument("--top-k", type=int, default=None, help="Number of retrieved candidates")
+    parser.add_argument("--qa-top-k", type=int, default=None, help="Number of QA cache candidates")
+    parser.add_argument("--doc-top-k", type=int, default=None, help="Number of document candidates")
     parser.add_argument("--threshold", type=float, default=None, help="QA semantic-cache threshold")
     parser.add_argument("--board-type", default=None, help="Optional board_type metadata filter")
     args = parser.parse_args()
 
     filters = {"board_type": args.board_type} if args.board_type else None
     pipeline = LangChainRagPipeline(top_k=args.top_k, threshold=args.threshold)
-    response = pipeline.run(args.query, filters=filters)
+    response = pipeline.run(args.query, filters=filters, qa_top_k=args.qa_top_k, doc_top_k=args.doc_top_k)
     print(json.dumps(response, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
     main()
-

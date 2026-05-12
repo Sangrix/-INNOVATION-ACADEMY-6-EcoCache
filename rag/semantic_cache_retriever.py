@@ -45,16 +45,20 @@ class SemanticCacheRetriever:
         query: str,
         *,
         top_k: int | None = None,
+        qa_top_k: int | None = None,
+        doc_top_k: int | None = None,
         threshold: float | None = None,
         filters: dict[str, Any] | None = None,
     ) -> RetrievalResult:
         top_k = top_k or self.settings.top_k
+        qa_top_k = qa_top_k or top_k
+        doc_top_k = doc_top_k or top_k
         threshold = threshold if threshold is not None else self.settings.qa_threshold
 
         qa_hits = self.searcher.search(
             query,
             self.settings.collection_qa,
-            top_k=top_k,
+            top_k=qa_top_k,
             filters=filters,
         )
         qa_top1 = qa_hits[0].score if qa_hits else None
@@ -65,10 +69,10 @@ class SemanticCacheRetriever:
                 query=query,
                 source="qa_pairs",
                 cache_hit=True,
-                threshold=threshold,
-                top_k=top_k,
-                qa_top1_score=qa_top1,
-                top1_similarity=qa_top1,
+            threshold=threshold,
+            top_k=doc_top_k,
+            qa_top1_score=qa_top1,
+            top1_similarity=qa_top1,
                 results=qa_hits,
                 answer=answer,
                 sources=_dedupe_sources(qa_hits),
@@ -77,7 +81,7 @@ class SemanticCacheRetriever:
         doc_hits = self.searcher.search(
             query,
             self.settings.collection_docs,
-            top_k=top_k,
+            top_k=doc_top_k,
             filters=filters,
         )
         doc_top1 = doc_hits[0].score if doc_hits else None
@@ -106,4 +110,3 @@ def _dedupe_sources(hits: list[SearchHit]) -> list[dict[str, Any]]:
         seen.add(key)
         sources.append(source)
     return sources
-

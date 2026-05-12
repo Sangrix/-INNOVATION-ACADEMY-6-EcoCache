@@ -36,10 +36,12 @@ def run_eval(
     limit: int | None = None,
     sample_mode: str = "first",
     warmup: bool = True,
+    qa_top_k: int | None = None,
+    doc_top_k: int | None = None,
 ) -> dict:
     pipeline = LangChainRagPipeline(top_k=top_k, threshold=threshold)
     if warmup:
-        pipeline.run("warmup query")
+        pipeline.run("warmup query", qa_top_k=qa_top_k, doc_top_k=doc_top_k)
 
     query_items = _select_queries(_load_queries(query_file), limit, sample_mode)
     rows = []
@@ -50,7 +52,7 @@ def run_eval(
     wrong_cache_hits = 0
 
     for item in query_items:
-        response = pipeline.run(item["query"])
+        response = pipeline.run(item["query"], qa_top_k=qa_top_k, doc_top_k=doc_top_k)
         expected = set(item.get("expected_doc_ids") or [])
         retrieved = _source_ids(response)
         top1_hit = bool(expected and retrieved[:1] and retrieved[0] in expected)
@@ -83,6 +85,8 @@ def run_eval(
     return {
         "config": {
             "top_k": top_k,
+            "qa_top_k": qa_top_k,
+            "doc_top_k": doc_top_k,
             "threshold": threshold,
             "limit": limit,
             "sample_mode": sample_mode,

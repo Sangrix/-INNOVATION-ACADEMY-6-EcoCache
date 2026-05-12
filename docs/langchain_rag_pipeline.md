@@ -110,3 +110,17 @@ python -m rag.chunk_sweep --presets A,B,C --top-k 5 --threshold 0.75 --output-di
 | `chunk_sweep_summary.md` | 회의 공유용 요약 표 |
 | `chunk_sweep_summary.csv` | 엑셀/스프레드시트용 요약 표 |
 | `chunk_sweep_results.json` | 전체 결과 JSON |
+
+## QA top_k / document top_k 분리 비교
+
+이미 만들어진 Qdrant 인덱스를 그대로 사용하므로 재임베딩은 필요 없습니다.
+
+```powershell
+python -m rag.split_topk_sweep --pairs 3:5,5:5,3:7 --threshold 0.75 --output-dir outputs/split_topk_sweep
+```
+
+| pair | 의미 |
+| --- | --- |
+| `3:5` | QA 캐시는 3개 검색, 문서는 5개 검색 |
+| `5:5` | QA 캐시와 문서 모두 5개 검색 |
+| `3:7` | QA 캐시는 3개 검색, 문서는 7개 검색 |
