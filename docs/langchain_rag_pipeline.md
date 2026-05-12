@@ -63,10 +63,16 @@ python -m rag.retrieval_eval --query-file test_queries.json --top-k 3 --threshol
 `top_k`와 `threshold` 후보를 한 번에 비교하려면 아래 명령을 사용합니다.
 
 ```powershell
-python -m rag.retrieval_sweep --query-file test_queries.json --top-ks 3,5 --thresholds 0.75,0.8,0.85 --limit 10 --sample-mode even --output-dir outputs/retrieval_sweep_test
+python -m rag.retrieval_sweep --query-file test_queries.json --top-ks 3,5 --thresholds 0.7,0.75,0.8,0.85 --limit 10 --sample-mode even --output-dir outputs/retrieval_sweep_test
 ```
 
 `--sample-mode even`은 평가셋 앞쪽 10개만 쓰지 않고 전체 평가셋에서 고르게 10개를 뽑습니다. 모델 첫 로딩 시간이 평균 지연에 섞이지 않도록 warmup은 기본으로 실행됩니다.
+
+전체 50개 평가셋을 돌릴 때는 `--limit`을 빼고 실행합니다.
+
+```powershell
+python -m rag.retrieval_sweep --query-file test_queries.json --top-ks 3,5 --thresholds 0.7,0.75,0.8,0.85 --output-dir outputs/retrieval_sweep_full
+```
 
 생성되는 파일:
 
@@ -78,7 +84,7 @@ python -m rag.retrieval_sweep --query-file test_queries.json --top-ks 3,5 --thre
 
 ## 다음 최적화 지점
 
-- `threshold`: 0.75, 0.80, 0.85 후보 비교
+- `threshold`: 0.70, 0.75, 0.80, 0.85 후보 비교
 - `top_k`: 3, 5 후보 비교
 - `chunk_size`: 기존 값 기준으로 필요 시 1000, 1500, 2000 비교
 - `source metadata`: 웹에서 클릭 가능한 `title`, `url`, `doc_id` 유지
