@@ -41,7 +41,7 @@ def run_eval(
 ) -> dict:
     pipeline = LangChainRagPipeline(top_k=top_k, threshold=threshold)
     if warmup:
-        pipeline.run("warmup query", qa_top_k=qa_top_k, doc_top_k=doc_top_k)
+        pipeline.run("warmup query", qa_top_k=qa_top_k, doc_top_k=doc_top_k, generate=False)
 
     query_items = _select_queries(_load_queries(query_file), limit, sample_mode)
     rows = []
@@ -52,7 +52,7 @@ def run_eval(
     wrong_cache_hits = 0
 
     for item in query_items:
-        response = pipeline.run(item["query"], qa_top_k=qa_top_k, doc_top_k=doc_top_k)
+        response = pipeline.run(item["query"], qa_top_k=qa_top_k, doc_top_k=doc_top_k, generate=False)
         expected = set(item.get("expected_doc_ids") or [])
         retrieved = _source_ids(response)
         top1_hit = bool(expected and retrieved[:1] and retrieved[0] in expected)

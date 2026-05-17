@@ -52,6 +52,19 @@ Qdrant 서버 또는 `QDRANT_LOCAL_PATH`가 준비되어 있고, 기존 embeddin
 python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?" --top-k 3 --threshold 0.8
 ```
 
+LM Studio 모델이 설정되어 있지 않으면 documents fallback 시 검색 결과 기반 fallback 답변을 반환합니다. LLM 없이 retrieval 결과만 확인하려면 아래 옵션을 사용합니다.
+
+```powershell
+python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?" --no-generate
+```
+
+LM Studio를 켜서 자연어 답변 생성을 붙일 때는 `.env` 또는 PowerShell 환경변수로 모델명을 지정합니다.
+
+```powershell
+$env:LM_STUDIO_MODEL="qwen2.5-7b-instruct"
+python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?"
+```
+
 ## 작은 평가 실행
 
 ```powershell

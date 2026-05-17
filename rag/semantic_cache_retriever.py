@@ -14,6 +14,8 @@ class RetrievalResult:
     cache_hit: bool
     threshold: float
     top_k: int
+    qa_top_k: int
+    doc_top_k: int
     qa_top1_score: float | None
     top1_similarity: float | None
     results: list[SearchHit]
@@ -26,6 +28,8 @@ class RetrievalResult:
             "results": [{"score": hit.score, "payload": hit.payload} for hit in self.results],
             "query": self.query,
             "qa_top1_score": self.qa_top1_score,
+            "qa_top_k": self.qa_top_k,
+            "doc_top_k": self.doc_top_k,
         }
 
 
@@ -69,10 +73,12 @@ class SemanticCacheRetriever:
                 query=query,
                 source="qa_pairs",
                 cache_hit=True,
-            threshold=threshold,
-            top_k=doc_top_k,
-            qa_top1_score=qa_top1,
-            top1_similarity=qa_top1,
+                threshold=threshold,
+                top_k=doc_top_k,
+                qa_top_k=qa_top_k,
+                doc_top_k=doc_top_k,
+                qa_top1_score=qa_top1,
+                top1_similarity=qa_top1,
                 results=qa_hits,
                 answer=answer,
                 sources=_dedupe_sources(qa_hits),
@@ -90,7 +96,9 @@ class SemanticCacheRetriever:
             source="documents",
             cache_hit=False,
             threshold=threshold,
-            top_k=top_k,
+            top_k=doc_top_k,
+            qa_top_k=qa_top_k,
+            doc_top_k=doc_top_k,
             qa_top1_score=qa_top1,
             top1_similarity=doc_top1,
             results=doc_hits,
