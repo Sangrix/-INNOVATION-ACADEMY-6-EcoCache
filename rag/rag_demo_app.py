@@ -111,18 +111,24 @@ if st.button("질문 보내기", type="primary", use_container_width=True):
         st.error(f"실행 실패: {exc}")
         st.stop()
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     col1.markdown(
         f"<div class='metric-card'><b>캐시 히트</b><br>{'예' if result['cache_hit'] else '아니오'}</div>",
         unsafe_allow_html=True,
     )
-    similarity = result["similarity"]
-    similarity_text = f"{similarity:.4f}" if similarity is not None else "없음"
+    cache_similarity = result.get("cache_similarity")
+    cache_similarity_text = f"{cache_similarity:.4f}" if cache_similarity is not None else "없음"
     col2.markdown(
-        f"<div class='metric-card'><b>유사도</b><br>{similarity_text}</div>",
+        f"<div class='metric-card'><b>QA 캐시 유사도</b><br>{cache_similarity_text}</div>",
         unsafe_allow_html=True,
     )
+    retrieval_similarity = result.get("retrieval_similarity")
+    retrieval_similarity_text = f"{retrieval_similarity:.4f}" if retrieval_similarity is not None else "없음"
     col3.markdown(
+        f"<div class='metric-card'><b>검색 유사도</b><br>{retrieval_similarity_text}</div>",
+        unsafe_allow_html=True,
+    )
+    col4.markdown(
         f"<div class='metric-card'><b>지연 시간</b><br>{result['latency_ms']} ms</div>",
         unsafe_allow_html=True,
     )
@@ -138,6 +144,7 @@ if st.button("질문 보내기", type="primary", use_container_width=True):
             [
                 f"source={retrieval.get('source')}",
                 f"threshold={retrieval.get('threshold')}",
+                f"cache_similarity={cache_similarity_text}",
                 f"top_k={retrieval.get('top_k')}",
                 f"generation={generation.get('mode') if generation else 'none'}",
             ]

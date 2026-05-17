@@ -24,6 +24,8 @@ def to_chat_response(
         "answer": final_answer,
         "cache_hit": result.cache_hit,
         "similarity": result.top1_similarity,
+        "cache_similarity": result.qa_top1_score,
+        "retrieval_similarity": result.top1_similarity,
         "latency_ms": latency_ms,
         "co2_grams": co2_grams,
         "ci_g_per_kwh": ci_g_per_kwh,
