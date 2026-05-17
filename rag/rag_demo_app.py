@@ -95,10 +95,12 @@ with st.sidebar:
     st.divider()
     st.caption(f"Qdrant path: {os.environ.get('QDRANT_LOCAL_PATH')}")
 
-default_query = "졸업 이수학점이 어떻게 되나요?"
-query = st.text_input("질문", value=default_query, placeholder="학사 정보를 물어보세요")
+default_query = "2025-2학기 i-PAC 인증 콘테스트 신청 기간과 참여 대상은 어떻게 되나요?"
+with st.form("query_form", clear_on_submit=False):
+    query = st.text_input("질문", value=default_query, placeholder="학사 정보를 물어보세요")
+    submitted = st.form_submit_button("질문 보내기", type="primary", use_container_width=True)
 
-if st.button("질문 보내기", type="primary", use_container_width=True):
+if submitted:
     if not query.strip():
         st.warning("질문을 입력하세요.")
         st.stop()
@@ -132,12 +134,17 @@ if st.button("질문 보내기", type="primary", use_container_width=True):
         f"<div class='metric-card'><b>지연 시간</b><br>{result['latency_ms']} ms</div>",
         unsafe_allow_html=True,
     )
+    retrieval = result.get("retrieval") or {}
+    st.info(
+        f"캐시 히트는 QA 캐시 유사도({cache_similarity_text})가 "
+        f"threshold({retrieval.get('threshold')}) 이상일 때만 '예'로 표시됩니다. "
+        "출처 카드의 score는 캐시 점수가 아니라 문서 검색 점수입니다."
+    )
 
     st.subheader("답변")
     answer = result.get("answer") or "답변이 비어 있습니다."
     st.markdown(f"<div class='answer-card'>{answer}</div>", unsafe_allow_html=True)
 
-    retrieval = result.get("retrieval") or {}
     generation = result.get("generation") or {}
     st.caption(
         " · ".join(
@@ -164,7 +171,7 @@ if st.button("질문 보내기", type="primary", use_container_width=True):
             f"""
             <div class="source-card">
               <b>{source.get('rank')}. {title}</b><br>
-              doc_id: <code>{source.get('doc_id')}</code> · score: {score_text}<br>
+              doc_id: <code>{source.get('doc_id')}</code> · 문서 검색 score: {score_text}<br>
               <a href="{url}" target="_blank">{url}</a>
             </div>
             """,
