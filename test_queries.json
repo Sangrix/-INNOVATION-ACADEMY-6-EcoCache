@@ -4,559 +4,639 @@
     "query": "TOPCIT 정기평가 신청 기간이 언제인가요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"],
+    "answer": "제25회 TOPCIT 단체접수 기간은 2026년 3월 30일(월)~4월 8일(수)까지이며, 제26회는 2026년 8월 24일(월)~9월 4일(금)까지입니다."
   },
   {
     "id": "q002",
     "query": "TOPCIT 단체접수 기간이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"],
+    "answer": "제25회 TOPCIT 단체접수 기간은 2026년 3월 30일(월)~4월 8일(수)까지이며, 제26회는 2026년 8월 24일(월)~9월 4일(금)까지입니다."
   },
   {
     "id": "q003",
     "query": "토픽시트 시험 언제 신청해요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"],
+    "answer": "제25회 TOPCIT 단체접수 기간은 2026년 3월 30일(월)~4월 8일(수)까지입니다. SW중심대학사업단에서 응시료를 전액 지원합니다."
   },
   {
     "id": "q004",
     "query": "TOPCIT 응시료 지원 받을 수 있나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"],
+    "answer": "네, 인하대학교 SW중심대학사업단에서 단체접수 신청자에게 응시료를 전액 지원합니다. 단, 개인접수는 지원 불가합니다."
   },
   {
     "id": "q005",
     "query": "TOPCIT 시험 응시료가 얼마인가요?",
     "category": "paraphrase",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"],
+    "answer": "개인접수 시 응시료는 20,000원이나, 인하대 단체접수를 통하면 응시료 전액을 지원받을 수 있습니다."
   },
   {
     "id": "q006",
     "query": "제25회 TOPCIT 시험일이 언제인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"]
+    "expected_doc_ids": ["inha_notice_002", "inha_notice_014"],
+    "answer": "제25회 TOPCIT 정기평가 시험일은 2026년 5월 16일(토) 9:30~12:00이며, 9:00까지 입실을 완료해야 합니다."
   },
   {
     "id": "q007",
     "query": "TOPCIT 상위 10% 포상 내용이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_002"]
+    "expected_doc_ids": ["inha_notice_002"],
+    "answer": "상위 10% 전원에게 상장과 상금 100,000원을 수여합니다. 작년 기준 550점 이상이 상위 10%에 해당합니다."
   },
   {
     "id": "q008",
     "query": "컴퓨터공학과 졸업하려면 TOPCIT 몇 번 봐야 하나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_161508", "inha_notice_064"]
+    "expected_doc_ids": ["inha_sw_notice_161508", "inha_notice_064"],
+    "answer": "컴퓨터공학과 재학생은 3학년 이상 재학 중 반드시 2회 이상 TOPCIT을 응시해야 졸업이 가능합니다."
   },
   {
     "id": "q009",
     "query": "컴퓨터공학과 TOPCIT 졸업 요건이 뭔가요?",
     "category": "paraphrase",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_161508", "inha_notice_064"]
+    "expected_doc_ids": ["inha_sw_notice_161508", "inha_notice_064"],
+    "answer": "컴퓨터공학과 졸업 요건으로 3학년 이상 재학 중 TOPCIT 정기평가를 2회 이상 응시해야 합니다. 또한 270점 이상 취득 시 졸업고사를 대체할 수 있습니다."
   },
   {
     "id": "q010",
     "query": "i-PAC 콘테스트 신청 방법이 어떻게 되나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "① 자료구조 PASS 완료 후 SW역량평가(COEIC) 500점 이상 취득, ② 구글설문지 응답(SW역량평가 점수 인증 스크린샷 제출)을 통해 신청할 수 있습니다."
   },
   {
     "id": "q011",
     "query": "i-PAC 인증 콘테스트 어떻게 신청하나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "자료구조 PASS 후 COEIC 500점 이상 취득하고 구글설문지로 신청하면 됩니다. 신청 기간은 4월 1일(수)~4월 28일(화)입니다."
   },
   {
     "id": "q012",
     "query": "아이팩 콘테스트 참가 신청 방법 알려주세요",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "i-PAC 콘테스트는 자료구조 PASS 완료 후 COEIC 500점 이상 취득하고 구글설문지로 신청합니다. 신청 기간은 4월 1일~28일입니다."
   },
   {
     "id": "q013",
     "query": "i-PAC 콘테스트 참여 대상이 누구인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "인하대학교 컴퓨터공학과, 인공지능공학과 소속 재학생이 대상입니다. 자료구조 PASS가 필수이며, 2026-1학기 정규등록 또는 부분등록자여야 합니다."
   },
   {
     "id": "q014",
     "query": "i-PAC 대상 수상 상금이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "대상(인하대학총장상) 1명에게 500,000원, 최우수상 2명에게 각 300,000원, 우수상(S등급 이상)에게 각 200,000원, 장려상(A등급 이상)에게 각 50,000원이 지급됩니다."
   },
   {
     "id": "q015",
     "query": "i-PAC A등급 이상 혜택이 무엇인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "A등급 이상 취득 시 인하대학총장 명의의 인증서 발급, 15만원 상당의 인프런 수강권 제공, CEN마일리지 부여, 해외대학SW프로그램 참여 시 가산점이 부여됩니다."
   },
   {
     "id": "q016",
     "query": "i-PAC B등급 이상이면 졸업고사 면제되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_001"]
+    "expected_doc_ids": ["inha_notice_001"],
+    "answer": "네, B등급 이상 취득 시 컴퓨터공학과 졸업고사를 대체할 수 있습니다."
   },
   {
     "id": "q017",
     "query": "AI-POT 자격증 취득하면 장학금 얼마 받나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"],
+    "answer": "AI-POT 자격증 취득 지원 프로그램 참여자가 합격하면 포상성(비등록금성) 장학금 10만원을 지급합니다. 1급, 2급 무관하게 동일하게 지원됩니다."
   },
   {
     "id": "q018",
     "query": "AI-POT 합격하면 지원금이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"],
+    "answer": "프로그램 참여자 중 합격자에게 장학금 10만원이 지급됩니다. 단, 프로그램 참여자가 아닐 경우 장학금 지원이 불가합니다."
   },
   {
     "id": "q019",
     "query": "생성형 AI 프롬프트 자격증 취득 지원 장학금 금액이 얼마예요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"],
+    "answer": "AI-POT(생성형 AI 프롬프트 활용 능력) 자격증 취득 시 포상성 장학금 10만원을 지급합니다."
   },
   {
     "id": "q020",
     "query": "AI-POT 자격증 프로그램 신청 자격이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"],
+    "answer": "2026학년도 1학기 기준 학부 재학생이어야 하며, 휴학생·수료생·졸업생·대학원생은 제외됩니다. 3학년 이상 비SW전공자가 우대됩니다."
   },
   {
     "id": "q021",
     "query": "AI-POT 1급과 2급 중 어느 등급이든 장학금 받을 수 있나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"]
+    "expected_doc_ids": ["inha_notice_015", "inha_notice_023"],
+    "answer": "네, 1급과 2급 모두 지원 가능하며 등급에 관계없이 자격증 취득 시 동일하게 장학금 10만원을 지급합니다."
   },
   {
     "id": "q022",
     "query": "CEN 마일리지 장학금 신청 기간이 언제인가요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_008"]
+    "expected_doc_ids": ["inha_notice_008"],
+    "answer": "2026 CEN 마일리지 장학금 신청 기간은 2026년 8월 1일(토)~8월 5일(수)입니다. 신청자에 한해 지급되므로 미신청자는 장학금 지급이 불가합니다."
   },
   {
     "id": "q023",
     "query": "CEN 마일리지 장학금 언제 신청할 수 있나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_008"]
+    "expected_doc_ids": ["inha_notice_008"],
+    "answer": "CEN 마일리지 장학금은 2026년 8월 1일(토)부터 8월 5일(수)까지 신청할 수 있습니다."
   },
   {
     "id": "q024",
     "query": "SW중심대학 CEN 장학금 접수 일정이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_008"]
+    "expected_doc_ids": ["inha_notice_008"],
+    "answer": "2026 SW중심대학 CEN 마일리지 장학금 접수는 2026년 8월 1일(토)~8월 5일(수)이며, INHA 포털에서 신청할 수 있습니다."
   },
   {
     "id": "q025",
     "query": "CEN 마일리지 장학금 선발 인원이 몇 명인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_008"]
+    "expected_doc_ids": ["inha_notice_008"],
+    "answer": "총 50명을 선발하며 장학금 총액은 1,000만원입니다. 신청 인원 및 마일리지에 따라 조정될 수 있습니다."
   },
   {
     "id": "q026",
     "query": "CEN 마일리지 최고 장학금 금액이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_008"]
+    "expected_doc_ids": ["inha_notice_008"],
+    "answer": "최고 장학금은 70만원(1명)이며, 50만원(4명), 30만원(8명), 20만원(12명), 10만원(25명) 순으로 지급됩니다."
   },
   {
     "id": "q027",
     "query": "CEN 마일리지는 어떻게 적립하나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_008"]
+    "expected_doc_ids": ["inha_notice_008"],
+    "answer": "SW중심대학사업단에서 운영하는 교육 및 비교과 프로그램에 참여하면 마일리지가 적립됩니다. 수료 시 해당 마일리지가 자동 적립되며, INHA 포털에서 확인 가능합니다."
   },
   {
     "id": "q028",
     "query": "TOPCIT CEN 마일리지 점수가 몇 점인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_010"]
+    "expected_doc_ids": ["inha_notice_010"],
+    "answer": "TOPCIT은 수준에 따라 수준1(150 미만) 1점, 수준2(150~339) 2점, 수준3(400~649) 3점, 수준4 이상(650~1000) 4점, 수상(대학 특별상 이상) 5점이 부여됩니다."
   },
   {
     "id": "q029",
     "query": "SW 해커톤 참가하면 CEN 마일리지 몇 점 받나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_010"]
+    "expected_doc_ids": ["inha_notice_010"],
+    "answer": "단기(24시간 또는 3일 이하) 해커톤 참가 시 2점, 장기(160시간 초과) 해커톤 참가 시 5점이 부여됩니다."
   },
   {
     "id": "q030",
     "query": "탄소중립 이노베이션 아카데미 신청 방법이 어떻게 되나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_016"]
+    "expected_doc_ids": ["inha_notice_016"],
+    "answer": "① COEIC 역량평가 응시(inha.codetree.ai, 인하대 계정 로그인 필수), ② 신청서 제출 순서로 진행합니다. 합격자 발표는 SMS로 개별 안내됩니다."
   },
   {
     "id": "q031",
     "query": "탄소중립 아카데미 어떻게 지원하나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_016"]
+    "expected_doc_ids": ["inha_notice_016"],
+    "answer": "COEIC 역량평가 응시 후 신청서를 제출하면 됩니다. 전공 무관으로 인하대학교 학부생이면 누구나 지원 가능합니다."
   },
   {
     "id": "q032",
     "query": "이노베이션 아카데미 6기 신청 방법 알려주세요",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_016"]
+    "expected_doc_ids": ["inha_notice_016"],
+    "answer": "탄소중립 이노베이션 아카데미 6기는 COEIC 역량평가 응시 후 신청서를 제출하면 됩니다. 신청 기한은 3월 12일(목)까지였습니다."
   },
   {
     "id": "q033",
     "query": "탄소중립 이노베이션 아카데미 참여 대상이 누구인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_016"]
+    "expected_doc_ids": ["inha_notice_016"],
+    "answer": "인하대학교 학부생이면 전공 무관으로 참여 가능합니다."
   },
   {
     "id": "q034",
     "query": "탄소중립 아카데미 수상 상금이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_016"]
+    "expected_doc_ids": ["inha_notice_016"],
+    "answer": "우수팀 상금 총 310만원이 수여되며, 상장도 함께 수여됩니다."
   },
   {
     "id": "q035",
     "query": "ICT 학점연계 인턴십 글로벌 과정 지원 대상이 어떻게 되나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"],
+    "answer": "참여대학 참여학과 재학생 중 신청일 기준 교육과정 75% 이상 이수자(4학년 1학기 이상)가 지원 가능합니다. 인턴십 기간 동안 재학생 신분을 유지해야 합니다."
   },
   {
     "id": "q036",
     "query": "ICT 글로벌 인턴십 누가 지원할 수 있나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"],
+    "answer": "교육과정 75% 이상 이수한 4학년 1학기 이상 재학생이 지원 가능합니다. 컴퓨터공학과, 인공지능공학과 등 13개 참여학과 소속이어야 합니다."
   },
   {
     "id": "q037",
     "query": "실리콘밸리 인턴십 지원 자격이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"],
+    "answer": "ICT 글로벌 인턴십(미국 실리콘밸리) 지원을 위해서는 교육과정 75% 이상 이수(4학년 1학기 이상)가 필요하며, 인턴십 기간(7~12월) 동안 재학생 신분을 유지해야 합니다."
   },
   {
     "id": "q038",
     "query": "ICT 인턴십 실습생 수당이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"],
+    "answer": "실습생 수당은 월 2,000달러 이상이며, 정부 지원 실습생 지원금은 최대 월 150만원입니다. 왕복 항공료(편도당 100만원 이내), 의료보험, 비자발급 수수료 등도 지원됩니다."
   },
   {
     "id": "q039",
     "query": "ICT 글로벌 인턴십 기간이 얼마나 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"]
+    "expected_doc_ids": ["inha_notice_004", "inha_notice_024"],
+    "answer": "ICT 학점연계 프로젝트 인턴십 하반기 글로벌 과정의 인턴십 기간은 6개월(2026년 7월~12월)입니다."
   },
   {
     "id": "q040",
     "query": "AX 창업 프로그램 신청 기간이 언제인가요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_003"]
+    "expected_doc_ids": ["inha_notice_003"],
+    "answer": "AX 창업 프로그램 모집 기간은 2026년 3월 16일(월)~3월 28일(토)까지입니다."
   },
   {
     "id": "q041",
     "query": "AX 창업 프로그램 모집 기간이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_003"]
+    "expected_doc_ids": ["inha_notice_003"],
+    "answer": "AX 창업 프로그램 모집 기간은 2026년 3월 16일(월)부터 3월 28일(토)까지입니다."
   },
   {
     "id": "q042",
     "query": "AI 창업 프로그램 지원비가 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_003"]
+    "expected_doc_ids": ["inha_notice_003"],
+    "answer": "프로그램 활동비로 총 500만원이 지원됩니다. 또한 MVP 개발 및 프로토타이핑 지원, 실제 기업 대표 및 전문가 멘토링도 제공됩니다."
   },
   {
     "id": "q043",
     "query": "AX 창업 프로그램 최대 몇 팀 선발하나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_003"]
+    "expected_doc_ids": ["inha_notice_003"],
+    "answer": "최대 16팀을 선발합니다. 신청팀이 많을 경우 아이디어 발표 심사를 통해 선발합니다."
   },
   {
     "id": "q044",
     "query": "에세이 공모전 신청 기간이 언제인가요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_012"]
+    "expected_doc_ids": ["inha_notice_012"],
+    "answer": "2026 SW중심대학 에세이 공모전 제출 기한은 2026년 3월 31일(화)까지입니다."
   },
   {
     "id": "q045",
     "query": "SW중심대학 에세이 공모전 마감이 언제예요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_012"]
+    "expected_doc_ids": ["inha_notice_012"],
+    "answer": "2026 SW중심대학 에세이 공모전 마감일은 2026년 3월 31일(화)입니다. swcore@inha.ac.kr로 신청서를 제출하면 됩니다."
   },
   {
     "id": "q046",
     "query": "에세이 공모전 대상 상금이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_012"]
+    "expected_doc_ids": ["inha_notice_012"],
+    "answer": "대상(인하대학교 총장상) 1명에게 50만원, 최우수상 2명에게 각 30만원, 우수상 3명에게 각 10만원, 장려상 4명에게 각 5만원이 지급됩니다."
   },
   {
     "id": "q047",
     "query": "에세이 공모전 글자 수 제한이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_012"]
+    "expected_doc_ids": ["inha_notice_012"],
+    "answer": "글자 수는 1,000자 이상 3,000자 이하(띄어쓰기 포함)이며, 사진은 글자 수에 포함되지 않습니다. 사진을 포함한 전체 분량은 3페이지 이내여야 합니다."
   },
   {
     "id": "q048",
     "query": "SW마에스트로 신청 방법이 어떻게 되나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_019"]
+    "expected_doc_ids": ["inha_notice_019"],
+    "answer": "서울센터는 www.swmaestro.ai, 부산센터는 www.swmaestro.ai/busan에서 신청 접수할 수 있습니다. 서울과 부산 중복 지원은 가능합니다."
   },
   {
     "id": "q049",
     "query": "SW마에스트로 어떻게 지원하나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_019"]
+    "expected_doc_ids": ["inha_notice_019"],
+    "answer": "SW마에스트로 홈페이지(www.swmaestro.ai)에서 온라인으로 신청할 수 있습니다. SW중심대학 우수자로 추천받으면 1차 코딩 테스트가 면제됩니다."
   },
   {
     "id": "q050",
     "query": "SW마에스트로 17기 전형 일정이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_019"]
+    "expected_doc_ids": ["inha_notice_019"],
+    "answer": "서울센터 기준 지원서 제출은 1월 12일~2월 11일, 1차 코딩 테스트 2월 28일, 2차 코딩 테스트 3월 7일, 심층면접 3월 19일~22일, 합격자 발표 3월 25일입니다."
   },
   {
     "id": "q051",
     "query": "SW중심대학 디지털 경진대회 참가 대상이 누구인가요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_006"]
+    "expected_doc_ids": ["inha_notice_006"],
+    "answer": "AI·SW중심대학 소속 학부생이 대상입니다. 참가 접수일(5월 11일~6월 8일) 기준 재학생 및 휴학생 참여 가능하며, 졸업생은 참여 불가합니다."
   },
   {
     "id": "q052",
     "query": "AI SW 디지털 경진대회 누가 참여할 수 있나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_006"]
+    "expected_doc_ids": ["inha_notice_006"],
+    "answer": "AI·SW중심대학 소속 학부생(재학생·휴학생)이 참여 가능합니다. 전공 무관이며 동일인의 2개 부문 중복 접수는 불가합니다."
   },
   {
     "id": "q053",
     "query": "2026 디지털 경진대회 부문이 어떻게 나뉘나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_006"]
+    "expected_doc_ids": ["inha_notice_006"],
+    "answer": "SW부문(라이프스타일 혁신을 위한 AI Agent 기반 SW 개발, 대학당 1팀, 팀당 3~5명)과 AI부문(AI Agent 행동 의사결정 예측 챌린지, 대학당 최대 7팀, 팀당 1~5명)으로 나뉩니다."
   },
   {
     "id": "q054",
     "query": "디지털 경진대회 본선 장소가 어디인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_006"]
+    "expected_doc_ids": ["inha_notice_006"],
+    "answer": "예선은 온라인으로 진행되며, 본선은 대한상공회의소에서 2026년 8월 11일(화)에 개최됩니다."
   },
   {
     "id": "q055",
     "query": "Advantech AIoT 프로젝트 팀 모집 마감이 언제인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_159179"]
+    "expected_doc_ids": ["inha_sw_notice_159179"],
+    "answer": "2025 Advantech AIoT Innoworks Project 참여 팀 신청 마감은 2025년 9월 11일(목) 오후 12시까지입니다."
   },
   {
     "id": "q056",
     "query": "AIoT Innoworks 참여 팀 재료비 지원이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_159179"]
+    "expected_doc_ids": ["inha_sw_notice_159179"],
+    "answer": "각 팀당 최대 100만원의 재료비가 지원되며, 개발을 위해 필요한 하드웨어 및 소모품 구입에 활용할 수 있습니다."
   },
   {
     "id": "q057",
     "query": "오픈소스SW 페스티벌 제출 마감이 언제인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_159294"]
+    "expected_doc_ids": ["inha_sw_notice_159294"],
+    "answer": "2025 오픈소스SW 페스티벌 제출 기한은 2025년 9월 30일(화)까지입니다."
   },
   {
     "id": "q058",
     "query": "오픈소스 페스티벌 참여 자격이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_159294"]
+    "expected_doc_ids": ["inha_sw_notice_159294"],
+    "answer": "인하대학교 소속 학부생 전체가 참여 가능합니다. 개인 또는 5인 이내 팀으로 참여할 수 있으며, 휴학생 및 수료생은 참가 불가합니다."
   },
   {
     "id": "q059",
     "query": "MS 기업탐방 참여 대상과 일정이 어떻게 되나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"]
+    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"],
+    "answer": "인하대학교 소속 학부생 15명을 선정하며, 컴퓨터공학과·인공지능공학과 3학년 이상이 우선 선발됩니다. 일시는 2025년 11월 20일(목) 14:00~16:00이며 장소는 한국마이크로소프트 본사(광화문역)입니다."
   },
   {
     "id": "q060",
     "query": "마이크로소프트 기업탐방 신청 조건이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"]
+    "expected_doc_ids": ["inha_sw_notice_164532", "inha_notice_080"],
+    "answer": "인하대학교 소속 학부생이면 신청 가능하며, 컴퓨터공학과·인공지능공학과 3학년 이상 학생이 우선 선발됩니다. 신청 마감은 11월 3일(월)입니다."
   },
   {
     "id": "q061",
     "query": "생성형 AI 쇼츠 공모전 참여 대상과 마감이 언제인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_163909", "inha_notice_078"]
+    "expected_doc_ids": ["inha_sw_notice_163909", "inha_notice_078"],
+    "answer": "인하대학교 학부생 및 대학원생(재학생만 가능)이 개인 또는 최대 3인 팀으로 참여할 수 있습니다. 제출 기한은 2025년 11월 22일(토)까지입니다."
   },
   {
     "id": "q062",
     "query": "쇼츠 공모전 최우수상 상금이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_163909", "inha_notice_078"]
+    "expected_doc_ids": ["inha_sw_notice_163909", "inha_notice_078"],
+    "answer": "최우수상 2명에게 각 30만원, 우수상 3명에게 각 20만원, 장려상 6명에게 각 10만원, 입상 24명에게 각 5만원이 지급됩니다. 총 35명, 300만원입니다."
   },
   {
     "id": "q063",
     "query": "전공인의 밤 행사는 언제 어디서 열리나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_090"]
+    "expected_doc_ids": ["inha_notice_090"],
+    "answer": "2025 전공인의 밤은 12월 23일(화) 14:30~19:00에 60주년기념관 112호에서 진행됩니다. 저녁 식사는 17:00~19:00에 제공됩니다."
   },
   {
     "id": "q064",
     "query": "전공인의 밤 참여 대상이 누구인가요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_090"]
+    "expected_doc_ids": ["inha_notice_090"],
+    "answer": "컴퓨터공학과, 인공지능공학과 소속 재학생 최대 60명을 모집합니다."
   },
   {
     "id": "q065",
     "query": "SW중심대학 마이크로전공 어떤 과목 들으면 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_159216"]
+    "expected_doc_ids": ["inha_sw_notice_159216"],
+    "answer": "일반교양 7영역 교과목을 수강하면 SW중심대학 마이크로전공을 이수할 수 있습니다."
   },
   {
     "id": "q066",
     "query": "대학 연합 해커톤 참가 신청 방법이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_022"]
+    "expected_doc_ids": ["inha_notice_022"],
+    "answer": "홈페이지(https://www.asciithon.dev/) 방문 또는 포스터 QR코드를 통해 신청할 수 있습니다. 트랙별로 3~5인 팀으로 참가하며, 개인 접수는 불가합니다."
   },
   {
     "id": "q067",
     "query": "아주대 대학연합 해커톤 상금이 얼마인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_022"]
+    "expected_doc_ids": ["inha_notice_022"],
+    "answer": "최우수상(1위) 아주대학교 총장상 200만원, 우수상(2~3위) 각 100만원, 장려상(4~6위) 각 50만원이 지급됩니다. 서비스 개발 트랙과 보안 트랙 모두 동일합니다."
   },
   {
     "id": "q068",
     "query": "컴퓨터공학과 대학원 설명회 일정이 어떻게 되나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"]
+    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"],
+    "answer": "세미나는 3차례 진행됩니다. 1차(11/4): 컴퓨터시스템/네트워크/보안, 2차(11/11): 컴퓨터그래픽스/비전/알고리즘, 3차(11/18): 인공지능/데이터마이닝. 모두 18:30~19:30에 진행됩니다."
   },
   {
     "id": "q069",
     "query": "대학원 연구분야 소개 세미나 몇 차례 열리나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"]
+    "expected_doc_ids": ["inha_sw_notice_164086", "inha_notice_079"],
+    "answer": "컴퓨터공학과 대학원 연구분야 소개 세미나는 총 3차례 진행됩니다. 사전 신청자에게는 간단한 식사(햄버거)가 제공됩니다."
   },
   {
     "id": "q070",
     "query": "Apple 개발자 아카데미 워크숍 언제 어디서 열리나요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_sw_notice_162911", "inha_notice_071"]
+    "expected_doc_ids": ["inha_sw_notice_162911", "inha_notice_071"],
+    "answer": "인하대 Apple 개발자 아카데미 홍보 워크숍은 2025년 11월 6일(목) 오후 12시~1시 30분에 60주년기념관 1401B호에서 진행됩니다."
   },
   {
     "id": "q071",
     "query": "애플 디벨로퍼 아카데미 워크숍 일정이 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_sw_notice_162911", "inha_notice_071"]
+    "expected_doc_ids": ["inha_sw_notice_162911", "inha_notice_071"],
+    "answer": "Apple 개발자 아카데미 워크숍은 2025년 11월 6일(목) 12:00~13:30에 인하대학교 60주년기념관 1401B호에서 열립니다. 선착순 50명을 모집합니다."
   },
   {
     "id": "q072",
     "query": "CEN 마일리지 교외활동 수상실적 등록 기한이 언제인가요?",
     "category": "exact_match",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_009"]
+    "expected_doc_ids": ["inha_notice_009"],
+    "answer": "2026 CEN 마일리지 교외활동 수상실적 제출 기한은 2026년 7월 24일(금)까지입니다. 이메일(swcore@inha.ac.kr)로 제출하면 됩니다."
   },
   {
     "id": "q073",
     "query": "교외 수상실적 CEN 마일리지 등록하려면 어떻게 하나요?",
     "category": "paraphrase",
     "expected_source": "qa_pairs",
-    "expected_doc_ids": ["inha_notice_009"]
+    "expected_doc_ids": ["inha_notice_009"],
+    "answer": "CEN 마일리지 신규·변경 요청서, 대회 공고문, 상장 사본, 수상실적 등록 신청서, 시상식 사진 등을 swcore@inha.ac.kr로 제출하면 됩니다."
   },
   {
     "id": "q074",
     "query": "CEN 마일리지 교외활동 제출 서류가 무엇인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_009"]
+    "expected_doc_ids": ["inha_notice_009"],
+    "answer": "① CEN 마일리지 신규·변경 요청서, ② 해당 대회 공고문 또는 안내문, ③ 상장 사본, ④ 대회입상 수상실적 등록 신청서, ⑤ 본인이 포함된 시상식 사진을 제출해야 합니다."
   },
   {
     "id": "q075",
     "query": "AI-POT 자격증이 무엇인가요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_162514", "inha_notice_070"]
+    "expected_doc_ids": ["inha_sw_notice_162514", "inha_notice_070"],
+    "answer": "AI-POT(Prompt Operator Test)는 한국생산성본부(KPC)에서 운영하는 생성형 AI 프롬프트 활용 능력 검정 민간자격증입니다. 1급과 2급으로 나뉩니다."
   },
   {
     "id": "q076",
     "query": "생성형 AI 프롬프트 자격증이 어떤 자격증인가요?",
     "category": "paraphrase",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_sw_notice_162514", "inha_notice_070"]
+    "expected_doc_ids": ["inha_sw_notice_162514", "inha_notice_070"],
+    "answer": "AI-POT는 생성형 AI에 대한 기본 소양과 실무 활용 능력을 검정하는 등록 민간자격증으로, 한국생산성본부(KPC)가 운영합니다."
   },
   {
     "id": "q077",
     "query": "SW중심대학사업단 문의 이메일이 어떻게 되나요?",
     "category": "specific_info",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_001", "inha_notice_002"]
+    "expected_doc_ids": ["inha_notice_001", "inha_notice_002"],
+    "answer": "SW중심대학사업단 문의 이메일은 swcore@inha.ac.kr이며, 전화번호는 032-860-9503입니다."
   },
   {
     "id": "q078",
     "query": "SW중심대학 사업단 연락처가 어떻게 되나요?",
     "category": "paraphrase",
     "expected_source": "documents",
-    "expected_doc_ids": ["inha_notice_001", "inha_notice_002"]
+    "expected_doc_ids": ["inha_notice_001", "inha_notice_002"],
+    "answer": "SW중심대학사업단 연락처는 이메일 swcore@inha.ac.kr, 전화 032-860-9503입니다."
   },
   {
     "id": "q079",
     "query": "인하대 졸업 후 취업 전략 강연이 있나요?",
     "category": "out_of_scope",
     "expected_source": "either",
-    "expected_doc_ids": []
+    "expected_doc_ids": [],
+    "answer": "해당 정보는 SW중심대학 공지사항에서 찾을 수 없습니다. 인하대학교 취업지원팀 또는 학과 사무실에 문의해주세요."
   },
   {
     "id": "q080",
     "query": "인하대 식당 메뉴가 어떻게 되나요?",
     "category": "out_of_scope",
     "expected_source": "either",
-    "expected_doc_ids": []
+    "expected_doc_ids": [],
+    "answer": "해당 정보는 SW중심대학 공지사항에서 찾을 수 없습니다. 인하대학교 생활관 또는 학생식당 홈페이지를 확인해주세요."
   }
 ]
