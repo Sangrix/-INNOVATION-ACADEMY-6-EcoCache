@@ -9,7 +9,7 @@ import streamlit as st
 ROOT_DIR = Path(__file__).resolve().parents[1]
 os.environ.setdefault("QDRANT_LOCAL_PATH", str(ROOT_DIR / "qdrant_local"))
 
-from rag.langchain_pipeline import LangChainRagPipeline  # noqa: E402
+from rag.langchain_pipeline import LangChainRagPipeline, get_cached_pipeline  # noqa: E402
 
 
 st.set_page_config(
@@ -72,7 +72,7 @@ st.markdown(
 
 @st.cache_resource(show_spinner=False)
 def get_pipeline(top_k: int, threshold: float) -> LangChainRagPipeline:
-    return LangChainRagPipeline(top_k=top_k, threshold=threshold)
+    return get_cached_pipeline(top_k=top_k, threshold=threshold)
 
 
 st.markdown(

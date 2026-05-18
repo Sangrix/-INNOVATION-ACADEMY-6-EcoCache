@@ -67,11 +67,14 @@ class RagAnswerGenerator:
         lm_model: str = config.LM_STUDIO_MODEL,
         temperature: float = config.LM_TEMPERATURE,
         max_tokens: int = config.LM_MAX_TOKENS,
+        timeout_seconds: float = config.LM_TIMEOUT_SECONDS,
     ) -> None:
         self.lm_url = lm_url
-        self.lm_model = lm_model
+        self.lm_model = lm_model.strip()
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.timeout_seconds = timeout_seconds
+        self._resolved_model: str | None = self.lm_model or None
 
     def generate(self, query: str, retrieval: RetrievalResult, *, use_llm: bool = True) -> GeneratedAnswer:
         if retrieval.cache_hit and retrieval.answer:
@@ -80,14 +83,14 @@ class RagAnswerGenerator:
         if not retrieval.results:
             return GeneratedAnswer(text="해당 정보를 찾을 수 없습니다.", mode="empty")
 
-        if use_llm and self.lm_model:
+        if use_llm:
             try:
                 return self._generate_with_lm_studio(query, retrieval)
             except Exception as error:
                 return GeneratedAnswer(
                     text=self._fallback_answer(retrieval),
                     mode="retrieval_fallback",
-                    model=self.lm_model,
+                    model=self._resolved_model,
                     error=str(error),
                 )
 
@@ -97,9 +100,10 @@ class RagAnswerGenerator:
         from openai import OpenAI
 
         context = build_context(retrieval.results)
-        client = OpenAI(base_url=self.lm_url, api_key="lm-studio")
+        client = OpenAI(base_url=self.lm_url, api_key="lm-studio", timeout=self.timeout_seconds)
+        model = self._resolve_lm_studio_model(client)
         response = client.chat.completions.create(
-            model=self.lm_model,
+            model=model,
             messages=build_prompt(query, context),
             temperature=self.temperature,
             max_tokens=self.max_tokens,
@@ -107,8 +111,25 @@ class RagAnswerGenerator:
         return GeneratedAnswer(
             text=response.choices[0].message.content,
             mode="llm",
-            model=self.lm_model,
+            model=model,
         )
+
+    def _resolve_lm_studio_model(self, client: Any) -> str:
+        """Use the configured model, or auto-detect the loaded LM Studio model."""
+
+        if self._resolved_model:
+            return self._resolved_model
+
+        models = client.models.list()
+        first_model = next(iter(models.data), None)
+        if first_model is None or not getattr(first_model, "id", None):
+            raise ValueError(
+                "LM Studio 서버는 연결됐지만 로드된 모델을 찾지 못했습니다. "
+                "LM Studio에서 모델을 Load한 뒤 Local Server를 켜세요."
+            )
+
+        self._resolved_model = first_model.id
+        return self._resolved_model
 
     @staticmethod
     def _fallback_answer(retrieval: RetrievalResult) -> str:
@@ -127,4 +148,3 @@ def generation_to_dict(answer: GeneratedAnswer) -> dict[str, Any]:
         "model": answer.model,
         "error": answer.error,
     }
-

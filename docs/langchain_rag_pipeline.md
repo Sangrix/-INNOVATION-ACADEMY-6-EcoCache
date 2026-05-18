@@ -18,8 +18,13 @@
 → cache hit이면 QA 답변과 출처 반환
 → 아니면 documents 컬렉션 검색
 → 문서 출처와 similarity 반환
+→ LM Studio가 켜져 있으면 검색 문서를 기반으로 LLM 답변 생성
 → response_adapter에서 웹/API 응답 형태로 변환
 ```
+
+cache hit인 경우에는 QA 답변을 바로 반환하고 LLM을 호출하지 않습니다. cache miss인 경우에만 documents 검색 결과를 LLM context로 넘깁니다.
+
+질문 임베딩은 한 번만 생성한 뒤 QA cache 검색과 documents 검색에서 같은 벡터를 재사용합니다. 문서 임베딩은 `embed_pipeline.py`로 미리 Qdrant에 적재해두며, 질문할 때마다 전체 문서를 다시 임베딩하지 않습니다.
 
 ## 주요 파일
 
@@ -28,7 +33,7 @@
 | `rag/langchain_config.py` | top-k, threshold, chunk size 등 튜닝 설정 |
 | `rag/document_loader.py` | JSON 데이터를 LangChain `Document`로 변환 |
 | `rag/text_splitter.py` | LangChain text splitter 생성 |
-| `rag/vector_store.py` | SentenceTransformer + Qdrant 검색 |
+| `rag/vector_store.py` | SentenceTransformer + Qdrant 검색, 질문 벡터 재사용 |
 | `rag/semantic_cache_retriever.py` | QA cache hit/miss 판단과 문서 fallback |
 | `rag/langchain_pipeline.py` | 전체 retrieval pipeline 실행 |
 | `rag/response_adapter.py` | 백엔드 응답 스키마 변환 |
@@ -64,6 +69,8 @@ LM Studio를 켜서 자연어 답변 생성을 붙일 때는 `.env` 또는 Power
 $env:LM_STUDIO_MODEL="qwen2.5-7b-instruct"
 python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?"
 ```
+
+`LM_STUDIO_MODEL`을 비워두어도 LM Studio Local Server가 켜져 있고 모델이 Load되어 있으면 `/v1/models`에서 첫 번째 모델명을 자동으로 감지합니다.
 
 ## 작은 평가 실행
 

@@ -18,6 +18,10 @@
 → 웹/API 응답 형태로 반환
 ```
 
+cache hit이면 QA 답변을 즉시 반환하고 LLM을 호출하지 않습니다. documents 검색으로 내려간 경우에만 LM Studio 또는 fallback 답변 생성 단계로 넘어갑니다.
+
+질문 임베딩은 요청당 한 번만 생성해서 QA cache 검색과 documents 검색에서 재사용합니다. 문서 임베딩은 Qdrant에 미리 적재된 값을 사용하므로 질문할 때마다 전체 문서를 다시 임베딩하지 않습니다.
+
 ## 주요 파일
 
 | 파일 | 역할 |
@@ -85,6 +89,10 @@ chunk_overlap = 200
 | `retrieval_fallback` | LLM 설정이 없거나 호출 실패 시 검색 결과 기반 답변 |
 | `empty` | 검색 결과가 없는 경우 |
 
+## LM Studio 연결
+
+LM Studio Local Server가 켜져 있으면 documents 검색 결과를 context로 넣어 LLM 답변을 생성할 수 있습니다. `.env`에 `LM_STUDIO_MODEL`을 지정하면 해당 모델을 사용하고, 비워두면 LM Studio의 `/v1/models`에서 로드된 모델을 자동 감지합니다.
+
 ## 실행 예시
 
 ```powershell
@@ -97,4 +105,3 @@ LLM 없이 retrieval만 확인:
 ```powershell
 python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?" --no-generate
 ```
-

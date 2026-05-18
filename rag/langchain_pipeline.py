@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from functools import lru_cache
 from typing import Any
 
 from rag.answer_generator import RagAnswerGenerator
@@ -24,6 +25,16 @@ class LangChainRagPipeline:
         self.retriever = SemanticCacheRetriever(self.settings)
         self.answer_generator = RagAnswerGenerator()
 
+    def warmup(self) -> None:
+        """Load shared runtime resources once for a long-running service."""
+
+        self.retriever.warmup()
+
+    def close(self) -> None:
+        """Close resources when this pipeline is used from a one-shot CLI."""
+
+        self.retriever.close()
+
     def run(
         self,
         query: str,
@@ -41,6 +52,15 @@ class LangChainRagPipeline:
         return to_chat_response(result, latency_ms=latency_ms, generated=generated)
 
 
+@lru_cache(maxsize=16)
+def get_cached_pipeline(top_k: int | None = None, threshold: float | None = None) -> LangChainRagPipeline:
+    """Reuse the embedding model and Qdrant client across repeated questions."""
+
+    pipeline = LangChainRagPipeline(top_k=top_k, threshold=threshold)
+    pipeline.warmup()
+    return pipeline
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the LangChain-style EcoCache RAG pipeline.")
     parser.add_argument("query", help="User query")
@@ -55,15 +75,18 @@ def main() -> None:
 
     filters = {"board_type": args.board_type} if args.board_type else None
     pipeline = LangChainRagPipeline(top_k=args.top_k, threshold=args.threshold)
-    response = pipeline.run(
-        args.query,
-        filters=filters,
-        qa_top_k=args.qa_top_k,
-        doc_top_k=args.doc_top_k,
-        generate=not args.no_generate,
-        use_llm=not args.no_llm,
-    )
-    print(json.dumps(response, ensure_ascii=False, indent=2))
+    try:
+        response = pipeline.run(
+            args.query,
+            filters=filters,
+            qa_top_k=args.qa_top_k,
+            doc_top_k=args.doc_top_k,
+            generate=not args.no_generate,
+            use_llm=not args.no_llm,
+        )
+        print(json.dumps(response, ensure_ascii=False, indent=2))
+    finally:
+        pipeline.close()
 
 
 if __name__ == "__main__":

@@ -44,6 +44,16 @@ class SemanticCacheRetriever:
         self.settings = settings or build_settings()
         self.searcher = searcher or QdrantVectorSearcher(self.settings)
 
+    def warmup(self) -> None:
+        """Prepare the embedding model and vector store connection once."""
+
+        self.searcher.warmup()
+
+    def close(self) -> None:
+        """Release vector store resources in short-lived processes."""
+
+        self.searcher.close()
+
     def retrieve(
         self,
         query: str,
@@ -58,9 +68,10 @@ class SemanticCacheRetriever:
         qa_top_k = qa_top_k or top_k
         doc_top_k = doc_top_k or top_k
         threshold = threshold if threshold is not None else self.settings.qa_threshold
+        query_vector = self.searcher.encode_query(query)
 
-        qa_hits = self.searcher.search(
-            query,
+        qa_hits = self.searcher.search_by_vector(
+            query_vector,
             self.settings.collection_qa,
             top_k=qa_top_k,
             filters=filters,
@@ -84,8 +95,8 @@ class SemanticCacheRetriever:
                 sources=_dedupe_sources(qa_hits),
             )
 
-        doc_hits = self.searcher.search(
-            query,
+        doc_hits = self.searcher.search_by_vector(
+            query_vector,
             self.settings.collection_docs,
             top_k=doc_top_k,
             filters=filters,

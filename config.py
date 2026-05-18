@@ -65,6 +65,7 @@ LM_STUDIO_MODEL  = os.getenv("LM_STUDIO_MODEL", "")
 LM_TEMPERATURE   = 0.3
 LM_MAX_TOKENS    = 512
 LM_CONTEXT_LIMIT = 2000
+LM_TIMEOUT_SECONDS = float(os.getenv("LM_TIMEOUT_SECONDS", "120"))
 LM_SYSTEM_PROMPT = (
     "당신은 인하대학교 SW중심대학사업단 공지사항 안내 도우미입니다.\n"
     "아래 참고 문서를 바탕으로 질문에 간결하고 정확하게 답하세요.\n"

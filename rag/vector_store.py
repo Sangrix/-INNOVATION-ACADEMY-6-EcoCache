@@ -92,7 +92,22 @@ class QdrantVectorSearcher:
         top_k: int | None = None,
         filters: dict[str, Any] | None = None,
     ) -> list[SearchHit]:
-        query_vector = self.model.encode([query], normalize_embeddings=True).tolist()[0]
+        query_vector = self.encode_query(query)
+        return self.search_by_vector(query_vector, collection, top_k=top_k, filters=filters)
+
+    def encode_query(self, query: str) -> list[float]:
+        """Embed a user query once so multiple retrieval stages can reuse it."""
+
+        return self.model.encode([query], normalize_embeddings=True).tolist()[0]
+
+    def search_by_vector(
+        self,
+        query_vector: list[float],
+        collection: str,
+        *,
+        top_k: int | None = None,
+        filters: dict[str, Any] | None = None,
+    ) -> list[SearchHit]:
         response = self.client.query_points(
             collection_name=collection,
             query=query_vector,
@@ -101,3 +116,16 @@ class QdrantVectorSearcher:
             with_payload=True,
         )
         return [SearchHit(score=hit.score, payload=hit.payload) for hit in response.points]
+
+    def warmup(self) -> None:
+        """Load the embedding model and Qdrant client once at service startup."""
+
+        _ = self.model
+        _ = self.client
+
+    def close(self) -> None:
+        """Close the Qdrant client when a short-lived CLI process exits."""
+
+        if self._client is not None:
+            self._client.close()
+            self._client = None
