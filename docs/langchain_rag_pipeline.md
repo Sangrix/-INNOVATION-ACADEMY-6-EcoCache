@@ -72,6 +72,12 @@ python -m rag.langchain_pipeline "졸업 이수학점이 어떻게 되나요?"
 
 `LM_STUDIO_MODEL`을 비워두어도 LM Studio Local Server가 켜져 있고 모델이 Load되어 있으면 `/v1/models`에서 첫 번째 모델명을 자동으로 감지합니다.
 
+로컬 노트북에서 생성이 오래 걸리면 테스트할 때만 생성 토큰 수를 줄일 수 있습니다.
+
+```powershell
+$env:LM_MAX_TOKENS="128"
+```
+
 ## 작은 평가 실행
 
 ```powershell

@@ -62,9 +62,9 @@ CIASC_FIXED_CI = float(_ciasc_fixed_ci) if _ciasc_fixed_ci else None
 # ── LM Studio ─────────────────────────────────────────────────────────────────
 LM_STUDIO_URL    = os.getenv("LM_STUDIO_URL",   "http://localhost:1234/v1")
 LM_STUDIO_MODEL  = os.getenv("LM_STUDIO_MODEL", "")
-LM_TEMPERATURE   = 0.3
-LM_MAX_TOKENS    = 512
-LM_CONTEXT_LIMIT = 2000
+LM_TEMPERATURE   = float(os.getenv("LM_TEMPERATURE", "0.3"))
+LM_MAX_TOKENS    = int(os.getenv("LM_MAX_TOKENS", "512"))
+LM_CONTEXT_LIMIT = int(os.getenv("LM_CONTEXT_LIMIT", "2000"))
 LM_TIMEOUT_SECONDS = float(os.getenv("LM_TIMEOUT_SECONDS", "120"))
 LM_SYSTEM_PROMPT = (
     "당신은 인하대학교 SW중심대학사업단 공지사항 안내 도우미입니다.\n"
