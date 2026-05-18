@@ -6,6 +6,7 @@ import time
 from functools import lru_cache
 from typing import Any
 
+import config
 from rag.answer_generator import RagAnswerGenerator
 from rag.langchain_config import build_settings
 from rag.response_adapter import to_chat_response
@@ -20,10 +21,15 @@ class LangChainRagPipeline:
         *,
         top_k: int | None = None,
         threshold: float | None = None,
+        lm_max_tokens: int | None = None,
+        lm_timeout_seconds: float | None = None,
     ) -> None:
         self.settings = build_settings(top_k=top_k, qa_threshold=threshold)
         self.retriever = SemanticCacheRetriever(self.settings)
-        self.answer_generator = RagAnswerGenerator()
+        self.answer_generator = RagAnswerGenerator(
+            max_tokens=lm_max_tokens if lm_max_tokens is not None else config.LM_MAX_TOKENS,
+            timeout_seconds=lm_timeout_seconds if lm_timeout_seconds is not None else config.LM_TIMEOUT_SECONDS,
+        )
 
     def warmup(self) -> None:
         """Load shared runtime resources once for a long-running service."""
@@ -53,10 +59,20 @@ class LangChainRagPipeline:
 
 
 @lru_cache(maxsize=16)
-def get_cached_pipeline(top_k: int | None = None, threshold: float | None = None) -> LangChainRagPipeline:
+def get_cached_pipeline(
+    top_k: int | None = None,
+    threshold: float | None = None,
+    lm_max_tokens: int | None = None,
+    lm_timeout_seconds: float | None = None,
+) -> LangChainRagPipeline:
     """Reuse the embedding model and Qdrant client across repeated questions."""
 
-    pipeline = LangChainRagPipeline(top_k=top_k, threshold=threshold)
+    pipeline = LangChainRagPipeline(
+        top_k=top_k,
+        threshold=threshold,
+        lm_max_tokens=lm_max_tokens,
+        lm_timeout_seconds=lm_timeout_seconds,
+    )
     pipeline.warmup()
     return pipeline
 
@@ -71,10 +87,15 @@ def main() -> None:
     parser.add_argument("--board-type", default=None, help="Optional board_type metadata filter")
     parser.add_argument("--no-generate", action="store_true", help="Return retrieval result without final answer")
     parser.add_argument("--no-llm", action="store_true", help="Use retrieval fallback even if LM Studio is configured")
+    parser.add_argument("--lm-max-tokens", type=int, default=None, help="Maximum tokens for LM Studio generation")
     args = parser.parse_args()
 
     filters = {"board_type": args.board_type} if args.board_type else None
-    pipeline = LangChainRagPipeline(top_k=args.top_k, threshold=args.threshold)
+    pipeline = LangChainRagPipeline(
+        top_k=args.top_k,
+        threshold=args.threshold,
+        lm_max_tokens=args.lm_max_tokens,
+    )
     try:
         response = pipeline.run(
             args.query,
