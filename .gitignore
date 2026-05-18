@@ -1,9 +1,13 @@
 # Qdrant
 ./qdrant_data
+qdrant_local/
 
 # Logs
 ./eval_log.jsonl
 ./carbon_metrics.jsonl
+carbon_metrics.jsonl
+*.log
+outputs/
 
 # Python cacheg
 ./__pycache__

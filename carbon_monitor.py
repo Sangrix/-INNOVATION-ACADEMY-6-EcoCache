@@ -50,7 +50,7 @@ class CarbonMonitor:
             "save_to_logger": False,
             "log_level": "error",
             "measure_power_secs": self.sample_interval,
-            "allow_multiple_runs": False,
+            "allow_multiple_runs": True,
         }
         if self._gpu_handle is not None:
             tracker_kwargs["gpu_ids"] = [self.gpu_index]
@@ -114,17 +114,25 @@ class CarbonMonitor:
             yield state
         finally:
             duration = time.time() - start_time
-            tracker.stop()
+            emitted_kg = tracker.stop()
             stop_event.set()
             monitor_thread.join()
 
-            emissions = tracker.final_emissions_data
+            emissions = getattr(tracker, "final_emissions_data", None)
+            total_energy = getattr(tracker, "_total_energy", None)
             energy_kwh = getattr(emissions, "energy_consumed", 0.0) or 0.0
+            if not energy_kwh and total_energy is not None:
+                energy_kwh = getattr(total_energy, "kWh", 0.0) or 0.0
+
+            co2_g = energy_kwh * self.ci_value
+            if not co2_g and emitted_kg:
+                co2_g = emitted_kg * 1000.0
+
             metrics = {
                 "stage": stage_name,
                 "duration_sec": round(duration, 4),
                 "energy_kwh": energy_kwh,
-                "co2_g": round(energy_kwh * self.ci_value, 4),
+                "co2_g": round(co2_g, 4),
                 "peak_power_W": round(max(power_records), 2) if power_records else 0.0,
                 "avg_power_W": round(sum(power_records) / len(power_records), 2) if power_records else 0.0,
             }
