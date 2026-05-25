@@ -1,5 +1,6 @@
-from typing import List, Optional
-from pydantic import BaseModel
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, Field
 
 
 class ChatRequest(BaseModel):
@@ -10,10 +11,11 @@ class ChatResult(BaseModel):
     response: Optional[str] = None
     similarity: Optional[float] = None
     cache_hit: bool = False
-    latency: Optional[float] = None       # ms
-    co2_grams: Optional[float] = None     # 미통합 — 항상 null
-    ci_g_per_kwh: Optional[float] = None  # 현재 한국 탄소 집약도
-    sources: List[str] = []               # doc_id 목록
+    latency: Optional[float] = None
+    co2_grams: Optional[float] = None
+    ci_g_per_kwh: Optional[float] = None
+    sources: List[str] = Field(default_factory=list)
+    timings: List[Dict[str, Any]] = Field(default_factory=list)
 
 
 class ChatResponse(BaseModel):

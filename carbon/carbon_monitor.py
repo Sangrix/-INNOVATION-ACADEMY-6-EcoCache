@@ -50,7 +50,7 @@ class CarbonMonitor:
             "save_to_logger": False,
             "log_level": "error",
             "measure_power_secs": self.sample_interval,
-            "allow_multiple_runs": False,
+            "allow_multiple_runs": True,
         }
         if self._gpu_handle is not None:
             tracker_kwargs["gpu_ids"] = [self.gpu_index]

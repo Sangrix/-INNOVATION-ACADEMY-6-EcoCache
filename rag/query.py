@@ -51,14 +51,26 @@ def get_retriever(mode: str = "b2") -> BaseRetriever:
 def rag_search(query: str, mode: str = "b2",
                filters: dict | None = None) -> dict:
     retriever = get_retriever(mode)
+    timings: list[dict] = []
     result, metrics = carbon_monitor.run(
         f"{mode}_retrieval",
         retriever.retrieve,
         query,
         filters=filters,
+        timings=timings,
         extra={"mode": mode},
     )
     result.setdefault("metrics", {})["retrieval"] = metrics
+    result["timings"] = timings
+    if metrics:
+        result["timings"].append({
+            "stage": f"carbon.{mode}_retrieval",
+            "duration_ms": round(metrics.get("duration_sec", 0.0) * 1000, 2),
+            "co2_g": metrics.get("co2_g"),
+            "energy_kwh": metrics.get("energy_kwh"),
+            "avg_power_W": metrics.get("avg_power_W"),
+            "peak_power_W": metrics.get("peak_power_W"),
+        })
     return result
 
 
@@ -90,6 +102,7 @@ def log_result(result: dict, log_file: str | Path = "eval_log.jsonl",
         "source":         result["source"],
         "qa_top1_score":  result.get("qa_top1_score"),
         "carbon_metrics": result.get("metrics", {}),
+        "timings":        result.get("timings", []),
         "results": [
             {
                 "rank":  i + 1,
@@ -167,6 +180,15 @@ def generate_answer(query: str, rag_result: dict) -> str:
     return answer
 
 
+def cached_answer(result: dict) -> str | None:
+    if result["source"] != "qa_pairs" or not result["results"]:
+        return None
+    answer = result["results"][0]["payload"].get("answer")
+    if isinstance(answer, dict):
+        return answer.get("text")
+    return answer
+
+
 def print_results(result: dict) -> None:
     print(f"\n{'='*60}")
     print(f"쿼리   : {result['query']}")
@@ -189,6 +211,15 @@ def print_results(result: dict) -> None:
             print(f"  청크: {payload.get('chunk_index', 0)+1}/{payload.get('chunk_total', 1)}")
             print(f"  본문: {payload.get('text', '')[:200]}...")
             print(f"  URL: {payload.get('url', '')}")
+
+    if result.get("timings"):
+        print("\n[Timings]")
+        for timing in result["timings"]:
+            extras = " ".join(
+                f"{k}={v}" for k, v in timing.items()
+                if k not in {"stage", "duration_ms"}
+            )
+            print(f"  {timing['stage']}: {timing['duration_ms']} ms {extras}")
 
 
 if __name__ == "__main__":
@@ -227,6 +258,14 @@ if __name__ == "__main__":
 
     result = rag_search(query_text, mode=mode, filters=filters if filters else None)
     print_results(result)
+
+    if do_generate and result["source"] == "qa_pairs":
+        print(f"\n{'='*60}")
+        print(" 캐시 답변")
+        print(f"{'='*60}")
+        print(cached_answer(result))
+        print()
+        do_generate = False
 
     if do_generate:
         try:

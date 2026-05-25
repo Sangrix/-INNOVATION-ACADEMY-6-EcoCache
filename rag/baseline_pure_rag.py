@@ -11,11 +11,20 @@ from retriever_base import BaseRetriever, search
 
 class PureRAGRetriever(BaseRetriever):
     def retrieve(self, query: str, filters: dict | None = None,
-                 top_k: int = config.TOP_K) -> dict:
-        results = search(query, config.COLLECTION_DOCS, top_k=top_k, filters=filters)
+                 top_k: int = config.TOP_K,
+                 timings: list[dict] | None = None) -> dict:
+        results = search(
+            query,
+            config.COLLECTION_DOCS,
+            top_k=top_k,
+            filters=filters,
+            timings=timings,
+            stage_prefix="document_search",
+        )
         return {
             "source":        "documents",
             "results":       results,
             "query":         query,
             "qa_top1_score": None,
+            "timings":       timings or [],
         }

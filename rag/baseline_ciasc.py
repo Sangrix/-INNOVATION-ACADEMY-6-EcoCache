@@ -13,6 +13,7 @@ CI가 낮을수록 θ가 높아져 더 정확한 문서를 검색한다.
 """
 
 import sys
+import time
 from pathlib import Path
 
 _CARBON_DIR = Path(__file__).parent.parent / "carbon"
@@ -27,10 +28,25 @@ class CIASCRetriever(BaseRetriever):
         self.alpha = alpha
 
     def retrieve(self, query: str, filters: dict | None = None,
-                 top_k: int = config.TOP_K) -> dict:
+                 top_k: int = config.TOP_K,
+                 timings: list[dict] | None = None) -> dict:
+        threshold_start = time.perf_counter()
         threshold = self._get_threshold()
+        if timings is not None:
+            timings.append({
+                "stage": "ciasc.threshold",
+                "duration_ms": round((time.perf_counter() - threshold_start) * 1000, 2),
+                "threshold": threshold,
+            })
 
-        qa_results = search(query, config.COLLECTION_QA, top_k=top_k, filters=filters)
+        qa_results = search(
+            query,
+            config.COLLECTION_QA,
+            top_k=top_k,
+            filters=filters,
+            timings=timings,
+            stage_prefix="qa_search",
+        )
         qa_top1    = qa_results[0]["score"] if qa_results else None
 
         if qa_results and qa_top1 >= threshold:
@@ -39,14 +55,23 @@ class CIASCRetriever(BaseRetriever):
                 "results":       qa_results,
                 "query":         query,
                 "qa_top1_score": qa_top1,
+                "timings":       timings or [],
             }
 
-        doc_results = search(query, config.COLLECTION_DOCS, top_k=top_k, filters=filters)
+        doc_results = search(
+            query,
+            config.COLLECTION_DOCS,
+            top_k=top_k,
+            filters=filters,
+            timings=timings,
+            stage_prefix="document_search",
+        )
         return {
             "source":        "documents",
             "results":       doc_results,
             "query":         query,
             "qa_top1_score": qa_top1,
+            "timings":       timings or [],
         }
 
     def _get_threshold(self) -> float:

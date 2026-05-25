@@ -12,10 +12,17 @@ POST /chat  {"query": "..."}
   uvicorn main:app --reload --port 8000
 """
 
+import logging
 import sys
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
+
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    level=logging.INFO,
+)
+logger = logging.getLogger(__name__)
 
 _RAG_DIR    = Path(__file__).parent.parent / "rag"
 _CARBON_DIR = Path(__file__).parent.parent / "carbon"
@@ -23,6 +30,7 @@ sys.path.insert(0, str(_RAG_DIR))
 sys.path.insert(0, str(_CARBON_DIR))
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import config
 from baseline_semantic_cache import SemanticCacheRetriever
@@ -38,13 +46,19 @@ _retriever: SemanticCacheRetriever | None = None
 async def lifespan(app: FastAPI):
     global _retriever
     _retriever = SemanticCacheRetriever()
-    from retriever_base import get_model, get_client
-    get_model()
+    from retriever_base import get_client
     get_client()
     yield
 
 
 app = FastAPI(title="EcoCache RAG API", version="0.2.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def _extract_source_ids(result: dict) -> list[str]:
@@ -57,6 +71,15 @@ def _extract_source_ids(result: dict) -> list[str]:
     return list(dict.fromkeys(ids))
 
 
+def _extract_cached_answer(result: dict) -> str | None:
+    if result["source"] != "qa_pairs" or not result["results"]:
+        return None
+    answer = result["results"][0]["payload"].get("answer")
+    if isinstance(answer, dict):
+        return answer.get("text")
+    return answer
+
+
 def _get_current_ci() -> float | None:
     try:
         from carbon_optimizer import get_optimizer
@@ -65,16 +88,48 @@ def _get_current_ci() -> float | None:
         return None
 
 
+def _record_timing(timings: list[dict], stage: str,
+                   duration_sec: float, **extra) -> None:
+    duration_ms = round(duration_sec * 1000, 2)
+    entry = {"stage": stage, "duration_ms": duration_ms}
+    entry.update({k: v for k, v in extra.items() if v is not None})
+    timings.append(entry)
+    detail = " ".join(
+        f"{key}={value}" for key, value in extra.items() if value is not None
+    )
+    logger.info("query_stage stage=%s duration_ms=%.2f %s", stage, duration_ms, detail)
+
+
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest) -> ChatResponse:
     start = time.perf_counter()
+    timings: list[dict] = []
 
     try:
+        if _retriever is None:
+            raise RuntimeError("Retriever is not initialized")
+
+        retrieval_start = time.perf_counter()
         with carbon_monitor.track("api_retrieval",
                                   extra={"endpoint": "/chat"}) as state:
-            result = _retriever.retrieve(req.query)
+            result = _retriever.retrieve(req.query, timings=timings)
+        _record_timing(
+            timings,
+            "api.retrieval_with_carbon",
+            time.perf_counter() - retrieval_start,
+        )
 
         retrieval_metrics = state["metrics"] or {}
+        if retrieval_metrics:
+            _record_timing(
+                timings,
+                "carbon.api_retrieval",
+                retrieval_metrics.get("duration_sec", 0.0),
+                co2_g=retrieval_metrics.get("co2_g"),
+                energy_kwh=retrieval_metrics.get("energy_kwh"),
+                avg_power_W=retrieval_metrics.get("avg_power_W"),
+                peak_power_W=retrieval_metrics.get("peak_power_W"),
+            )
         co2_grams         = retrieval_metrics.get("co2_g")
         latency_ms        = round((time.perf_counter() - start) * 1000, 1)
 
@@ -83,15 +138,43 @@ def chat(req: ChatRequest) -> ChatResponse:
         sources    = _extract_source_ids(result)
 
         response_text: str | None = None
-        try:
-            with carbon_monitor.track("api_llm_generation") as llm_state:
+        if cache_hit:
+            cache_response_start = time.perf_counter()
+            response_text = _extract_cached_answer(result)
+            _record_timing(
+                timings,
+                "api.cache_hit_response",
+                time.perf_counter() - cache_response_start,
+            )
+        else:
+            try:
+                llm_start = time.perf_counter()
                 response_text = generate_answer(req.query, result)
-            if llm_state["metrics"] and co2_grams is not None:
-                co2_grams = round(co2_grams + llm_state["metrics"].get("co2_g", 0.0), 6)
-            elif llm_state["metrics"]:
-                co2_grams = llm_state["metrics"].get("co2_g")
-        except Exception:
-            pass
+                _record_timing(
+                    timings,
+                    "api.llm_generation",
+                    time.perf_counter() - llm_start,
+                )
+                llm_metrics = result.get("metrics", {}).get("llm_generation")
+                if llm_metrics and co2_grams is not None:
+                    co2_grams = round(co2_grams + llm_metrics.get("co2_g", 0.0), 6)
+                elif llm_metrics:
+                    co2_grams = llm_metrics.get("co2_g")
+            except Exception as e:
+                _record_timing(
+                    timings,
+                    "api.llm_generation",
+                    time.perf_counter() - llm_start if "llm_start" in locals() else 0.0,
+                    error=type(e).__name__,
+                )
+                logger.warning("LLM generation failed: %s", e)
+
+        ci_start = time.perf_counter()
+        current_ci = _get_current_ci()
+        _record_timing(timings, "api.current_ci", time.perf_counter() - ci_start)
+
+        latency_ms = round((time.perf_counter() - start) * 1000, 1)
+        _record_timing(timings, "api.total_request", time.perf_counter() - start)
 
         return ChatResponse(
             success=True,
@@ -102,8 +185,9 @@ def chat(req: ChatRequest) -> ChatResponse:
                 cache_hit=cache_hit,
                 latency=latency_ms,
                 co2_grams=co2_grams,
-                ci_g_per_kwh=_get_current_ci(),
+                ci_g_per_kwh=current_ci,
                 sources=sources,
+                timings=timings,
             ),
         )
 
