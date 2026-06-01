@@ -22,6 +22,17 @@ warnings.filterwarnings("ignore")
 import config
 from query import log_result, rag_search
 
+_CARBON_DIR = str(Path(__file__).parent.parent / "carbon")
+if _CARBON_DIR not in sys.path:
+    sys.path.insert(0, _CARBON_DIR)
+
+try:
+    from collector import get_latest_ci_from_db
+    from carbon_optimizer import get_optimizer
+except ImportError:
+    get_latest_ci_from_db = None  # type: ignore[assignment]
+    get_optimizer = None          # type: ignore[assignment]
+
 MODES = {
     "b1": {
         "label":      "B1 (No Cache / Pure RAG)",
@@ -42,16 +53,22 @@ MODES = {
 
 
 def _get_ciasc_threshold(alpha: float = 0.15) -> float:
-    try:
-        from carbon_optimizer import get_optimizer
-        opt   = get_optimizer()
-        ci    = opt.get_current_ci()
-        theta = opt.get_adaptive_threshold(ci=ci, alpha=alpha)
-        print(f"  [CIASC] 현재 CI={ci:.0f} gCO2/kWh, α={alpha} → θ(t)={theta:.4f}")
-        return theta
-    except ImportError:
-        print("  [CIASC] carbon_optimizer 없음 → fallback θ=0.7375")
+    if get_latest_ci_from_db is None or get_optimizer is None:
+        print("  [CIASC] carbon 모듈 없음 → fallback θ=0.7375")
         return 0.7375
+    ci = get_latest_ci_from_db()
+    if ci is None:
+        ci = get_optimizer().get_current_ci()
+        print("  [CIASC] DB에 CI 없음 → optimizer fallback")
+        theta = get_optimizer().get_adaptive_threshold(ci=ci, alpha=alpha)
+    else:
+        ci_range = config.CIASC_CI_MAX - config.CIASC_CI_MIN
+        ci_norm  = 0.0 if ci_range == 0 else (ci - config.CIASC_CI_MIN) / ci_range
+        ci_norm  = max(0.0, min(1.0, ci_norm))
+        raw      = config.CIASC_BASE_THRESHOLD - (alpha * (ci_norm - 0.5))
+        theta    = round(max(config.CIASC_THETA_MIN, min(config.CIASC_THETA_MAX, raw)), 4)
+    print(f"  [CIASC] CI={ci:.0f} gCO2/kWh, α={alpha} → θ(t)={theta:.4f}")
+    return theta
 
 
 def apply_mode(mode: str, alpha: float = 0.15) -> float:
@@ -104,9 +121,6 @@ def run_eval(
     cache_hits       = 0
 
     for idx, test in enumerate(tests, 1):
-        if mode == "ciasc":
-            threshold = apply_mode("ciasc", alpha=alpha)
-
         tid      = test["id"]
         query    = test["query"]
         expected = test.get("expected_source", "either")
