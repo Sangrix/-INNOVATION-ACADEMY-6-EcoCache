@@ -59,6 +59,15 @@ CIASC_THETA_MAX      = float(os.getenv("CIASC_THETA_MAX", "0.95"))
 _ciasc_fixed         = os.getenv("CIASC_FIXED_CI", "").strip()
 CIASC_FIXED_CI       = float(_ciasc_fixed) if _ciasc_fixed else None
 
+# ── PostgreSQL (공유 DB 설정) ─────────────────────────────────────────────────
+DB_CONFIG = {
+    "dbname":   os.getenv("POSTGRES_DB",       "ecocache"),
+    "user":     os.getenv("POSTGRES_USER",     "ecocache"),
+    "password": os.getenv("POSTGRES_PASSWORD", "ecocache"),
+    "host":     os.getenv("POSTGRES_HOST",     "localhost"),
+    "port":     int(os.getenv("POSTGRES_PORT", "5432")),
+}
+
 # ── LM Studio ─────────────────────────────────────────────────────────────────
 def _lm_studio_url() -> str:
     url = os.getenv("LM_STUDIO_URL", "http://localhost:1234/v1")
