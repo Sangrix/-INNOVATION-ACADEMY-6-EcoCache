@@ -28,3 +28,7 @@ def test_get_current_ci_falls_back_when_db_returns_none():
             mock_opt.return_value.get_current_ci.return_value = 415.0
             result = asyncio.run(main._get_current_ci())
     assert result == 415.0
+
+def test_chat_handler_is_async():
+    import main
+    assert inspect.iscoroutinefunction(main.chat)
