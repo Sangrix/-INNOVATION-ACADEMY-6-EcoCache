@@ -22,6 +22,7 @@ DB_CONFIG = config.DB_CONFIG
 
 
 def get_latest_ci_from_db() -> float | None:
+    conn = None
     try:
         conn = psycopg2.connect(**DB_CONFIG)
         cur  = conn.cursor()
@@ -31,15 +32,18 @@ def get_latest_ci_from_db() -> float | None:
         )
         row = cur.fetchone()
         cur.close()
-        conn.close()
         return float(row[0]) if row else None
     except Exception as e:
         print(f"[WARN] DB CI 조회 실패: {e}")
         return None
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 async def save_to_db(ci_value: float, source: str) -> None:
     def _sync_write():
+        conn = None
         try:
             conn = psycopg2.connect(**DB_CONFIG)
             cur  = conn.cursor()
@@ -52,9 +56,11 @@ async def save_to_db(ci_value: float, source: str) -> None:
             conn.commit()
             print(f"[{datetime.now()}] 저장 완료: {ci_value}g/kWh ({source})")
             cur.close()
-            conn.close()
         except Exception as e:
             print(f"[{datetime.now()}] DB 오류: {e}")
+        finally:
+            if conn is not None:
+                conn.close()
 
     await asyncio.to_thread(_sync_write)
 
