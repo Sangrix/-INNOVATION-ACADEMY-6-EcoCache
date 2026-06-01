@@ -36,6 +36,7 @@ import config
 from baseline_semantic_cache import SemanticCacheRetriever
 from query import generate_answer
 from carbon_monitor import CarbonMonitor
+from collector import get_latest_ci_from_db, get_optimizer
 from schemas import ChatRequest, ChatResponse, ChatResult
 
 carbon_monitor = CarbonMonitor.from_config(config)
@@ -80,9 +81,11 @@ def _extract_cached_answer(result: dict) -> str | None:
     return answer
 
 
-def _get_current_ci() -> float | None:
+async def _get_current_ci() -> float | None:
+    ci = get_latest_ci_from_db()
+    if ci is not None:
+        return ci
     try:
-        from carbon_optimizer import get_optimizer
         return get_optimizer().get_current_ci()
     except Exception:
         return None
@@ -101,7 +104,7 @@ def _record_timing(timings: list[dict], stage: str,
 
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(req: ChatRequest) -> ChatResponse:
+async def chat(req: ChatRequest) -> ChatResponse:
     start = time.perf_counter()
     timings: list[dict] = []
 
@@ -170,7 +173,7 @@ def chat(req: ChatRequest) -> ChatResponse:
                 logger.warning("LLM generation failed: %s", e)
 
         ci_start = time.perf_counter()
-        current_ci = _get_current_ci()
+        current_ci = await _get_current_ci()
         _record_timing(timings, "api.current_ci", time.perf_counter() - ci_start)
 
         latency_ms = round((time.perf_counter() - start) * 1000, 1)
