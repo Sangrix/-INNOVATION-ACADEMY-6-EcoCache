@@ -33,6 +33,8 @@ class CarbonMonitor:
         except pynvml.NVMLError:
             self._gpu_handle = None
 
+        self._tracker = self._build_tracker()
+
     @classmethod
     def from_config(cls, cfg):
         return cls(
@@ -101,7 +103,7 @@ class CarbonMonitor:
             args=(stop_event, power_records),
             daemon=True,
         )
-        tracker = self._build_tracker()
+        tracker = self._tracker
 
         monitor_thread.start()
         tracker.start()
