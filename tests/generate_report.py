@@ -177,7 +177,7 @@ def format_report(records: list[dict], generated_at: str) -> str:
                 "",
                 f"**Cache hit:** {hit}  |  "
                 f"**Similarity:** {_fmt_float(r['similarity'])}  |  "
-                f"**Latency:** {r['latency_ms']:.0f} ms  |  "
+                f"**Latency:** {_fmt_float(r['latency_ms'], 0)} ms  |  "
                 f"**Wall time:** {r['wall_time_ms']:.0f} ms",
                 "",
                 f"**CO₂:** {_fmt_co2(r['co2_grams'])}  |  "
@@ -202,7 +202,7 @@ def format_report(records: list[dict], generated_at: str) -> str:
                 "",
                 f"**Cache hit:** {hit}  |  "
                 f"**Similarity:** {_fmt_float(r['similarity'])}  |  "
-                f"**Latency:** {r['latency_ms']:.0f} ms  |  "
+                f"**Latency:** {_fmt_float(r['latency_ms'], 0)} ms  |  "
                 f"**Wall time:** {r['wall_time_ms']:.0f} ms",
                 "",
                 f"**CO₂:** {_fmt_co2(r['co2_grams'])}  |  "

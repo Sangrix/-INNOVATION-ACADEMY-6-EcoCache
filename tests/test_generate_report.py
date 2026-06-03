@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import patch, MagicMock
 import json
 import urllib.request
 import urllib.error
@@ -21,7 +21,7 @@ MOCK_QA = [
 def test_load_qa_batches_returns_20_items():
     import generate_report
     mock_data = json.dumps(MOCK_QA)
-    with patch("builtins.open", mock_open(read_data=mock_data)):
+    with patch("pathlib.Path.read_text", return_value=mock_data):
         batches = generate_report.load_qa_batches()
     assert len(batches) == 20
 
@@ -29,7 +29,7 @@ def test_load_qa_batches_returns_20_items():
 def test_load_qa_batches_each_item_has_required_fields():
     import generate_report
     mock_data = json.dumps(MOCK_QA)
-    with patch("builtins.open", mock_open(read_data=mock_data)):
+    with patch("pathlib.Path.read_text", return_value=mock_data):
         batches = generate_report.load_qa_batches()
     for item in batches:
         assert "query" in item
@@ -182,3 +182,26 @@ def test_format_report_cache_hit_symbols():
     md = generate_report.format_report(SAMPLE_RECORDS, generated_at="2026-06-03 12:00")
     assert "✓" in md
     assert "✗" in md
+
+
+def test_format_report_handles_failed_record():
+    import generate_report
+    failed_record = {
+        "query": "실패한 질문",
+        "expected_answer": None,
+        "batch": "sw_upstage_output (공지사항 2026)",
+        "type": "qa_pair",
+        "success": False,
+        "error": "Retriever not initialized",
+        "response": None,
+        "cache_hit": None,
+        "similarity": None,
+        "latency_ms": None,
+        "wall_time_ms": 15.0,
+        "co2_grams": None,
+        "ci_g_per_kwh": None,
+        "sources": [],
+    }
+    md = generate_report.format_report([failed_record], generated_at="2026-06-03 12:00")
+    assert "Retriever not initialized" in md
+    assert "실패한 질문" in md
