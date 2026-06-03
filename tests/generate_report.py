@@ -116,3 +116,122 @@ def query_chat_api(query: str, api_url: str = "http://localhost:8000") -> dict:
         "ci_g_per_kwh": r.get("ci_g_per_kwh"),
         "sources":      r.get("sources", []),
     }
+
+
+def _fmt_float(val, decimals: int = 4) -> str:
+    return f"{val:.{decimals}f}" if val is not None else "—"
+
+
+def _fmt_co2(val) -> str:
+    return f"{val * 1000:.4f} mg" if val is not None else "—"
+
+
+def format_report(records: list[dict], generated_at: str) -> str:
+    lines: list[str] = []
+
+    # ── Header ────────────────────────────────────────────────────────────────
+    lines += [
+        f"# EcoCache /chat API Test Report — {generated_at}",
+        "",
+        f"**Queries:** {len(records)} total  "
+        f"({sum(1 for r in records if r['type'] == 'qa_pair')} QA pairs + "
+        f"{sum(1 for r in records if r['type'] == 'novel')} novel)",
+        "",
+    ]
+
+    # ── Summary table ─────────────────────────────────────────────────────────
+    lines += [
+        "## Summary",
+        "",
+        "| # | Query | Type | Cache Hit | Similarity | Latency (ms) | CO₂ |",
+        "|---|-------|------|:---------:|:----------:|:------------:|-----|",
+    ]
+    for i, r in enumerate(records, 1):
+        q_short = r["query"][:45] + "…" if len(r["query"]) > 45 else r["query"]
+        hit = "✓" if r["cache_hit"] else "✗"
+        sim = _fmt_float(r["similarity"])
+        lat = f"{r['latency_ms']:.0f}" if r["latency_ms"] is not None else "—"
+        co2 = _fmt_co2(r["co2_grams"])
+        qtype = "QA" if r["type"] == "qa_pair" else "Novel"
+        lines.append(f"| {i} | {q_short} | {qtype} | {hit} | {sim} | {lat} | {co2} |")
+    lines.append("")
+
+    # ── QA Pair Questions ─────────────────────────────────────────────────────
+    lines += ["## QA Pair Questions", ""]
+    qa_records = [r for r in records if r["type"] == "qa_pair"]
+    current_batch = None
+    qa_idx = 0
+    for r in qa_records:
+        qa_idx += 1
+        if r["batch"] != current_batch:
+            current_batch = r["batch"]
+            lines += [f"### Batch — {current_batch}", ""]
+        lines += [f"#### Q{qa_idx}: {r['query']}", ""]
+        if not r["success"]:
+            lines += [f"> **Error:** {r['error']}", ""]
+        else:
+            resp = r["response"] or "*(no LLM response)*"
+            hit  = "✓" if r["cache_hit"] else "✗"
+            lines += [
+                f"**Answer:** {resp}",
+                "",
+                f"**Cache hit:** {hit}  |  "
+                f"**Similarity:** {_fmt_float(r['similarity'])}  |  "
+                f"**Latency:** {r['latency_ms']:.0f} ms  |  "
+                f"**Wall time:** {r['wall_time_ms']:.0f} ms",
+                "",
+                f"**CO₂:** {_fmt_co2(r['co2_grams'])}  |  "
+                f"**CI:** {_fmt_float(r['ci_g_per_kwh'], 1)} gCO₂/kWh",
+                "",
+                f"**Sources:** {', '.join(f'`{s}`' for s in r['sources']) or '—'}",
+                "",
+            ]
+
+    # ── Novel Questions ───────────────────────────────────────────────────────
+    lines += ["## Novel Questions", ""]
+    novel_records = [r for r in records if r["type"] == "novel"]
+    for i, r in enumerate(novel_records, 1):
+        lines += [f"#### N{i}: {r['query']}", ""]
+        if not r["success"]:
+            lines += [f"> **Error:** {r['error']}", ""]
+        else:
+            resp = r["response"] or "*(no LLM response)*"
+            hit  = "✓" if r["cache_hit"] else "✗"
+            lines += [
+                f"**Answer:** {resp}",
+                "",
+                f"**Cache hit:** {hit}  |  "
+                f"**Similarity:** {_fmt_float(r['similarity'])}  |  "
+                f"**Latency:** {r['latency_ms']:.0f} ms  |  "
+                f"**Wall time:** {r['wall_time_ms']:.0f} ms",
+                "",
+                f"**CO₂:** {_fmt_co2(r['co2_grams'])}  |  "
+                f"**CI:** {_fmt_float(r['ci_g_per_kwh'], 1)} gCO₂/kWh",
+                "",
+                f"**Sources:** {', '.join(f'`{s}`' for s in r['sources']) or '—'}",
+                "",
+            ]
+
+    # ── Observations ──────────────────────────────────────────────────────────
+    qa_hits    = sum(1 for r in qa_records    if r["cache_hit"])
+    novel_hits = sum(1 for r in novel_records if r["cache_hit"])
+    qa_sims    = [r["similarity"] for r in qa_records    if r["similarity"] is not None]
+    novel_sims = [r["similarity"] for r in novel_records if r["similarity"] is not None]
+    all_lats   = [r["latency_ms"] for r in records if r["latency_ms"] is not None]
+    total_co2  = sum(r["co2_grams"] for r in records if r["co2_grams"] is not None)
+
+    lines += ["## Observations", ""]
+    if qa_records:
+        lines.append(f"- **QA pair cache hit rate:** {qa_hits}/{len(qa_records)} ({qa_hits/len(qa_records)*100:.0f}%)")
+    if novel_records:
+        lines.append(f"- **Novel cache hit rate:** {novel_hits}/{len(novel_records)} ({novel_hits/len(novel_records)*100:.0f}%)")
+    if qa_sims:
+        lines.append(f"- **Avg similarity (QA):** {sum(qa_sims)/len(qa_sims):.4f}")
+    if novel_sims:
+        lines.append(f"- **Avg similarity (Novel):** {sum(novel_sims)/len(novel_sims):.4f}")
+    if all_lats:
+        lines.append(f"- **Avg latency:** {sum(all_lats)/len(all_lats):.0f} ms")
+    lines.append(f"- **Total CO₂:** {_fmt_co2(total_co2)}")
+    lines.append("")
+
+    return "\n".join(lines)

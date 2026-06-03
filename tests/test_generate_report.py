@@ -107,3 +107,78 @@ def test_query_chat_api_handles_connection_error():
         result = generate_report.query_chat_api("질문", api_url="http://localhost:8000")
     assert result["success"] is False
     assert "refused" in result["error"]
+
+
+SAMPLE_RECORDS = [
+    {
+        "query": "신청 기간은 언제인가요?",
+        "expected_answer": "4월 1일~28일",
+        "batch": "sw_upstage_output (공지사항 2026)",
+        "type": "qa_pair",
+        "success": True,
+        "error": None,
+        "response": "신청 기간은 4월 1일부터 28일까지입니다.",
+        "cache_hit": True,
+        "similarity": 0.8821,
+        "latency_ms": 342.1,
+        "wall_time_ms": 355.0,
+        "co2_grams": 0.000021,
+        "ci_g_per_kwh": 395.5,
+        "sources": ["inha_notice_001"],
+    },
+    {
+        "query": "SW중심대학 사업단 소개 및 주요 목표는 무엇인가요?",
+        "expected_answer": None,
+        "batch": None,
+        "type": "novel",
+        "success": True,
+        "error": None,
+        "response": "인하대학교 SW중심대학 사업단은...",
+        "cache_hit": False,
+        "similarity": 0.6123,
+        "latency_ms": 5200.0,
+        "wall_time_ms": 5215.0,
+        "co2_grams": 0.000089,
+        "ci_g_per_kwh": 395.5,
+        "sources": ["inha_notice_012", "inha_pr_001"],
+    },
+]
+
+
+def test_format_report_contains_summary_table():
+    import generate_report
+    md = generate_report.format_report(SAMPLE_RECORDS, generated_at="2026-06-03 12:00")
+    assert "## Summary" in md
+    assert "Cache Hit" in md
+    assert "Similarity" in md
+    assert "Latency" in md
+    assert "CO₂" in md
+
+
+def test_format_report_contains_qa_section():
+    import generate_report
+    md = generate_report.format_report(SAMPLE_RECORDS, generated_at="2026-06-03 12:00")
+    assert "## QA Pair Questions" in md
+    assert "신청 기간은 언제인가요?" in md
+    assert "4월 1일부터 28일까지" in md
+
+
+def test_format_report_contains_novel_section():
+    import generate_report
+    md = generate_report.format_report(SAMPLE_RECORDS, generated_at="2026-06-03 12:00")
+    assert "## Novel Questions" in md
+    assert "SW중심대학 사업단 소개" in md
+
+
+def test_format_report_contains_observations():
+    import generate_report
+    md = generate_report.format_report(SAMPLE_RECORDS, generated_at="2026-06-03 12:00")
+    assert "## Observations" in md
+    assert "cache hit" in md.lower() or "Cache Hit" in md
+
+
+def test_format_report_cache_hit_symbols():
+    import generate_report
+    md = generate_report.format_report(SAMPLE_RECORDS, generated_at="2026-06-03 12:00")
+    assert "✓" in md
+    assert "✗" in md
