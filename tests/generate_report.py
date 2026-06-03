@@ -235,3 +235,62 @@ def format_report(records: list[dict], generated_at: str) -> str:
     lines.append("")
 
     return "\n".join(lines)
+
+
+def main(api_url: str = "http://localhost:8000") -> None:
+    """Run full test suite and generate report."""
+    # ── Load queries ──────────────────────────────────────────────────────────
+    qa_items = load_qa_batches(n_per_batch=5)
+    novel_items = [
+        {"query": q, "expected_answer": None, "batch": None, "type": "novel"}
+        for q in NOVEL_QUESTIONS
+    ]
+    all_items = qa_items + novel_items
+    print(f"Loaded {len(all_items)} queries ({len(qa_items)} QA + {len(novel_items)} novel)")
+
+    # ── Verify API is reachable ───────────────────────────────────────────────
+    try:
+        with urllib.request.urlopen(f"{api_url}/health", timeout=5) as r:
+            health = json.loads(r.read().decode())
+        if health.get("status") != "ok":
+            print(f"[ERROR] API health check failed: {health}")
+            sys.exit(1)
+    except Exception as exc:
+        print(f"[ERROR] Cannot reach API at {api_url}: {exc}")
+        sys.exit(1)
+    print(f"API reachable at {api_url} ✓")
+
+    # ── Run queries ───────────────────────────────────────────────────────────
+    records = []
+    for i, item in enumerate(all_items, 1):
+        label = f"[{i:02d}/{len(all_items)}] ({item['type']}) {item['query'][:60]}"
+        print(label)
+        result = query_chat_api(item["query"], api_url=api_url)
+        result.update({
+            "expected_answer": item.get("expected_answer"),
+            "batch":           item.get("batch"),
+            "type":            item["type"],
+        })
+        hit = "✓" if result["cache_hit"] else "✗"
+        sim = f"{result['similarity']:.4f}" if result["similarity"] is not None else "—"
+        lat = f"{result['wall_time_ms']:.0f}ms"
+        print(f"  cache={hit}  sim={sim}  wall={lat}")
+        records.append(result)
+
+    # ── Write report ──────────────────────────────────────────────────────────
+    now = datetime.now()
+    report_dir = ROOT / "docs" / "reports"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    report_path = report_dir / f"{now.strftime('%Y-%m-%d')}-chat-api-test-report.md"
+
+    md = format_report(records, generated_at=now.strftime("%Y-%m-%d %H:%M"))
+    report_path.write_text(md, encoding="utf-8")
+    print(f"\nReport written → {report_path}")
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="EcoCache /chat API test report generator")
+    parser.add_argument("--api-url", default="http://localhost:8000")
+    args = parser.parse_args()
+    main(api_url=args.api_url)
