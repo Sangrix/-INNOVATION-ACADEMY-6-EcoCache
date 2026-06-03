@@ -55,3 +55,64 @@ def load_qa_batches(n_per_batch: int = 5) -> list[dict]:
                 "type":            "qa_pair",
             })
     return results
+
+
+def query_chat_api(query: str, api_url: str = "http://localhost:8000") -> dict:
+    """POST query to /chat, return flat result dict with wall_time_ms included."""
+    payload = json.dumps({"query": query}).encode()
+    req = urllib.request.Request(
+        f"{api_url}/chat",
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    t0 = time.perf_counter()
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            wall_time_ms = round((time.perf_counter() - t0) * 1000, 1)
+            data = json.loads(resp.read().decode())
+    except Exception as exc:
+        wall_time_ms = round((time.perf_counter() - t0) * 1000, 1)
+        return {
+            "query":        query,
+            "success":      False,
+            "error":        str(exc),
+            "response":     None,
+            "cache_hit":    None,
+            "similarity":   None,
+            "latency_ms":   None,
+            "wall_time_ms": wall_time_ms,
+            "co2_grams":    None,
+            "ci_g_per_kwh": None,
+            "sources":      [],
+        }
+
+    if not data.get("success") or data.get("result") is None:
+        return {
+            "query":        query,
+            "success":      False,
+            "error":        data.get("error", "unknown error"),
+            "response":     None,
+            "cache_hit":    None,
+            "similarity":   None,
+            "latency_ms":   None,
+            "wall_time_ms": wall_time_ms,
+            "co2_grams":    None,
+            "ci_g_per_kwh": None,
+            "sources":      [],
+        }
+
+    r = data["result"]
+    return {
+        "query":        query,
+        "success":      True,
+        "error":        None,
+        "response":     r.get("response"),
+        "cache_hit":    r.get("cache_hit", False),
+        "similarity":   r.get("similarity"),
+        "latency_ms":   r.get("latency"),
+        "wall_time_ms": wall_time_ms,
+        "co2_grams":    r.get("co2_grams"),
+        "ci_g_per_kwh": r.get("ci_g_per_kwh"),
+        "sources":      r.get("sources", []),
+    }

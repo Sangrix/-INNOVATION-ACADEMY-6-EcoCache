@@ -2,8 +2,10 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from unittest.mock import patch, mock_open
+from unittest.mock import patch, mock_open, MagicMock
 import json
+import urllib.request
+import urllib.error
 
 MOCK_QA = [
     {
@@ -46,3 +48,62 @@ def test_novel_questions_are_strings():
     for q in generate_report.NOVEL_QUESTIONS:
         assert isinstance(q, str)
         assert len(q) > 5
+
+
+API_RESPONSE = {
+    "success": True,
+    "error": None,
+    "result": {
+        "response": "테스트 답변입니다.",
+        "similarity": 0.8821,
+        "cache_hit": True,
+        "latency": 342.1,
+        "co2_grams": 0.000021,
+        "ci_g_per_kwh": 395.5,
+        "sources": ["inha_notice_001", "inha_notice_002"],
+        "timings": [],
+    },
+}
+
+
+def _make_mock_urlopen(response_dict):
+    mock_resp = MagicMock()
+    mock_resp.read.return_value = json.dumps(response_dict).encode()
+    mock_resp.__enter__ = lambda s: s
+    mock_resp.__exit__ = MagicMock(return_value=False)
+    return mock_resp
+
+
+def test_query_chat_api_returns_flat_dict():
+    import generate_report
+    mock_resp = _make_mock_urlopen(API_RESPONSE)
+    with patch("urllib.request.urlopen", return_value=mock_resp):
+        result = generate_report.query_chat_api("테스트 질문", api_url="http://localhost:8000")
+    assert result["query"] == "테스트 질문"
+    assert result["response"] == "테스트 답변입니다."
+    assert result["cache_hit"] is True
+    assert result["similarity"] == 0.8821
+    assert result["latency_ms"] == 342.1
+    assert result["co2_grams"] == 0.000021
+    assert result["ci_g_per_kwh"] == 395.5
+    assert result["sources"] == ["inha_notice_001", "inha_notice_002"]
+    assert "wall_time_ms" in result
+
+
+def test_query_chat_api_handles_api_error():
+    import generate_report
+    error_response = {"success": False, "error": "Retriever not initialized", "result": None}
+    mock_resp = _make_mock_urlopen(error_response)
+    with patch("urllib.request.urlopen", return_value=mock_resp):
+        result = generate_report.query_chat_api("질문", api_url="http://localhost:8000")
+    assert result["success"] is False
+    assert result["error"] == "Retriever not initialized"
+    assert result["response"] is None
+
+
+def test_query_chat_api_handles_connection_error():
+    import generate_report
+    with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("refused")):
+        result = generate_report.query_chat_api("질문", api_url="http://localhost:8000")
+    assert result["success"] is False
+    assert "refused" in result["error"]
