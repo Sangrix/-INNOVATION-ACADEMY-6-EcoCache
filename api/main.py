@@ -12,6 +12,7 @@ POST /chat  {"query": "..."}
   uvicorn main:app --reload --port 8000
 """
 
+import json
 import logging
 import sys
 import time
@@ -31,10 +32,11 @@ sys.path.insert(0, str(_CARBON_DIR))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 
 import config
 from baseline_semantic_cache import SemanticCacheRetriever
-from query import generate_answer
+from query import generate_answer, generate_answer_stream
 from carbon_monitor import CarbonMonitor
 from collector import get_latest_ci_from_db, get_optimizer
 from schemas import ChatRequest, ChatResponse, ChatResult
@@ -91,6 +93,17 @@ async def _get_current_ci() -> float | None:
         return None
 
 
+def _get_current_ci_sync() -> float | None:
+    # sync counterpart of _get_current_ci() — required for sync generator
+    ci = get_latest_ci_from_db()
+    if ci is not None:
+        return ci
+    try:
+        return get_optimizer().get_current_ci()
+    except Exception:
+        return None
+
+
 def _record_timing(timings: list[dict], stage: str,
                    duration_sec: float, **extra) -> None:
     duration_ms = round(duration_sec * 1000, 2)
@@ -101,6 +114,61 @@ def _record_timing(timings: list[dict], stage: str,
         f"{key}={value}" for key, value in extra.items() if value is not None
     )
     logger.info("query_stage stage=%s duration_ms=%.2f %s", stage, duration_ms, detail)
+
+
+def _stream_chat_generator(query: str):
+    start = time.perf_counter()
+
+    if _retriever is None:
+        yield f"data: {json.dumps({'type':'error','message':'Retriever not initialized'}, ensure_ascii=False)}\n\n"
+        yield "data: [DONE]\n\n"
+        return
+
+    with carbon_monitor.track("api_retrieval", extra={"endpoint": "/chat/stream"}) as r_state:
+        result = _retriever.retrieve(query)
+
+    retrieval_co2 = (r_state["metrics"] or {}).get("co2_g", 0.0)
+    cache_hit  = result["source"] == "qa_pairs"
+    top1_score = result["results"][0]["score"] if result["results"] else None
+    sources    = _extract_source_ids(result)
+    llm_co2    = 0.0
+
+    if cache_hit:
+        answer = _extract_cached_answer(result) or ""
+        yield f"data: {json.dumps({'type':'token','text':answer}, ensure_ascii=False)}\n\n"
+    else:
+        try:
+            with carbon_monitor.track("llm_generation") as llm_state:
+                for chunk in generate_answer_stream(query, result):
+                    yield f"data: {json.dumps({'type':'token','text':chunk}, ensure_ascii=False)}\n\n"
+            llm_co2 = (llm_state["metrics"] or {}).get("co2_g", 0.0)
+        except Exception as exc:
+            yield f"data: {json.dumps({'type':'error','message':str(exc)}, ensure_ascii=False)}\n\n"
+
+    latency_ms = round((time.perf_counter() - start) * 1000, 1)
+    co2_total  = round(retrieval_co2 + llm_co2, 6)
+    current_ci = _get_current_ci_sync()
+
+    meta = {
+        "type":         "meta",
+        "cache_hit":    cache_hit,
+        "similarity":   top1_score,
+        "latency_ms":   latency_ms,
+        "co2_grams":    co2_total,
+        "ci_g_per_kwh": current_ci,
+        "sources":      sources,
+    }
+    yield f"data: {json.dumps(meta, ensure_ascii=False)}\n\n"
+    yield "data: [DONE]\n\n"
+
+
+@app.post("/chat/stream")
+async def chat_stream(req: ChatRequest) -> StreamingResponse:
+    return StreamingResponse(
+        _stream_chat_generator(req.query),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 @app.post("/chat", response_model=ChatResponse)
