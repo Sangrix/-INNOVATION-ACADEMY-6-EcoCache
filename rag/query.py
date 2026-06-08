@@ -205,7 +205,7 @@ def generate_answer_stream(query: str, rag_result: dict):
     )
 
     for chunk in stream:
-        text = chunk.choices[0].delta.content or ""
+        text = (chunk.choices[0].delta.content if chunk.choices else "") or ""
         if text:
             yield text
 
