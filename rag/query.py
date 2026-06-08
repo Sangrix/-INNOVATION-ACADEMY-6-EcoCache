@@ -20,6 +20,8 @@ from pathlib import Path
 _CARBON_DIR = Path(__file__).parent.parent / "carbon"
 sys.path.insert(0, str(_CARBON_DIR))
 
+from openai import OpenAI
+
 import config
 from retriever_base import BaseRetriever
 from baseline_pure_rag import PureRAGRetriever
@@ -178,6 +180,34 @@ def generate_answer(query: str, rag_result: dict) -> str:
     )
     rag_result.setdefault("metrics", {})["llm_generation"] = metrics
     return answer
+
+
+def generate_answer_stream(query: str, rag_result: dict):
+    """Yield text chunks from LM Studio. Carbon tracking is done by the caller."""
+    if not config.LM_STUDIO_MODEL:
+        raise ValueError(
+            "LM_STUDIO_MODEL 환경변수가 설정되지 않았습니다. "
+            ".env에 LM_STUDIO_MODEL=<모델명>을 추가하세요."
+        )
+
+    context   = _build_context(rag_result)
+    lm_client = OpenAI(base_url=config.LM_STUDIO_URL, api_key="lm-studio")
+
+    stream = lm_client.chat.completions.create(
+        model=config.LM_STUDIO_MODEL,
+        messages=[
+            {"role": "system", "content": config.LM_SYSTEM_PROMPT},
+            {"role": "user",   "content": f"참고 문서:\n{context}\n\n질문: {query}"},
+        ],
+        temperature=config.LM_TEMPERATURE,
+        max_tokens=config.LM_MAX_TOKENS,
+        stream=True,
+    )
+
+    for chunk in stream:
+        text = chunk.choices[0].delta.content or ""
+        if text:
+            yield text
 
 
 def cached_answer(result: dict) -> str | None:
