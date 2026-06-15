@@ -1,0 +1,61 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecocache-api
+    ports:
+      - "8000:8000"
+    environment:
+      QDRANT_URL:                 http://qdrant:6333
+      POSTGRES_HOST:              postgres
+      POSTGRES_DB:                ${POSTGRES_DB:-ecocache}
+      POSTGRES_USER:              ${POSTGRES_USER:-ecocache}
+      POSTGRES_PASSWORD:          ${POSTGRES_PASSWORD:-ecocache}
+      # LM Studio runs on the host machine; Docker Desktop exposes it via host.docker.internal
+      LM_STUDIO_URL:              ${LM_STUDIO_URL:-http://host.docker.internal:1234/v1}
+      LM_STUDIO_MODEL:            ${LM_STUDIO_MODEL:-}
+      QA_SIMILARITY_THRESHOLD:    ${QA_SIMILARITY_THRESHOLD:-0.75}
+      # Disable per-request carbon tracking in containers (no GPU, codecarbon overhead)
+      CARBON_MONITOR_ENABLED:     ${CARBON_MONITOR_ENABLED:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: ecocache-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__HTTP_PORT: 6333
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ecocache-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-ecocache}
+      POSTGRES_USER:     ${POSTGRES_USER:-ecocache}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ecocache}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ecocache}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+  postgres_data:

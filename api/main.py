@@ -32,7 +32,7 @@ sys.path.insert(0, str(_CARBON_DIR))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 
 import config
 from baseline_semantic_cache import SemanticCacheRetriever
@@ -269,3 +269,8 @@ async def chat(req: ChatRequest) -> ChatResponse:
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
+
+
+@app.get("/")
+def serve_ui() -> FileResponse:
+    return FileResponse(Path(__file__).parent.parent / "index.html")

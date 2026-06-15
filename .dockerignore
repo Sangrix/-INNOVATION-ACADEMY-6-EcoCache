@@ -1,0 +1,15 @@
+.git/
+.claude/
+.pytest_cache/
+qdrant_data/
+.env
+data/
+docs/
+tests/
+infra/
+rag/logs/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+*.md
+2026-*.md
