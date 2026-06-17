@@ -167,6 +167,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
     use_llm = _as_bool(payload.get("use_llm"), True)
     generate = _as_bool(payload.get("generate"), True)
     measure_carbon = _as_bool(payload.get("measure_carbon"), True)
+    selected_model = str(payload.get("selected_model") or "LM Studio(Local)").strip()
     carbon_intensity = _as_float(
         payload.get("carbon_intensity"),
         config.CARBON_INTENSITY_G_PER_KWH,
@@ -231,6 +232,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
         "energy_kwh": (carbon_metrics or {}).get("energy_kwh"),
         "generation_mode": generation.get("mode"),
         "model": generation.get("model"),
+        "selected_model": selected_model,
         "generation_error": generation.get("error"),
         "source": (result.get("retrieval") or {}).get("source"),
         "threshold": threshold,

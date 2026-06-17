@@ -137,6 +137,12 @@
       letter-spacing: -0.03em;
     }
 
+    .stat-value.model-value {
+      font-size: 13px;
+      line-height: 1.25;
+      color: #104d70;
+    }
+
     .chat-messages {
       flex: 1;
       padding: 18px;
@@ -173,12 +179,13 @@
     .msg-bot {
       padding: 14px 16px;
       border-radius: 4px 18px 18px 18px;
-      background: #1f2520;
-      color: #f9fbf4;
+      background: rgba(255, 255, 255, 0.96);
+      color: #1d2a22;
+      border: 1px solid rgba(33, 86, 61, 0.12);
       font-size: 14px;
       line-height: 1.75;
       white-space: pre-wrap;
-      box-shadow: 0 14px 30px rgba(20, 35, 24, 0.18);
+      box-shadow: 0 12px 28px rgba(50, 80, 56, 0.13);
     }
 
     .msg-meta {
@@ -404,8 +411,8 @@
             <span class="stat-value" id="cache-status">-</span>
           </div>
           <div class="stat-pill">
-            <span class="stat-label">응답 지연</span>
-            <span class="stat-value" id="latency-stat">-</span>
+            <span class="stat-label">선택 모델</span>
+            <span class="stat-value model-value" id="model-stat">LM Studio</span>
           </div>
           <div class="stat-pill">
             <span class="stat-label">오늘 탄소 절감</span>
@@ -453,6 +460,16 @@
       </p>
 
       <div class="setting-group">
+        <label class="setting-label" for="model-select">모델 선택</label>
+        <select class="setting-input" id="model-select" onchange="syncSettingLabels()">
+          <option value="LM Studio(Local)">LM Studio(Local)</option>
+          <option value="GPT 계열">GPT 계열</option>
+          <option value="Gemini 계열">Gemini 계열</option>
+          <option value="Claude 계열">Claude 계열</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
         <label class="setting-label" for="top-k">Top-k <span id="top-k-value">5</span></label>
         <input class="setting-input" id="top-k" type="range" min="1" max="10" value="5" oninput="syncSettingLabels()" />
       </div>
@@ -498,6 +515,7 @@
     function syncSettingLabels() {
       document.getElementById("top-k-value").textContent = document.getElementById("top-k").value;
       document.getElementById("threshold-value").textContent = Number(document.getElementById("threshold").value).toFixed(2);
+      document.getElementById("model-stat").textContent = document.getElementById("model-select").value;
     }
 
     function escapeHtml(value) {
@@ -524,7 +542,7 @@
       const stats = result.stats || {};
       const hitRate = stats.cache_hit_rate === undefined ? null : Number(stats.cache_hit_rate) * 100;
       document.getElementById("cache-status").textContent = hitRate === null ? "-" : `${formatNumber(hitRate, 1)}%`;
-      document.getElementById("latency-stat").textContent = `${formatNumber(result.latency, 1)}ms`;
+      document.getElementById("model-stat").textContent = result.selected_model || document.getElementById("model-select").value;
       document.getElementById("carbon-stat").textContent = stats.co2_saved_g === null || stats.co2_saved_g === undefined
         ? "-"
         : `${formatNumber(stats.co2_saved_g, 4)}g`;
@@ -569,7 +587,8 @@
         `)
         .join("");
 
-      const modelText = result.model ? ` · ${escapeHtml(result.model)}` : "";
+      const selectedModelText = result.selected_model ? ` · 선택 ${escapeHtml(result.selected_model)}` : "";
+      const modelText = result.model ? ` · 실행 ${escapeHtml(result.model)}` : "";
       const powerText = result.avg_power_W === null || result.avg_power_W === undefined
         ? ""
         : ` · 평균 ${formatNumber(result.avg_power_W, 2)}W / 최대 ${formatNumber(result.peak_power_W, 2)}W`;
@@ -590,7 +609,7 @@
           <span class="meta-text">
             응답 ${formatNumber(result.latency, 1)}ms
             · CI ${formatNumber(result.ci_g_per_kwh, 0)}g/kWh
-            · CO₂ ${formatNumber(result.co2_grams, 4)}g${modelText}${powerText}
+            · CO₂ ${formatNumber(result.co2_grams, 4)}g${selectedModelText}${modelText}${powerText}
           </span>
         </div>
         ${result.generation_error ? `<div class="msg-meta"><span class="fallback-badge">LLM 오류</span><span class="meta-text">${escapeHtml(result.generation_error)}</span></div>` : ""}
@@ -633,6 +652,7 @@
             top_k: Number(document.getElementById("top-k").value),
             threshold: Number(document.getElementById("threshold").value),
             generate: true,
+            selected_model: document.getElementById("model-select").value,
             use_llm: document.getElementById("use-llm").checked,
             measure_carbon: document.getElementById("measure-carbon").checked,
             carbon_intensity: Number(document.getElementById("ci").value),
