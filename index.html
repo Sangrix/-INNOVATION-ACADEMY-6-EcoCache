@@ -298,7 +298,43 @@
       color: #ccc;
       text-align: center;
     }
+    /* ── Markdown rendering inside bot bubbles ───────────────────────── */
+    .msg-bot p { margin: 0 0 0.5em; }
+    .msg-bot p:last-child { margin-bottom: 0; }
+    .msg-bot ul, .msg-bot ol { margin: 0.3em 0 0.5em 1.4em; padding: 0; }
+    .msg-bot li { margin-bottom: 0.2em; }
+    .msg-bot code {
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: 0.88em;
+      background: rgba(0,0,0,0.06);
+      border-radius: 3px;
+      padding: 1px 4px;
+    }
+    .msg-bot pre {
+      background: rgba(0,0,0,0.06);
+      border-radius: 6px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      margin: 0.4em 0;
+    }
+    .msg-bot pre code { background: none; padding: 0; font-size: 0.85em; }
+    .msg-bot strong { font-weight: 600; }
+    .msg-bot em { font-style: italic; }
+    .msg-bot a { color: #1D9E75; text-decoration: underline; }
+    .msg-bot h1, .msg-bot h2, .msg-bot h3 {
+      font-size: 1em; font-weight: 600; margin: 0.6em 0 0.3em;
+    }
+    .msg-bot blockquote {
+      border-left: 3px solid #ccc; margin: 0.4em 0; padding-left: 10px;
+      color: #555;
+    }
+    .msg-bot table { border-collapse: collapse; font-size: 0.9em; margin: 0.4em 0; }
+    .msg-bot th, .msg-bot td {
+      border: 1px solid #ddd; padding: 4px 8px;
+    }
+    .msg-bot th { background: rgba(0,0,0,0.05); font-weight: 600; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -373,6 +409,8 @@
 </div>
 
 <script>
+  marked.use({ gfm: true, breaks: true });
+
   const API = 'http://localhost:8000/chat';
   const msgs = document.getElementById('messages');
   const input = document.getElementById('user-input');
@@ -528,7 +566,7 @@
     const wrap = document.createElement('div');
     wrap.className = 'msg-bot-wrap';
     wrap.innerHTML = `
-      <div class="msg-bot">${escHtml(data.response)}</div>
+      <div class="msg-bot">${marked.parse(data.response || '')}</div>
       <div class="msg-meta">${badgeHtml}<span class="meta-text">${metaText}</span></div>
       ${sourcesHtml ? `<div class="msg-meta">${sourcesHtml}</div>` : ''}
     `;
@@ -556,7 +594,9 @@
   }
 
   function appendTokenToBot(botEl, text) {
-    botEl.textContent += text;
+    const raw = (botEl.dataset.raw || '') + text;
+    botEl.dataset.raw = raw;
+    botEl.innerHTML = marked.parse(raw);
     scrollBottom();
   }
 
