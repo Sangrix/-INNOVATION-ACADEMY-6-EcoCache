@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import mimetypes
 import os
 from datetime import date
 from http import HTTPStatus
@@ -9,6 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Lock
 from typing import Any
+from urllib.parse import unquote, urlparse
 
 import config
 from carbon_monitor import CarbonMonitor
@@ -251,6 +253,11 @@ class EcoCacheRequestHandler(BaseHTTPRequestHandler):
         if self.path == "/stats":
             self._send_json({"ok": True, "stats": get_daily_stats()})
             return
+        static_path = self._resolve_static_path()
+        if static_path is not None:
+            content_type = mimetypes.guess_type(static_path.name)[0] or "application/octet-stream"
+            self._send_file(static_path, content_type)
+            return
 
         self._send_json({"ok": False, "error": "Not found"}, status=HTTPStatus.NOT_FOUND)
 
@@ -305,6 +312,21 @@ class EcoCacheRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
+
+    def _resolve_static_path(self) -> Path | None:
+        request_path = unquote(urlparse(self.path).path)
+        if not request_path.startswith("/assets/"):
+            return None
+
+        web_root = WEB_DIR.resolve()
+        static_path = (WEB_DIR / request_path.lstrip("/")).resolve()
+        try:
+            static_path.relative_to(web_root)
+        except ValueError:
+            return None
+        if not static_path.is_file():
+            return None
+        return static_path
 
 
 def main() -> None:
