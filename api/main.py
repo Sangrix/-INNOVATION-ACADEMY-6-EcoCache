@@ -67,7 +67,7 @@ app.add_middleware(
 def _extract_sources(result: dict) -> list[dict]:
     seen: set[str] = set()
     sources: list[dict] = []
-    for r in result["results"]:
+    for r in result.get("results", []):
         p   = r["payload"]
         url = (
             p.get("source", {}).get("url")

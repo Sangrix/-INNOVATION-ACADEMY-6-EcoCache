@@ -521,7 +521,7 @@
       : `<span class="badge-new">새로 생성</span>`;
 
     const sourcesHtml = (data.sources || [])
-      .filter(s => s?.url)
+      .filter(s => s?.url && /^https?:\/\//i.test(s.url))
       .map(s => `<a href="${encodeURI(s.url)}" target="_blank" class="source-link">↗ ${escHtml(s.title || '출처 보기')}</a>`)
       .join('');
 
@@ -588,7 +588,7 @@
       : `<span class="badge-new">새로 생성</span>`;
 
     const sourcesHtml = (meta.sources || [])
-      .filter(s => s?.url)
+      .filter(s => s?.url && /^https?:\/\//i.test(s.url))
       .map(s => `<a href="${encodeURI(s.url)}" target="_blank" class="source-link">↗ ${escHtml(s.title || '출처 보기')}</a>`)
       .join('');
 
