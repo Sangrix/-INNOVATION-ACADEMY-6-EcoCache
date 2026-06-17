@@ -395,7 +395,7 @@
       cache_hit: false,
       similarity: 0.71,
       response: '2026-1학기 SW 캡스톤디자인 수강신청은 2월 18일(수) 10시부터 2월 24일(화) 17시까지이며, 학과 사무실 사전 면담이 필요합니다.',
-      sources: ['https://swuniv.inha.ac.kr'],
+      sources: [{ url: 'https://swuniv.inha.ac.kr', title: '출처 보기' }],
     },
     {
       keys: ['장학금', '장학'],
@@ -409,7 +409,7 @@
       cache_hit: false,
       similarity: 0.68,
       response: '휴학 신청은 학기 시작 후 4주 이내에 학생처 포털에서 가능합니다. 군 휴학의 경우 입영통지서를 첨부하면 학기 중에도 신청할 수 있습니다.',
-      sources: ['https://swuniv.inha.ac.kr'],
+      sources: [{ url: 'https://swuniv.inha.ac.kr', title: '출처 보기' }],
     },
     {
       keys: ['성적', '이의신청', 'gpa'],
@@ -441,7 +441,7 @@
       cache_hit: false,
       similarity: 0.55 + Math.random() * 0.15,
       response: '해당 정보는 인하대 SW중심대학 포털(swuniv.inha.ac.kr)에서 확인하시거나, 학과 사무실(032-860-8114)로 문의해 주세요.',
-      sources: ['https://swuniv.inha.ac.kr'],
+      sources: [{ url: 'https://swuniv.inha.ac.kr', title: '출처 보기' }],
       latency_s: parseFloat((2.0 + Math.random() * 1.5).toFixed(2)),
       co2_grams: parseFloat((1.0 + Math.random() * 0.8).toFixed(2)),
       ci_gkwh: 350,
@@ -521,10 +521,8 @@
       : `<span class="badge-new">새로 생성</span>`;
 
     const sourcesHtml = (data.sources || [])
-      .filter(Boolean)
-      .map(s => s.startsWith('http')
-        ? `<a href="${encodeURI(s)}" target="_blank" class="source-link">↗ 출처 보기</a>`
-        : `<span class="source-link">📄 ${escHtml(s)}</span>`)
+      .filter(s => s?.url)
+      .map(s => `<a href="${encodeURI(s.url)}" target="_blank" class="source-link">↗ ${escHtml(s.title || '출처 보기')}</a>`)
       .join('');
 
     const wrap = document.createElement('div');
@@ -590,10 +588,8 @@
       : `<span class="badge-new">새로 생성</span>`;
 
     const sourcesHtml = (meta.sources || [])
-      .filter(Boolean)
-      .map(s => s.startsWith('http')
-        ? `<a href="${encodeURI(s)}" target="_blank" class="source-link">↗ 출처 보기</a>`
-        : `<span class="source-link">📄 ${escHtml(s)}</span>`)
+      .filter(s => s?.url)
+      .map(s => `<a href="${encodeURI(s.url)}" target="_blank" class="source-link">↗ ${escHtml(s.title || '출처 보기')}</a>`)
       .join('');
 
     const metaRow = document.createElement('div');
