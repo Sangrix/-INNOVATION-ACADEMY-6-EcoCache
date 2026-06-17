@@ -449,6 +449,127 @@
       white-space: nowrap;
     }
 
+    .policy-card {
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .policy-title {
+      margin-bottom: 5px;
+      color: #0f172a;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+    }
+
+    .policy-desc {
+      margin-bottom: 12px;
+      color: #64748b;
+      font-size: 11px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .setting-group {
+      padding: 11px 0;
+      border-top: 1px solid #edf2f7;
+    }
+
+    .setting-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+      color: #1f2937;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .setting-input {
+      width: 100%;
+      border: 1px solid #dbe2ea;
+      border-radius: 11px;
+      padding: 9px 10px;
+      color: #0f172a;
+      background: #fbfdff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .setting-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .setting-check {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid #edf2f7;
+      color: #1f2937;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .setting-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: #1e3a8a;
+    }
+
+    .save-policy {
+      width: 100%;
+      margin-top: 12px;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      color: #fff;
+      background: #1e3a8a;
+      font-size: 12px;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .save-policy:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .policy-status {
+      margin-top: 8px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .graph-node.active {
+      color: #fff;
+      background: #0f766e;
+      border-color: #0f766e;
+      box-shadow: 0 0 0 6px rgba(15, 118, 110, 0.12);
+    }
+
+    .graph-edge {
+      position: absolute;
+      height: 2px;
+      background: #c7d2fe;
+      transform-origin: left center;
+      opacity: 0.9;
+    }
+
+    .edge-1 { left: 78px; top: 51px; width: 66px; transform: rotate(26deg); }
+    .edge-2 { left: 137px; top: 83px; width: 78px; transform: rotate(-28deg); }
+    .edge-3 { left: 80px; top: 126px; width: 62px; transform: rotate(-26deg); }
+    .edge-4 { left: 140px; top: 113px; width: 76px; transform: rotate(25deg); }
+
     @media (max-width: 1100px) {
       .admin-shell { grid-template-columns: 1fr; }
       .sidebar, .right-panel { display: none; }
@@ -473,9 +594,54 @@
       <div class="nav-item">캐시 관리 <span class="count" id="nav-cache">0</span></div>
 
       <div class="section-title">운영 정책</div>
-      <div class="nav-item">임계값 정책 <span class="count">0.75</span></div>
+      <div class="nav-item">임계값 정책 <span class="count" id="nav-threshold">0.75</span></div>
       <div class="nav-item">모델 라우팅 <span class="count">4</span></div>
-      <div class="nav-item">탄소 집약도 <span class="count">350</span></div>
+      <div class="nav-item">탄소 집약도 <span class="count" id="nav-ci">350</span></div>
+
+      <div class="policy-card">
+        <div class="policy-title">운영 정책</div>
+        <div class="policy-desc">
+          여기서 저장한 값이 사용자 챗봇의 기본 검색/생성 설정으로 적용됩니다.
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="admin-model-select">모델 선택</label>
+          <select class="setting-input" id="admin-model-select"></select>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="admin-top-k">Top-k <span id="admin-top-k-value">5</span></label>
+          <input class="setting-input" id="admin-top-k" type="range" min="1" max="10" value="5" oninput="syncPolicyLabels()" />
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="admin-threshold">Threshold <span id="admin-threshold-value">0.75</span></label>
+          <input class="setting-input" id="admin-threshold" type="range" min="0.50" max="0.95" step="0.01" value="0.75" oninput="syncPolicyLabels()" />
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="admin-ci">탄소집약도(gCO₂/kWh)</label>
+          <input class="setting-input" id="admin-ci" type="number" value="350" min="0" step="10" oninput="syncPolicyLabels()" />
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="admin-lm-max-tokens">LLM 최대 토큰</label>
+          <input class="setting-input" id="admin-lm-max-tokens" type="number" value="128" min="32" max="2048" step="32" />
+        </div>
+
+        <label class="setting-check">
+          <span>LM Studio 생성 사용</span>
+          <input id="admin-use-llm" type="checkbox" checked />
+        </label>
+
+        <label class="setting-check">
+          <span>GPU 전력/CO₂ 측정</span>
+          <input id="admin-measure-carbon" type="checkbox" checked />
+        </label>
+
+        <button class="save-policy" id="save-policy" type="button" onclick="saveSettings()">정책 저장</button>
+        <div class="policy-status" id="policy-status">현재 설정을 불러오는 중</div>
+      </div>
     </aside>
 
     <main class="main">
@@ -491,7 +657,7 @@
       </header>
 
       <section class="chat-preview">
-        <div class="conversation">
+        <div class="conversation" id="conversation">
           <div class="user-bubble">탄소중립 INNOVATION ACADEMY 6기는 누가 신청할 수 있나요?</div>
           <div class="assistant-row">
             <div class="avatar">AI</div>
@@ -599,11 +765,15 @@
 
       <div class="panel-title">지식 그래프</div>
       <div class="graph-card">
-        <div class="graph-node n1">LLM</div>
-        <div class="graph-node n2">RAG</div>
-        <div class="graph-node center">Cache<br>RAG</div>
-        <div class="graph-node n3">Cache</div>
-        <div class="graph-node n4">API</div>
+        <div class="graph-edge edge-1"></div>
+        <div class="graph-edge edge-2"></div>
+        <div class="graph-edge edge-3"></div>
+        <div class="graph-edge edge-4"></div>
+        <div class="graph-node n1" id="graph-llm">LLM<br>0</div>
+        <div class="graph-node n2" id="graph-rag">RAG<br>0</div>
+        <div class="graph-node center" id="graph-center">Cache<br>RAG</div>
+        <div class="graph-node n3" id="graph-cache">Cache<br>0</div>
+        <div class="graph-node n4" id="graph-source">Source<br>0</div>
       </div>
 
       <div class="panel-title">탄소 절감 누적</div>
@@ -616,17 +786,125 @@
       <div class="list-card" id="recent-list">
         <div class="recent-item">아직 질문 로그가 없습니다 <span class="tag">WAIT</span></div>
       </div>
+
+      <div class="panel-title" style="margin-top: 20px;">캐시 추가 후보</div>
+      <div class="list-card" id="candidate-list">
+        <div class="recent-item">후보가 아직 없습니다 <span class="tag">WAIT</span></div>
+      </div>
     </aside>
   </div>
 
   <script>
+    const fallbackConversation = document.getElementById("conversation").innerHTML;
+
     function pct(value) {
       return `${(Number(value || 0) * 100).toFixed(1)}%`;
+    }
+
+    function safe(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
     function shortQuery(value) {
       const text = String(value || "질문 없음");
       return text.length > 22 ? `${text.slice(0, 22)}...` : text;
+    }
+
+    function formatMs(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return "-";
+      const ms = Number(value);
+      return ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms.toFixed(0)}ms`;
+    }
+
+    function formatCo2(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return "-";
+      return `${Number(value).toFixed(4)}g`;
+    }
+
+    function syncPolicyLabels() {
+      const topK = document.getElementById("admin-top-k").value;
+      const threshold = Number(document.getElementById("admin-threshold").value).toFixed(2);
+      const ci = document.getElementById("admin-ci").value;
+      document.getElementById("admin-top-k-value").textContent = topK;
+      document.getElementById("admin-threshold-value").textContent = threshold;
+      document.getElementById("nav-threshold").textContent = threshold;
+      document.getElementById("nav-ci").textContent = ci || "-";
+    }
+
+    function renderModelOptions(settings) {
+      const select = document.getElementById("admin-model-select");
+      const options = settings.model_options || ["GPT 계열", "Gemini 계열", "Claude 계열", "LM Studio(Local)"];
+      select.innerHTML = "";
+      options.forEach(option => {
+        const item = document.createElement("option");
+        item.value = option;
+        item.textContent = option;
+        if (option === settings.selected_model) item.selected = true;
+        select.appendChild(item);
+      });
+    }
+
+    function applySettings(settings) {
+      renderModelOptions(settings);
+      document.getElementById("admin-top-k").value = settings.top_k ?? 5;
+      document.getElementById("admin-threshold").value = settings.threshold ?? 0.75;
+      document.getElementById("admin-ci").value = settings.carbon_intensity ?? 350;
+      document.getElementById("admin-lm-max-tokens").value = settings.lm_max_tokens ?? 128;
+      document.getElementById("admin-use-llm").checked = Boolean(settings.use_llm);
+      document.getElementById("admin-measure-carbon").checked = Boolean(settings.measure_carbon);
+      syncPolicyLabels();
+    }
+
+    function collectSettings() {
+      return {
+        selected_model: document.getElementById("admin-model-select").value,
+        top_k: Number(document.getElementById("admin-top-k").value),
+        threshold: Number(document.getElementById("admin-threshold").value),
+        carbon_intensity: Number(document.getElementById("admin-ci").value),
+        lm_max_tokens: Number(document.getElementById("admin-lm-max-tokens").value),
+        use_llm: document.getElementById("admin-use-llm").checked,
+        measure_carbon: document.getElementById("admin-measure-carbon").checked,
+        lm_timeout_seconds: 240
+      };
+    }
+
+    async function loadSettings() {
+      try {
+        const response = await fetch("/settings");
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error || "설정 로드 실패");
+        applySettings(data.settings);
+        document.getElementById("policy-status").textContent = "운영 정책이 사용자 화면 기본값으로 연결됨";
+      } catch (error) {
+        document.getElementById("policy-status").textContent = `설정 로드 실패: ${error.message}`;
+      }
+    }
+
+    async function saveSettings() {
+      const button = document.getElementById("save-policy");
+      button.disabled = true;
+      document.getElementById("policy-status").textContent = "저장 중";
+      try {
+        const response = await fetch("/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(collectSettings())
+        });
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error || "설정 저장 실패");
+        applySettings(data.settings);
+        document.getElementById("policy-status").textContent = "저장 완료 · 다음 사용자 질문부터 적용";
+        await loadStats();
+      } catch (error) {
+        document.getElementById("policy-status").textContent = `저장 실패: ${error.message}`;
+      } finally {
+        button.disabled = false;
+      }
     }
 
     function renderRecent(events) {
@@ -641,6 +919,75 @@
       }).join("");
     }
 
+    function renderCandidates(events) {
+      const list = document.getElementById("candidate-list");
+      if (!events || events.length === 0) {
+        list.innerHTML = '<div class="recent-item">후보가 아직 없습니다 <span class="tag">WAIT</span></div>';
+        return;
+      }
+      list.innerHTML = events.slice(0, 5).map(event => {
+        const sim = event.similarity === null || event.similarity === undefined ? "-" : Number(event.similarity).toFixed(3);
+        return `<div class="recent-item">${shortQuery(event.query)} <span class="tag">${sim}</span></div>`;
+      }).join("");
+    }
+
+    function renderConversation(events) {
+      const conversation = document.getElementById("conversation");
+      if (!events || events.length === 0) {
+        conversation.innerHTML = fallbackConversation;
+        return;
+      }
+
+      conversation.innerHTML = events.slice(0, 3).map(event => {
+        const modeText = event.cache_hit
+          ? "캐시 적중 → 검증된 QA 답변 즉시 반환"
+          : event.mode === "llm"
+            ? "캐시 미스 → 문서 검색 → LLM 생성"
+            : "캐시 미스 → 문서 검색 답변";
+        const matchText = event.cache_hit ? "SIMILAR MATCH" : "RETRIEVAL MATCH";
+        const similarity = event.similarity === null || event.similarity === undefined ? 0 : Number(event.similarity);
+        const bar = Math.min(Math.max(similarity * 100, 6), 100);
+        return `
+          <div class="user-bubble">${safe(event.query)}</div>
+          <div class="assistant-row">
+            <div class="avatar">AI</div>
+            <div>
+              <div class="system-line">${modeText}</div>
+              <div class="answer-card">
+                최근 요청 로그입니다. <strong>${event.cache_hit ? "캐시 답변" : "문서 기반 답변"}</strong>으로 처리되었고,
+                운영 정책 기준에 따라 후속 캐시 후보 여부를 판단합니다.
+              </div>
+              <div class="match-card">
+                ${matchText} · similarity ${similarity ? similarity.toFixed(4) : "-"}
+                <div class="progress"><span style="width: ${bar}%"></span></div>
+              </div>
+              <div class="chips">
+                <span class="chip">${event.cache_hit ? "캐시 히트" : "캐시 미스"}</span>
+                <span class="chip">CO₂ ${formatCo2(event.co2_g)}</span>
+                <span class="chip">응답 ${formatMs(event.latency_ms)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateGraph(stats) {
+      const total = Number(stats.total_requests || 0);
+      const cacheHits = Number(stats.cache_hits || 0);
+      const llmCalls = Number(stats.llm_calls || 0);
+      const ragCalls = Math.max(total - cacheHits, 0);
+      document.getElementById("graph-llm").innerHTML = `LLM<br>${llmCalls}`;
+      document.getElementById("graph-rag").innerHTML = `RAG<br>${ragCalls}`;
+      document.getElementById("graph-cache").innerHTML = `Cache<br>${cacheHits}`;
+      document.getElementById("graph-source").innerHTML = `Source<br>${total}`;
+      document.getElementById("graph-center").innerHTML = `Cache<br>RAG`;
+      document.getElementById("graph-cache").classList.toggle("active", cacheHits > 0);
+      document.getElementById("graph-llm").classList.toggle("active", llmCalls > 0);
+      document.getElementById("graph-rag").classList.toggle("active", ragCalls > 0);
+      document.getElementById("graph-source").classList.toggle("active", total > 0);
+    }
+
     async function loadStats() {
       try {
         const response = await fetch("/stats");
@@ -648,7 +995,6 @@
         const stats = data.stats || {};
         const hitRate = Number(stats.cache_hit_rate || 0);
         const co2 = Number(stats.co2_saved_g || 0);
-
         document.getElementById("total-requests").textContent = stats.total_requests || 0;
         document.getElementById("cache-hits").textContent = stats.cache_hits || 0;
         document.getElementById("llm-calls").textContent = stats.llm_calls || 0;
@@ -659,11 +1005,15 @@
         document.getElementById("nav-total").textContent = stats.total_requests || 0;
         document.getElementById("nav-cache").textContent = stats.cache_hits || 0;
         renderRecent(stats.recent_events);
+        renderCandidates(stats.cache_candidates);
+        renderConversation(stats.recent_events);
+        updateGraph(stats);
       } catch (error) {
         console.warn(error);
       }
     }
 
+    loadSettings();
     loadStats();
     setInterval(loadStats, 5000);
   </script>

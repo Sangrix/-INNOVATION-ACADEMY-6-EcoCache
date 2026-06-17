@@ -143,6 +143,37 @@
       color: #104d70;
     }
 
+    .model-row {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .model-row label {
+      color: #6e786c;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .model-select {
+      width: 100%;
+      border: 1px solid rgba(35, 74, 44, 0.16);
+      border-radius: 14px;
+      padding: 10px 12px;
+      color: #163420;
+      background: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      font-weight: 800;
+      outline: none;
+    }
+
+    .model-select:focus {
+      border-color: #1d9e75;
+      box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.12);
+    }
+
     .chat-messages {
       flex: 1;
       padding: 18px;
@@ -342,6 +373,11 @@
             <span class="stat-value model-value" id="model-stat">LM Studio</span>
           </div>
         </div>
+
+        <div class="model-row">
+          <label for="model-select">모델 선택</label>
+          <select class="model-select" id="model-select" onchange="onModelChange()"></select>
+        </div>
       </header>
 
       <div class="chat-messages" id="messages">
@@ -353,7 +389,7 @@
           </div>
           <div class="msg-meta">
             <span class="cache-badge"><i class="ti ti-bolt"></i> 데모 준비</span>
-            <span class="meta-text">top_k=5 · threshold=0.75 · LM Studio 연결 가능</span>
+            <span class="meta-text" id="demo-setting-meta">top_k=5 · threshold=0.75 · LM Studio 연결 가능</span>
           </div>
         </div>
       </div>
@@ -382,14 +418,59 @@
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const serverStatus = document.getElementById("server-status");
-    const DEFAULT_TOP_K = 5;
-    const DEFAULT_THRESHOLD = 0.75;
-    const DEFAULT_MODEL = "LM Studio(Local)";
-    const DEFAULT_CARBON_INTENSITY = 350;
-    const DEFAULT_LM_MAX_TOKENS = 128;
+    const defaultSettings = {
+      top_k: 5,
+      threshold: 0.75,
+      selected_model: "LM Studio(Local)",
+      model_options: ["GPT 계열", "Gemini 계열", "Claude 계열", "LM Studio(Local)"],
+      use_llm: true,
+      measure_carbon: true,
+      carbon_intensity: 350,
+      lm_max_tokens: 128,
+      lm_timeout_seconds: 240
+    };
+    let activeSettings = { ...defaultSettings };
+
+    function renderModelOptions() {
+      const modelSelect = document.getElementById("model-select");
+      modelSelect.innerHTML = "";
+      const options = activeSettings.model_options || defaultSettings.model_options;
+      options.forEach(option => {
+        const item = document.createElement("option");
+        item.value = option;
+        item.textContent = option;
+        if (option === activeSettings.selected_model) item.selected = true;
+        modelSelect.appendChild(item);
+      });
+    }
 
     function syncSettingLabels() {
-      document.getElementById("model-stat").textContent = DEFAULT_MODEL;
+      document.getElementById("model-stat").textContent = activeSettings.selected_model;
+      const meta = document.getElementById("demo-setting-meta");
+      if (meta) {
+        meta.textContent = `top_k=${activeSettings.top_k} · threshold=${Number(activeSettings.threshold).toFixed(2)} · ${activeSettings.selected_model}`;
+      }
+    }
+
+    function applySettings(settings) {
+      activeSettings = { ...activeSettings, ...(settings || {}) };
+      renderModelOptions();
+      syncSettingLabels();
+    }
+
+    function onModelChange() {
+      activeSettings.selected_model = document.getElementById("model-select").value;
+      syncSettingLabels();
+    }
+
+    async function loadSettings() {
+      try {
+        const response = await fetch("/settings");
+        const data = await response.json();
+        if (data.ok) applySettings(data.settings);
+      } catch (error) {
+        applySettings(activeSettings);
+      }
     }
 
     function escapeHtml(value) {
@@ -416,7 +497,7 @@
       const stats = result.stats || {};
       const hitRate = stats.cache_hit_rate === undefined ? null : Number(stats.cache_hit_rate) * 100;
       document.getElementById("cache-status").textContent = hitRate === null ? "-" : `${formatNumber(hitRate, 1)}%`;
-      document.getElementById("model-stat").textContent = result.selected_model || DEFAULT_MODEL;
+      document.getElementById("model-stat").textContent = result.selected_model || activeSettings.selected_model;
       document.getElementById("carbon-stat").textContent = stats.co2_saved_g === null || stats.co2_saved_g === undefined
         ? "-"
         : `${formatNumber(stats.co2_saved_g, 4)}g`;
@@ -514,15 +595,15 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: text,
-            top_k: DEFAULT_TOP_K,
-            threshold: DEFAULT_THRESHOLD,
+            top_k: Number(activeSettings.top_k),
+            threshold: Number(activeSettings.threshold),
             generate: true,
-            selected_model: DEFAULT_MODEL,
-            use_llm: true,
-            measure_carbon: true,
-            carbon_intensity: DEFAULT_CARBON_INTENSITY,
-            lm_max_tokens: DEFAULT_LM_MAX_TOKENS,
-            lm_timeout_seconds: 240
+            selected_model: activeSettings.selected_model,
+            use_llm: Boolean(activeSettings.use_llm),
+            measure_carbon: Boolean(activeSettings.measure_carbon),
+            carbon_intensity: Number(activeSettings.carbon_intensity),
+            lm_max_tokens: Number(activeSettings.lm_max_tokens),
+            lm_timeout_seconds: Number(activeSettings.lm_timeout_seconds)
           })
         });
         const data = await response.json();
@@ -545,7 +626,8 @@
       if (event.key === "Enter") sendMsg();
     });
 
-    syncSettingLabels();
+    applySettings(activeSettings);
+    loadSettings();
   </script>
 </body>
 </html>

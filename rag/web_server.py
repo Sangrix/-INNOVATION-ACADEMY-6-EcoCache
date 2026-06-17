@@ -31,6 +31,17 @@ _DAILY_STATS: dict[str, Any] = {
     "llm_samples": 0,
 }
 _RECENT_EVENTS: list[dict[str, Any]] = []
+_RUNTIME_SETTINGS: dict[str, Any] = {
+    "top_k": config.TOP_K,
+    "threshold": config.QA_SIMILARITY_THRESHOLD,
+    "selected_model": "LM Studio(Local)",
+    "use_llm": True,
+    "measure_carbon": True,
+    "carbon_intensity": config.CARBON_INTENSITY_G_PER_KWH,
+    "lm_max_tokens": 128,
+    "lm_timeout_seconds": 240,
+}
+_MODEL_OPTIONS = ["GPT 계열", "Gemini 계열", "Claude 계열", "LM Studio(Local)"]
 
 
 def _reset_daily_stats_if_needed() -> None:
@@ -78,13 +89,23 @@ def get_daily_stats() -> dict[str, Any]:
                 for event in _RECENT_EVENTS
                 if not event.get("cache_hit") and (event.get("similarity") or 0) >= 0.65
             ][:5],
+            "settings": get_runtime_settings(),
         }
 
 
-def record_daily_stats(result: dict[str, Any], *, query: str) -> dict[str, Any]:
+def record_daily_stats(
+    result: dict[str, Any],
+    *,
+    query: str,
+    selected_model: str,
+    top_k: int,
+    threshold: float,
+    carbon_intensity: float,
+) -> dict[str, Any]:
     actual_co2_g = float(result.get("co2_grams") or 0.0)
     generation = result.get("generation") or {}
     generation_mode = generation.get("mode")
+    similarity = result.get("cache_similarity") if result.get("cache_hit") else result.get("retrieval_similarity")
 
     with _STATS_LOCK:
         _reset_daily_stats_if_needed()
@@ -111,10 +132,14 @@ def record_daily_stats(result: dict[str, Any], *, query: str) -> dict[str, Any]:
                 "query": query,
                 "cache_hit": bool(result.get("cache_hit")),
                 "mode": generation_mode,
-                "similarity": result.get("similarity"),
+                "similarity": similarity,
                 "latency_ms": result.get("latency_ms"),
                 "co2_g": result.get("co2_grams"),
                 "source": (result.get("retrieval") or {}).get("source"),
+                "selected_model": selected_model,
+                "top_k": top_k,
+                "threshold": threshold,
+                "carbon_intensity": carbon_intensity,
             },
         )
         del _RECENT_EVENTS[12:]
@@ -133,7 +158,76 @@ def record_daily_stats(result: dict[str, Any], *, query: str) -> dict[str, Any]:
                 for event in _RECENT_EVENTS
                 if not event.get("cache_hit") and (event.get("similarity") or 0) >= 0.65
             ][:5],
+            "settings": get_runtime_settings(),
         }
+
+
+def get_runtime_settings() -> dict[str, Any]:
+    return {
+        "top_k": int(_RUNTIME_SETTINGS["top_k"]),
+        "threshold": float(_RUNTIME_SETTINGS["threshold"]),
+        "selected_model": str(_RUNTIME_SETTINGS["selected_model"]),
+        "model_options": list(_MODEL_OPTIONS),
+        "use_llm": bool(_RUNTIME_SETTINGS["use_llm"]),
+        "measure_carbon": bool(_RUNTIME_SETTINGS["measure_carbon"]),
+        "carbon_intensity": float(_RUNTIME_SETTINGS["carbon_intensity"]),
+        "lm_max_tokens": int(_RUNTIME_SETTINGS["lm_max_tokens"]),
+        "lm_timeout_seconds": float(_RUNTIME_SETTINGS["lm_timeout_seconds"]),
+    }
+
+
+def _normalize_model_choice(value: Any, default: str = "LM Studio(Local)") -> str:
+    selected_model = str(value or default).strip()
+    if selected_model in _MODEL_OPTIONS:
+        return selected_model
+
+    lowered = selected_model.lower()
+    if "gpt" in lowered:
+        return "GPT 계열"
+    if "gemini" in lowered:
+        return "Gemini 계열"
+    if "claude" in lowered:
+        return "Claude 계열"
+    if "lm" in lowered or "local" in lowered:
+        return "LM Studio(Local)"
+    return default
+
+
+def update_runtime_settings(payload: dict[str, Any]) -> dict[str, Any]:
+    selected_model = _normalize_model_choice(payload.get("selected_model"), _RUNTIME_SETTINGS["selected_model"])
+
+    _RUNTIME_SETTINGS.update(
+        {
+            "top_k": _as_int(payload.get("top_k"), _RUNTIME_SETTINGS["top_k"], minimum=1, maximum=10),
+            "threshold": _as_float(
+                payload.get("threshold"),
+                _RUNTIME_SETTINGS["threshold"],
+                minimum=0.0,
+                maximum=1.0,
+            ),
+            "selected_model": selected_model,
+            "use_llm": _as_bool(payload.get("use_llm"), _RUNTIME_SETTINGS["use_llm"]),
+            "measure_carbon": _as_bool(payload.get("measure_carbon"), _RUNTIME_SETTINGS["measure_carbon"]),
+            "carbon_intensity": _as_float(
+                payload.get("carbon_intensity"),
+                _RUNTIME_SETTINGS["carbon_intensity"],
+                minimum=0.0,
+            ),
+            "lm_max_tokens": _as_int(
+                payload.get("lm_max_tokens"),
+                _RUNTIME_SETTINGS["lm_max_tokens"],
+                minimum=32,
+                maximum=2048,
+            ),
+            "lm_timeout_seconds": _as_float(
+                payload.get("lm_timeout_seconds"),
+                _RUNTIME_SETTINGS["lm_timeout_seconds"],
+                minimum=5.0,
+                maximum=600.0,
+            ),
+        }
+    )
+    return get_runtime_settings()
 
 
 def _as_int(value: Any, default: int, *, minimum: int | None = None, maximum: int | None = None) -> int:
@@ -191,22 +285,23 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
     if not query:
         raise ValueError("query 값이 비어 있습니다.")
 
-    top_k = _as_int(payload.get("top_k"), config.TOP_K, minimum=1, maximum=10)
-    threshold = _as_float(payload.get("threshold"), config.QA_SIMILARITY_THRESHOLD, minimum=0.0, maximum=1.0)
-    lm_max_tokens = _as_int(payload.get("lm_max_tokens"), config.LM_MAX_TOKENS, minimum=32, maximum=2048)
+    settings = get_runtime_settings()
+    top_k = _as_int(payload.get("top_k"), settings["top_k"], minimum=1, maximum=10)
+    threshold = _as_float(payload.get("threshold"), settings["threshold"], minimum=0.0, maximum=1.0)
+    lm_max_tokens = _as_int(payload.get("lm_max_tokens"), settings["lm_max_tokens"], minimum=32, maximum=2048)
     lm_timeout_seconds = _as_float(
         payload.get("lm_timeout_seconds"),
-        config.LM_TIMEOUT_SECONDS,
+        settings["lm_timeout_seconds"],
         minimum=5.0,
         maximum=600.0,
     )
-    use_llm = _as_bool(payload.get("use_llm"), True)
+    use_llm = _as_bool(payload.get("use_llm"), settings["use_llm"])
     generate = _as_bool(payload.get("generate"), True)
-    measure_carbon = _as_bool(payload.get("measure_carbon"), True)
-    selected_model = str(payload.get("selected_model") or "LM Studio(Local)").strip()
+    measure_carbon = _as_bool(payload.get("measure_carbon"), settings["measure_carbon"])
+    selected_model = _normalize_model_choice(payload.get("selected_model"), settings["selected_model"])
     carbon_intensity = _as_float(
         payload.get("carbon_intensity"),
-        config.CARBON_INTENSITY_G_PER_KWH,
+        settings["carbon_intensity"],
         minimum=0.0,
     )
 
@@ -252,7 +347,14 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
     generation = result.get("generation") or {}
     sources = [_compact_source(source) for source in result.get("sources", [])]
     similarity = result.get("cache_similarity") if result.get("cache_hit") else result.get("retrieval_similarity")
-    stats = record_daily_stats(result, query=query)
+    stats = record_daily_stats(
+        result,
+        query=query,
+        selected_model=selected_model,
+        top_k=top_k,
+        threshold=threshold,
+        carbon_intensity=carbon_intensity,
+    )
 
     return {
         "response": result.get("answer"),
@@ -294,6 +396,9 @@ class EcoCacheRequestHandler(BaseHTTPRequestHandler):
         if self.path == "/stats":
             self._send_json({"ok": True, "stats": get_daily_stats()})
             return
+        if self.path == "/settings":
+            self._send_json({"ok": True, "settings": get_runtime_settings()})
+            return
         static_path = self._resolve_static_path()
         if static_path is not None:
             content_type = mimetypes.guess_type(static_path.name)[0] or "application/octet-stream"
@@ -303,6 +408,20 @@ class EcoCacheRequestHandler(BaseHTTPRequestHandler):
         self._send_json({"ok": False, "error": "Not found"}, status=HTTPStatus.NOT_FOUND)
 
     def do_POST(self) -> None:
+        if self.path == "/settings":
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(length).decode("utf-8")
+                payload = json.loads(body or "{}")
+                settings = update_runtime_settings(payload)
+                self._send_json({"ok": True, "settings": settings})
+            except Exception as error:
+                self._send_json(
+                    {"ok": False, "error": str(error)},
+                    status=HTTPStatus.INTERNAL_SERVER_ERROR,
+                )
+            return
+
         if self.path != "/chat":
             self._send_json({"ok": False, "error": "Not found"}, status=HTTPStatus.NOT_FOUND)
             return
