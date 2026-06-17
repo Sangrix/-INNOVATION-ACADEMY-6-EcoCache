@@ -212,6 +212,7 @@
       color: #1f2937;
       background: #fff;
       line-height: 1.8;
+      white-space: pre-wrap;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
     }
 
@@ -944,27 +945,31 @@
           : event.mode === "llm"
             ? "캐시 미스 → 문서 검색 → LLM 생성"
             : "캐시 미스 → 문서 검색 답변";
+        const answerType = event.cache_hit
+          ? "캐시 답변"
+          : event.mode === "llm"
+            ? "LLM 생성 답변"
+            : "문서 검색 답변";
         const matchText = event.cache_hit ? "SIMILAR MATCH" : "RETRIEVAL MATCH";
         const similarity = event.similarity === null || event.similarity === undefined ? 0 : Number(event.similarity);
         const bar = Math.min(Math.max(similarity * 100, 6), 100);
+        const answer = event.answer || "답변 내용이 기록되지 않았습니다.";
         return `
           <div class="user-bubble">${safe(event.query)}</div>
           <div class="assistant-row">
             <div class="avatar">AI</div>
             <div>
               <div class="system-line">${modeText}</div>
-              <div class="answer-card">
-                최근 요청 로그입니다. <strong>${event.cache_hit ? "캐시 답변" : "문서 기반 답변"}</strong>으로 처리되었고,
-                운영 정책 기준에 따라 후속 캐시 후보 여부를 판단합니다.
-              </div>
+              <div class="answer-card"><strong>${answerType}</strong>\n${safe(answer)}</div>
               <div class="match-card">
                 ${matchText} · similarity ${similarity ? similarity.toFixed(4) : "-"}
                 <div class="progress"><span style="width: ${bar}%"></span></div>
               </div>
               <div class="chips">
-                <span class="chip">${event.cache_hit ? "캐시 히트" : "캐시 미스"}</span>
+                <span class="chip">${answerType}</span>
                 <span class="chip">CO₂ ${formatCo2(event.co2_g)}</span>
                 <span class="chip">응답 ${formatMs(event.latency_ms)}</span>
+                <span class="chip">출처 ${event.source_count || 0}개</span>
               </div>
             </div>
           </div>

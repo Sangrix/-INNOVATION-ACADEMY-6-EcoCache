@@ -101,6 +101,7 @@ def record_daily_stats(
     top_k: int,
     threshold: float,
     carbon_intensity: float,
+    sources: list[dict[str, Any]],
 ) -> dict[str, Any]:
     actual_co2_g = float(result.get("co2_grams") or 0.0)
     generation = result.get("generation") or {}
@@ -136,6 +137,8 @@ def record_daily_stats(
                 "latency_ms": result.get("latency_ms"),
                 "co2_g": result.get("co2_grams"),
                 "source": (result.get("retrieval") or {}).get("source"),
+                "answer": result.get("answer"),
+                "source_count": len(sources),
                 "selected_model": selected_model,
                 "top_k": top_k,
                 "threshold": threshold,
@@ -280,6 +283,29 @@ def _compact_source(source: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _prepare_sources(result: dict[str, Any]) -> list[dict[str, Any]]:
+    raw_sources = result.get("sources", [])
+    cache_hit = bool(result.get("cache_hit"))
+    if cache_hit:
+        raw_sources = raw_sources[:1]
+
+    compacted: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for source in raw_sources:
+        item = _compact_source(source)
+        score = item.get("score")
+        if not cache_hit and compacted and score is not None and float(score) < 0.60:
+            continue
+        key = item.get("url") or item.get("doc_id") or item.get("title") or str(len(compacted))
+        if key in seen:
+            continue
+        seen.add(key)
+        item["rank"] = len(compacted) + 1
+        compacted.append(item)
+
+    return compacted
+
+
 def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
     query = str(payload.get("query", "")).strip()
     if not query:
@@ -345,7 +371,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
         result = execute_rag()
 
     generation = result.get("generation") or {}
-    sources = [_compact_source(source) for source in result.get("sources", [])]
+    sources = _prepare_sources(result)
     similarity = result.get("cache_similarity") if result.get("cache_hit") else result.get("retrieval_similarity")
     stats = record_daily_stats(
         result,
@@ -354,6 +380,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
         top_k=top_k,
         threshold=threshold,
         carbon_intensity=carbon_intensity,
+        sources=sources,
     )
 
     return {
