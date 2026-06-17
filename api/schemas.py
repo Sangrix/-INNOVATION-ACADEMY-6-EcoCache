@@ -7,6 +7,11 @@ class ChatRequest(BaseModel):
     query: str
 
 
+class SourceLink(BaseModel):
+    url: str
+    title: str
+
+
 class ChatResult(BaseModel):
     response: Optional[str] = None
     similarity: Optional[float] = None
@@ -14,7 +19,7 @@ class ChatResult(BaseModel):
     latency: Optional[float] = None
     co2_grams: Optional[float] = None
     ci_g_per_kwh: Optional[float] = None
-    sources: List[str] = Field(default_factory=list)
+    sources: List[SourceLink] = Field(default_factory=list)
     timings: List[Dict[str, Any]] = Field(default_factory=list)
 
 

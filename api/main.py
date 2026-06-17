@@ -64,14 +64,21 @@ app.add_middleware(
 )
 
 
-def _extract_source_ids(result: dict) -> list[str]:
-    ids = []
+def _extract_sources(result: dict) -> list[dict]:
+    seen: set[str] = set()
+    sources: list[dict] = []
     for r in result["results"]:
-        p      = r["payload"]
-        doc_id = p.get("doc_id") or p.get("source_doc_id") or p.get("qa_id")
-        if doc_id:
-            ids.append(doc_id)
-    return list(dict.fromkeys(ids))
+        p   = r["payload"]
+        url = (
+            p.get("source", {}).get("url")
+            or p.get("answer", {}).get("reference_url")
+        )
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        title = p.get("meta", {}).get("title") or "원문 보기"
+        sources.append({"url": url, "title": title})
+    return sources
 
 
 def _extract_cached_answer(result: dict) -> str | None:
@@ -130,7 +137,7 @@ def _stream_chat_generator(query: str):
     retrieval_co2 = (r_state["metrics"] or {}).get("co2_g", 0.0)
     cache_hit  = result["source"] == "qa_pairs"
     top1_score = result["results"][0]["score"] if result["results"] else None
-    sources    = _extract_source_ids(result)
+    sources    = _extract_sources(result)
     llm_co2    = 0.0
 
     if cache_hit:
@@ -206,7 +213,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
 
         top1_score = result["results"][0]["score"] if result["results"] else None
         cache_hit  = result["source"] == "qa_pairs"
-        sources    = _extract_source_ids(result)
+        sources    = _extract_sources(result)
 
         response_text: str | None = None
         if cache_hit:
