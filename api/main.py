@@ -69,14 +69,11 @@ def _extract_sources(result: dict) -> list[dict]:
     sources: list[dict] = []
     for r in result.get("results", []):
         p   = r["payload"]
-        url = (
-            p.get("source", {}).get("url")
-            or p.get("answer", {}).get("reference_url")
-        )
+        url = p.get("url") or p.get("reference_url")
         if not url or url in seen:
             continue
         seen.add(url)
-        title = p.get("meta", {}).get("title") or "원문 보기"
+        title = p.get("title") or "원문 보기"
         sources.append({"url": url, "title": title})
     return sources
 
