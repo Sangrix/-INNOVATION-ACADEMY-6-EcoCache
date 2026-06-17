@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from threading import Lock
 from typing import Any
 
 from langchain_core.documents import Document
 
 from rag.langchain_config import RagSettings, build_settings
+
+
+_RESOURCE_LOCK = Lock()
+_SHARED_MODELS: dict[tuple[str], Any] = {}
+_SHARED_CLIENTS: dict[tuple[Any, ...], Any] = {}
 
 
 @dataclass(frozen=True)
@@ -57,17 +63,21 @@ class QdrantVectorSearcher:
 
     @property
     def model(self) -> Any:
+        model_key = (self.settings.embed_model_id,)
         if self._model is None:
             import torch
             from sentence_transformers import SentenceTransformer
 
-            device = "cuda" if torch.cuda.is_available() else "cpu"
-            kwargs = {"torch_dtype": torch.float16} if device == "cuda" else {}
-            self._model = SentenceTransformer(
-                self.settings.embed_model_id,
-                device=device,
-                model_kwargs=kwargs,
-            )
+            with _RESOURCE_LOCK:
+                if model_key not in _SHARED_MODELS:
+                    device = "cuda" if torch.cuda.is_available() else "cpu"
+                    kwargs = {"torch_dtype": torch.float16} if device == "cuda" else {}
+                    _SHARED_MODELS[model_key] = SentenceTransformer(
+                        self.settings.embed_model_id,
+                        device=device,
+                        model_kwargs=kwargs,
+                    )
+                self._model = _SHARED_MODELS[model_key]
         return self._model
 
     @property
@@ -76,12 +86,20 @@ class QdrantVectorSearcher:
             from qdrant_client import QdrantClient
 
             if self.settings.qdrant_local_path is not None:
-                self._client = QdrantClient(path=str(self.settings.qdrant_local_path))
+                client_key = ("local", str(self.settings.qdrant_local_path.resolve()))
             else:
-                self._client = QdrantClient(
-                    url=self.settings.qdrant_url,
-                    api_key=self.settings.qdrant_api_key,
-                )
+                client_key = ("remote", self.settings.qdrant_url, self.settings.qdrant_api_key)
+
+            with _RESOURCE_LOCK:
+                if client_key not in _SHARED_CLIENTS:
+                    if self.settings.qdrant_local_path is not None:
+                        _SHARED_CLIENTS[client_key] = QdrantClient(path=str(self.settings.qdrant_local_path))
+                    else:
+                        _SHARED_CLIENTS[client_key] = QdrantClient(
+                            url=self.settings.qdrant_url,
+                            api_key=self.settings.qdrant_api_key,
+                        )
+                self._client = _SHARED_CLIENTS[client_key]
         return self._client
 
     def search(
@@ -124,8 +142,6 @@ class QdrantVectorSearcher:
         _ = self.client
 
     def close(self) -> None:
-        """Close the Qdrant client when a short-lived CLI process exits."""
+        """Keep shared vector-store resources alive for repeated web requests."""
 
-        if self._client is not None:
-            self._client.close()
-            self._client = None
+        self._client = None

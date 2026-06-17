@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+from datetime import date
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from threading import Lock
 from typing import Any
 
 import config
@@ -14,6 +17,85 @@ from rag.langchain_pipeline import get_cached_pipeline
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 WEB_DIR = BASE_DIR / "web"
+DEFAULT_LLM_BASELINE_CO2_G = float(os.getenv("WEB_LLM_BASELINE_CO2_G", "0.084"))
+_STATS_LOCK = Lock()
+_DAILY_STATS: dict[str, Any] = {
+    "date": date.today().isoformat(),
+    "total_requests": 0,
+    "cache_hits": 0,
+    "co2_saved_g": 0.0,
+    "llm_co2_total_g": 0.0,
+    "llm_samples": 0,
+}
+
+
+def _reset_daily_stats_if_needed() -> None:
+    today = date.today().isoformat()
+    if _DAILY_STATS["date"] == today:
+        return
+
+    _DAILY_STATS.update(
+        {
+            "date": today,
+            "total_requests": 0,
+            "cache_hits": 0,
+            "co2_saved_g": 0.0,
+            "llm_co2_total_g": 0.0,
+            "llm_samples": 0,
+        }
+    )
+
+
+def _current_llm_baseline_co2_g() -> float:
+    if _DAILY_STATS["llm_samples"] > 0:
+        return _DAILY_STATS["llm_co2_total_g"] / _DAILY_STATS["llm_samples"]
+    return DEFAULT_LLM_BASELINE_CO2_G
+
+
+def get_daily_stats() -> dict[str, Any]:
+    with _STATS_LOCK:
+        _reset_daily_stats_if_needed()
+        total = _DAILY_STATS["total_requests"]
+        cache_hits = _DAILY_STATS["cache_hits"]
+        hit_rate = cache_hits / total if total else 0.0
+        return {
+            "date": _DAILY_STATS["date"],
+            "total_requests": total,
+            "cache_hits": cache_hits,
+            "cache_hit_rate": round(hit_rate, 4),
+            "co2_saved_g": round(_DAILY_STATS["co2_saved_g"], 4),
+            "llm_baseline_co2_g": round(_current_llm_baseline_co2_g(), 4),
+        }
+
+
+def record_daily_stats(result: dict[str, Any]) -> dict[str, Any]:
+    actual_co2_g = float(result.get("co2_grams") or 0.0)
+    generation = result.get("generation") or {}
+
+    with _STATS_LOCK:
+        _reset_daily_stats_if_needed()
+        _DAILY_STATS["total_requests"] += 1
+
+        if generation.get("mode") == "llm" and actual_co2_g > 0:
+            _DAILY_STATS["llm_samples"] += 1
+            _DAILY_STATS["llm_co2_total_g"] += actual_co2_g
+
+        baseline_co2_g = _current_llm_baseline_co2_g()
+        if result.get("cache_hit"):
+            _DAILY_STATS["cache_hits"] += 1
+            _DAILY_STATS["co2_saved_g"] += max(baseline_co2_g - actual_co2_g, 0.0)
+
+        total = _DAILY_STATS["total_requests"]
+        cache_hits = _DAILY_STATS["cache_hits"]
+        hit_rate = cache_hits / total if total else 0.0
+        return {
+            "date": _DAILY_STATS["date"],
+            "total_requests": total,
+            "cache_hits": cache_hits,
+            "cache_hit_rate": round(hit_rate, 4),
+            "co2_saved_g": round(_DAILY_STATS["co2_saved_g"], 4),
+            "llm_baseline_co2_g": round(baseline_co2_g, 4),
+        }
 
 
 def _as_int(value: Any, default: int, *, minimum: int | None = None, maximum: int | None = None) -> int:
@@ -131,6 +213,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
     generation = result.get("generation") or {}
     sources = [_compact_source(source) for source in result.get("sources", [])]
     similarity = result.get("cache_similarity") if result.get("cache_hit") else result.get("retrieval_similarity")
+    stats = record_daily_stats(result)
 
     return {
         "response": result.get("answer"),
@@ -151,6 +234,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
         "threshold": threshold,
         "top_k": top_k,
         "sources": sources,
+        "stats": stats,
     }
 
 
@@ -163,6 +247,9 @@ class EcoCacheRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         if self.path in {"/", "/index.html"}:
             self._send_file(WEB_DIR / "index.html", "text/html; charset=utf-8")
+            return
+        if self.path == "/stats":
+            self._send_json({"ok": True, "stats": get_daily_stats()})
             return
 
         self._send_json({"ok": False, "error": "Not found"}, status=HTTPStatus.NOT_FOUND)

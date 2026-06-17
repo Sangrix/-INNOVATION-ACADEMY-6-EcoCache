@@ -404,7 +404,7 @@
 
         <div class="stats-row">
           <div class="stat-pill">
-            <span class="stat-label">현재 캐시 상태</span>
+            <span class="stat-label">누적 캐시 히트율</span>
             <span class="stat-value" id="cache-status">-</span>
           </div>
           <div class="stat-pill">
@@ -412,7 +412,7 @@
             <span class="stat-value" id="latency-stat">-</span>
           </div>
           <div class="stat-pill">
-            <span class="stat-label">탄소 영향</span>
+            <span class="stat-label">오늘 탄소 절감</span>
             <span class="stat-value" id="carbon-stat">-</span>
           </div>
         </div>
@@ -525,11 +525,13 @@
     }
 
     function updateStats(result) {
-      document.getElementById("cache-status").textContent = result.cache_hit ? "HIT" : "MISS";
+      const stats = result.stats || {};
+      const hitRate = stats.cache_hit_rate === undefined ? null : Number(stats.cache_hit_rate) * 100;
+      document.getElementById("cache-status").textContent = hitRate === null ? "-" : `${formatNumber(hitRate, 1)}%`;
       document.getElementById("latency-stat").textContent = `${formatNumber(result.latency, 1)}ms`;
-      document.getElementById("carbon-stat").textContent = result.co2_grams === null || result.co2_grams === undefined
+      document.getElementById("carbon-stat").textContent = stats.co2_saved_g === null || stats.co2_saved_g === undefined
         ? "-"
-        : `${formatNumber(result.co2_grams, 4)}g`;
+        : `${formatNumber(stats.co2_saved_g, 4)}g`;
     }
 
     function renderUserMessage(text) {
