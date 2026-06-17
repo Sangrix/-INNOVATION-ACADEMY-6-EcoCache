@@ -25,10 +25,12 @@ _DAILY_STATS: dict[str, Any] = {
     "date": date.today().isoformat(),
     "total_requests": 0,
     "cache_hits": 0,
+    "llm_calls": 0,
     "co2_saved_g": 0.0,
     "llm_co2_total_g": 0.0,
     "llm_samples": 0,
 }
+_RECENT_EVENTS: list[dict[str, Any]] = []
 
 
 def _reset_daily_stats_if_needed() -> None:
@@ -41,11 +43,13 @@ def _reset_daily_stats_if_needed() -> None:
             "date": today,
             "total_requests": 0,
             "cache_hits": 0,
+            "llm_calls": 0,
             "co2_saved_g": 0.0,
             "llm_co2_total_g": 0.0,
             "llm_samples": 0,
         }
     )
+    _RECENT_EVENTS.clear()
 
 
 def _current_llm_baseline_co2_g() -> float:
@@ -64,21 +68,32 @@ def get_daily_stats() -> dict[str, Any]:
             "date": _DAILY_STATS["date"],
             "total_requests": total,
             "cache_hits": cache_hits,
+            "llm_calls": _DAILY_STATS["llm_calls"],
             "cache_hit_rate": round(hit_rate, 4),
             "co2_saved_g": round(_DAILY_STATS["co2_saved_g"], 4),
             "llm_baseline_co2_g": round(_current_llm_baseline_co2_g(), 4),
+            "recent_events": list(_RECENT_EVENTS),
+            "cache_candidates": [
+                event
+                for event in _RECENT_EVENTS
+                if not event.get("cache_hit") and (event.get("similarity") or 0) >= 0.65
+            ][:5],
         }
 
 
-def record_daily_stats(result: dict[str, Any]) -> dict[str, Any]:
+def record_daily_stats(result: dict[str, Any], *, query: str) -> dict[str, Any]:
     actual_co2_g = float(result.get("co2_grams") or 0.0)
     generation = result.get("generation") or {}
+    generation_mode = generation.get("mode")
 
     with _STATS_LOCK:
         _reset_daily_stats_if_needed()
         _DAILY_STATS["total_requests"] += 1
 
-        if generation.get("mode") == "llm" and actual_co2_g > 0:
+        if generation_mode == "llm":
+            _DAILY_STATS["llm_calls"] += 1
+
+        if generation_mode == "llm" and actual_co2_g > 0:
             _DAILY_STATS["llm_samples"] += 1
             _DAILY_STATS["llm_co2_total_g"] += actual_co2_g
 
@@ -90,13 +105,34 @@ def record_daily_stats(result: dict[str, Any]) -> dict[str, Any]:
         total = _DAILY_STATS["total_requests"]
         cache_hits = _DAILY_STATS["cache_hits"]
         hit_rate = cache_hits / total if total else 0.0
+        _RECENT_EVENTS.insert(
+            0,
+            {
+                "query": query,
+                "cache_hit": bool(result.get("cache_hit")),
+                "mode": generation_mode,
+                "similarity": result.get("similarity"),
+                "latency_ms": result.get("latency_ms"),
+                "co2_g": result.get("co2_grams"),
+                "source": (result.get("retrieval") or {}).get("source"),
+            },
+        )
+        del _RECENT_EVENTS[12:]
+
         return {
             "date": _DAILY_STATS["date"],
             "total_requests": total,
             "cache_hits": cache_hits,
+            "llm_calls": _DAILY_STATS["llm_calls"],
             "cache_hit_rate": round(hit_rate, 4),
             "co2_saved_g": round(_DAILY_STATS["co2_saved_g"], 4),
             "llm_baseline_co2_g": round(baseline_co2_g, 4),
+            "recent_events": list(_RECENT_EVENTS),
+            "cache_candidates": [
+                event
+                for event in _RECENT_EVENTS
+                if not event.get("cache_hit") and (event.get("similarity") or 0) >= 0.65
+            ][:5],
         }
 
 
@@ -216,7 +252,7 @@ def run_chat(payload: dict[str, Any]) -> dict[str, Any]:
     generation = result.get("generation") or {}
     sources = [_compact_source(source) for source in result.get("sources", [])]
     similarity = result.get("cache_similarity") if result.get("cache_hit") else result.get("retrieval_similarity")
-    stats = record_daily_stats(result)
+    stats = record_daily_stats(result, query=query)
 
     return {
         "response": result.get("answer"),
@@ -251,6 +287,9 @@ class EcoCacheRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         if self.path in {"/", "/index.html"}:
             self._send_file(WEB_DIR / "index.html", "text/html; charset=utf-8")
+            return
+        if self.path in {"/admin", "/admin.html"}:
+            self._send_file(WEB_DIR / "admin.html", "text/html; charset=utf-8")
             return
         if self.path == "/stats":
             self._send_json({"ok": True, "stats": get_daily_stats()})

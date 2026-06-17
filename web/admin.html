@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoCache Admin - CacheRAG 운영 대시보드</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      color: #111827;
+      background: #f4f6f8;
+    }
+
+    .admin-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 236px minmax(640px, 1fr) 286px;
+      background: #fff;
+    }
+
+    .sidebar {
+      padding: 28px 18px;
+      border-right: 1px solid #e5e7eb;
+      background: #f8fafc;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .section-title {
+      margin: 24px 10px 8px;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 12px;
+      border-radius: 12px;
+      color: #475569;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .nav-item.active {
+      color: #123f84;
+      background: #eaf1ff;
+    }
+
+    .count {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .topbar {
+      height: 74px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .page-title {
+      font-size: 19px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid #cbd5e1;
+      color: #123f84;
+      background: #f1f5ff;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: #0f766e;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .live-pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    .chat-preview {
+      flex: 1;
+      padding: 30px 34px;
+      overflow: auto;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #fbfcff 100%),
+        radial-gradient(circle at 18% 8%, rgba(37, 99, 235, 0.06), transparent 28%);
+    }
+
+    .conversation {
+      max-width: 940px;
+      margin: 0 auto;
+    }
+
+    .user-bubble {
+      width: fit-content;
+      max-width: 64%;
+      margin: 0 0 18px auto;
+      padding: 14px 18px;
+      color: #fff;
+      background: #1e3a8a;
+      border-radius: 18px 18px 4px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.55;
+      box-shadow: 0 14px 26px rgba(30, 58, 138, 0.18);
+    }
+
+    .assistant-row {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #123f84;
+      background: #eef4ff;
+      border: 1px solid #dbe7ff;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .system-line {
+      width: min(100%, 780px);
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border: 1px solid #c7ead4;
+      border-radius: 7px;
+      color: #10713c;
+      background: #f0fdf4;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .answer-card {
+      width: min(100%, 780px);
+      padding: 18px 20px;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      color: #1f2937;
+      background: #fff;
+      line-height: 1.8;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .answer-card strong { color: #123f84; }
+
+    .match-card {
+      width: min(100%, 780px);
+      margin-top: 10px;
+      padding: 12px 14px;
+      border: 1px solid #cfdcff;
+      border-radius: 10px;
+      color: #344054;
+      background: #eef4ff;
+      font-size: 12px;
+    }
+
+    .progress {
+      height: 5px;
+      margin-top: 9px;
+      border-radius: 999px;
+      background: #dbe7ff;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: #1e3a8a;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 9px;
+      border: 1px solid #d7dee8;
+      border-radius: 8px;
+      color: #475569;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .input-bar {
+      height: 74px;
+      padding: 14px 28px;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+    }
+
+    .input-mock {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px 0 18px;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      color: #94a3b8;
+      background: #fbfdff;
+      font-size: 13px;
+    }
+
+    .send {
+      padding: 9px 14px;
+      border-radius: 9px;
+      color: #fff;
+      background: #1e3a8a;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .right-panel {
+      padding: 22px 16px;
+      border-left: 1px solid #e5e7eb;
+      background: #f8fafc;
+      overflow: auto;
+    }
+
+    .panel-title {
+      margin-bottom: 12px;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .metric-card,
+    .wide-card,
+    .graph-card,
+    .list-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+    }
+
+    .metric-card {
+      min-height: 86px;
+      padding: 13px;
+    }
+
+    .metric-label {
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .metric-value {
+      margin-top: 6px;
+      color: #0f172a;
+      font-size: 24px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-value.green { color: #047857; }
+    .metric-sub {
+      margin-top: 3px;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .wide-card {
+      margin-bottom: 20px;
+      padding: 16px;
+    }
+
+    .hit-rate-line {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hit-rate-line strong {
+      color: #1e3a8a;
+      font-size: 26px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .graph-card {
+      position: relative;
+      height: 170px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .graph-node {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid #c7d2fe;
+      color: #1e3a8a;
+      background: #eef4ff;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .graph-node.center {
+      left: 103px;
+      top: 64px;
+      width: 58px;
+      height: 58px;
+      color: #fff;
+      background: #1e3a8a;
+    }
+
+    .graph-node.n1 { left: 36px; top: 30px; width: 42px; height: 42px; }
+    .graph-node.n2 { right: 32px; top: 28px; width: 42px; height: 42px; }
+    .graph-node.n3 { left: 40px; bottom: 24px; width: 44px; height: 44px; }
+    .graph-node.n4 { right: 38px; bottom: 26px; width: 44px; height: 44px; }
+
+    .saving-card {
+      padding: 18px;
+      border: 1px solid #bbf7d0;
+      border-radius: 14px;
+      color: #064e3b;
+      background: #ecfdf5;
+      margin-bottom: 20px;
+    }
+
+    .saving-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 30px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .list-card {
+      padding: 10px;
+    }
+
+    .recent-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 8px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .recent-item:last-child { border-bottom: none; }
+
+    .tag {
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: #1e3a8a;
+      background: #eef4ff;
+      font-size: 10px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1100px) {
+      .admin-shell { grid-template-columns: 1fr; }
+      .sidebar, .right-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="/assets/ih-icon.png" alt="IH" />
+        <div>
+          CACHINHA
+          <small>AI 조직 지식 캐싱 시스템</small>
+        </div>
+      </div>
+
+      <div class="section-title">워크스페이스</div>
+      <div class="nav-item active">AI 채팅 <span class="count" id="nav-total">0</span></div>
+      <div class="nav-item">지식 그래프 <span class="count">847</span></div>
+      <div class="nav-item">성능 대시보드 <span class="count">12</span></div>
+      <div class="nav-item">캐시 관리 <span class="count" id="nav-cache">0</span></div>
+
+      <div class="section-title">운영 정책</div>
+      <div class="nav-item">임계값 정책 <span class="count">0.75</span></div>
+      <div class="nav-item">모델 라우팅 <span class="count">4</span></div>
+      <div class="nav-item">탄소 집약도 <span class="count">350</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="page-title">AI 어시스턴트</span>
+          <span class="badge">Cache-Enabled</span>
+        </div>
+        <div class="top-actions">
+          <span class="live-pill">실시간</span>
+          <span class="badge">CacheRAG</span>
+        </div>
+      </header>
+
+      <section class="chat-preview">
+        <div class="conversation">
+          <div class="user-bubble">탄소중립 INNOVATION ACADEMY 6기는 누가 신청할 수 있나요?</div>
+          <div class="assistant-row">
+            <div class="avatar">AI</div>
+            <div>
+              <div class="system-line">캐시 미스 → 문서 검색 → LLM 생성</div>
+              <div class="answer-card">
+                <strong>탄소중립 INNOVATION ACADEMY 6기</strong>는 인하대학교 학부생이 참여할 수 있으며, 전공은 무관합니다.
+                답변은 SW중심대학 공지 문서를 근거로 생성되었습니다.
+              </div>
+              <div class="match-card">
+                SIMILAR MATCH · "탄소중립 INNOVATION ACADEMY 6기 모집 안내"
+                <div class="progress"><span style="width: 76%"></span></div>
+              </div>
+              <div class="chips">
+                <span class="chip">CO₂ 0.0166g</span>
+                <span class="chip">응답 6.5s</span>
+                <span class="chip">출처 3개</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-bubble">SW캡스톤디자인 성과발표회는 언제 진행되나요?</div>
+          <div class="assistant-row">
+            <div class="avatar">AI</div>
+            <div>
+              <div class="system-line">캐시 적중 → 검증된 QA 답변 즉시 반환</div>
+              <div class="answer-card">
+                <strong>2025-2학기 SW캡스톤디자인 성과발표회</strong>는 2025년 12월 15일(월)에 개최됩니다.
+              </div>
+              <div class="match-card">
+                SIMILAR MATCH · "SW캡스톤디자인 성과발표회는 언제 진행되나요?"
+                <div class="progress"><span style="width: 79%"></span></div>
+              </div>
+              <div class="chips">
+                <span class="chip">캐시 히트</span>
+                <span class="chip">CO₂ 0.0116g</span>
+                <span class="chip">응답 1.5s</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-bubble">i-PAC 콘테스트에 참여하면 어떤 혜택을 받을 수 있나요?</div>
+          <div class="assistant-row">
+            <div class="avatar">AI</div>
+            <div>
+              <div class="system-line">캐시 후보 · 반복 질문으로 저장 검토 필요</div>
+              <div class="answer-card">
+                i-PAC 인증 콘테스트 참여 시 총장상, 인증서, 상금, CEN 마일리지, 인프런 수강권 등의 혜택을 받을 수 있습니다.
+              </div>
+              <div class="match-card">
+                CACHE CANDIDATE · 유사 질문이 반복되지만 캐시 기준 미달
+                <div class="progress"><span style="width: 68%"></span></div>
+              </div>
+              <div class="chips">
+                <span class="chip">캐시 추가 후보</span>
+                <span class="chip">LLM 호출 감소 가능</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="input-bar">
+        <div class="input-mock">
+          질문을 입력하세요. 유사 질문은 캐시에서 즉시 반환됩니다.
+          <span class="send">전송</span>
+        </div>
+      </div>
+    </main>
+
+    <aside class="right-panel">
+      <div class="panel-title">오늘 현황</div>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">총 질문</div>
+          <div class="metric-value" id="total-requests">0</div>
+          <div class="metric-sub">오늘 누적</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">캐시 적중</div>
+          <div class="metric-value green" id="cache-hits">0</div>
+          <div class="metric-sub">QA 캐시 반환</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">LLM 호출</div>
+          <div class="metric-value" id="llm-calls">0</div>
+          <div class="metric-sub">문서 검색 후 생성</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">CO₂ 절감</div>
+          <div class="metric-value green" id="co2-saved">0g</div>
+          <div class="metric-sub">캐시 적중 기반 추정</div>
+        </div>
+      </div>
+
+      <div class="panel-title">캐시 적중률</div>
+      <div class="wide-card">
+        <div class="hit-rate-line">
+          <span>Cache Hit Rate</span>
+          <strong id="hit-rate">0%</strong>
+        </div>
+        <div class="progress"><span id="hit-rate-bar" style="width: 0%"></span></div>
+        <div class="metric-sub">목표 80% · 현재 세션 기준</div>
+      </div>
+
+      <div class="panel-title">지식 그래프</div>
+      <div class="graph-card">
+        <div class="graph-node n1">LLM</div>
+        <div class="graph-node n2">RAG</div>
+        <div class="graph-node center">Cache<br>RAG</div>
+        <div class="graph-node n3">Cache</div>
+        <div class="graph-node n4">API</div>
+      </div>
+
+      <div class="panel-title">탄소 절감 누적</div>
+      <div class="saving-card">
+        <strong id="saving-big">0g</strong>
+        이번 세션 캐시 호출 제거로 절감한 탄소 배출량
+      </div>
+
+      <div class="panel-title">최근 질문 패턴</div>
+      <div class="list-card" id="recent-list">
+        <div class="recent-item">아직 질문 로그가 없습니다 <span class="tag">WAIT</span></div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    function pct(value) {
+      return `${(Number(value || 0) * 100).toFixed(1)}%`;
+    }
+
+    function shortQuery(value) {
+      const text = String(value || "질문 없음");
+      return text.length > 22 ? `${text.slice(0, 22)}...` : text;
+    }
+
+    function renderRecent(events) {
+      const list = document.getElementById("recent-list");
+      if (!events || events.length === 0) {
+        list.innerHTML = '<div class="recent-item">아직 질문 로그가 없습니다 <span class="tag">WAIT</span></div>';
+        return;
+      }
+      list.innerHTML = events.slice(0, 6).map(event => {
+        const tag = event.cache_hit ? "HIT" : (event.mode === "llm" ? "LLM" : "MISS");
+        return `<div class="recent-item">${shortQuery(event.query)} <span class="tag">${tag}</span></div>`;
+      }).join("");
+    }
+
+    async function loadStats() {
+      try {
+        const response = await fetch("/stats");
+        const data = await response.json();
+        const stats = data.stats || {};
+        const hitRate = Number(stats.cache_hit_rate || 0);
+        const co2 = Number(stats.co2_saved_g || 0);
+
+        document.getElementById("total-requests").textContent = stats.total_requests || 0;
+        document.getElementById("cache-hits").textContent = stats.cache_hits || 0;
+        document.getElementById("llm-calls").textContent = stats.llm_calls || 0;
+        document.getElementById("co2-saved").textContent = `${co2.toFixed(4)}g`;
+        document.getElementById("saving-big").textContent = `${co2.toFixed(4)}g`;
+        document.getElementById("hit-rate").textContent = pct(hitRate);
+        document.getElementById("hit-rate-bar").style.width = `${Math.min(hitRate * 100, 100)}%`;
+        document.getElementById("nav-total").textContent = stats.total_requests || 0;
+        document.getElementById("nav-cache").textContent = stats.cache_hits || 0;
+        renderRecent(stats.recent_events);
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    loadStats();
+    setInterval(loadStats, 5000);
+  </script>
+</body>
+</html>
