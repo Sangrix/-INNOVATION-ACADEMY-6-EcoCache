@@ -138,6 +138,7 @@ def record_daily_stats(
                 "co2_g": result.get("co2_grams"),
                 "source": (result.get("retrieval") or {}).get("source"),
                 "answer": result.get("answer"),
+                "sources": sources,
                 "source_count": len(sources),
                 "selected_model": selected_model,
                 "top_k": top_k,

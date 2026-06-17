@@ -418,6 +418,7 @@
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const serverStatus = document.getElementById("server-status");
+    const initialMessagesHtml = messages.innerHTML;
     const defaultSettings = {
       top_k: 5,
       threshold: 0.75,
@@ -493,14 +494,17 @@
       return `<span class="fallback-badge"><i class="ti ti-search"></i> 문서 검색</span>`;
     }
 
-    function updateStats(result) {
-      const stats = result.stats || {};
+    function updateHeaderStats(stats, selectedModel = activeSettings.selected_model) {
       const hitRate = stats.cache_hit_rate === undefined ? null : Number(stats.cache_hit_rate) * 100;
       document.getElementById("cache-status").textContent = hitRate === null ? "-" : `${formatNumber(hitRate, 1)}%`;
-      document.getElementById("model-stat").textContent = result.selected_model || activeSettings.selected_model;
+      document.getElementById("model-stat").textContent = selectedModel;
       document.getElementById("carbon-stat").textContent = stats.co2_saved_g === null || stats.co2_saved_g === undefined
         ? "-"
         : `${formatNumber(stats.co2_saved_g, 4)}g`;
+    }
+
+    function updateStats(result) {
+      updateHeaderStats(result.stats || {}, result.selected_model || activeSettings.selected_model);
     }
 
     function renderUserMessage(text) {
@@ -530,7 +534,7 @@
       if (loading) loading.remove();
     }
 
-    function renderBotMessage(result) {
+    function renderBotMessage(result, options = {}) {
       const sourceButtons = (result.sources || [])
         .filter(source => source.url)
         .slice(0, 3)
@@ -563,7 +567,52 @@
       `;
       messages.appendChild(wrapper);
       messages.scrollTop = messages.scrollHeight;
-      updateStats(result);
+      if (options.updateStats !== false) updateStats(result);
+    }
+
+    function eventToResult(event, stats) {
+      return {
+        response: event.answer,
+        cache_hit: event.cache_hit,
+        generation_mode: event.mode,
+        similarity: event.similarity,
+        latency: event.latency_ms,
+        co2_grams: event.co2_g,
+        selected_model: event.selected_model,
+        sources: event.sources || [],
+        stats
+      };
+    }
+
+    function renderChatHistory(events, stats) {
+      if (!events || events.length === 0) {
+        messages.innerHTML = initialMessagesHtml;
+        syncSettingLabels();
+        messages.scrollTop = messages.scrollHeight;
+        return;
+      }
+
+      messages.innerHTML = "";
+      events.slice(0, 8).reverse().forEach(event => {
+        renderUserMessage(event.query);
+        renderBotMessage(eventToResult(event, stats), { updateStats: false });
+      });
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    async function loadChatHistory() {
+      try {
+        const response = await fetch("/stats");
+        const data = await response.json();
+        if (!data.ok) return;
+        const stats = data.stats || {};
+        if (stats.settings) applySettings(stats.settings);
+        updateHeaderStats(stats, stats.settings?.selected_model || activeSettings.selected_model);
+        renderChatHistory(stats.recent_events, stats);
+        serverStatus.textContent = "연결됨";
+      } catch (error) {
+        serverStatus.textContent = "대기중";
+      }
     }
 
     function renderError(error) {
@@ -628,6 +677,7 @@
 
     applySettings(activeSettings);
     loadSettings();
+    loadChatHistory();
   </script>
 </body>
 </html>
