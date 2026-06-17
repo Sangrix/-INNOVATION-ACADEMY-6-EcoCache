@@ -411,12 +411,12 @@
             <span class="stat-value" id="cache-status">-</span>
           </div>
           <div class="stat-pill">
-            <span class="stat-label">선택 모델</span>
-            <span class="stat-value model-value" id="model-stat">LM Studio</span>
-          </div>
-          <div class="stat-pill">
             <span class="stat-label">오늘 탄소 절감</span>
             <span class="stat-value" id="carbon-stat">-</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-label">선택 모델</span>
+            <span class="stat-value model-value" id="model-stat">LM Studio</span>
           </div>
         </div>
       </header>
@@ -462,10 +462,10 @@
       <div class="setting-group">
         <label class="setting-label" for="model-select">모델 선택</label>
         <select class="setting-input" id="model-select" onchange="syncSettingLabels()">
-          <option value="LM Studio(Local)">LM Studio(Local)</option>
           <option value="GPT 계열">GPT 계열</option>
           <option value="Gemini 계열">Gemini 계열</option>
           <option value="Claude 계열">Claude 계열</option>
+          <option value="LM Studio(Local)" selected>LM Studio(Local)</option>
         </select>
       </div>
 
@@ -587,8 +587,6 @@
         `)
         .join("");
 
-      const selectedModelText = result.selected_model ? ` · 선택 ${escapeHtml(result.selected_model)}` : "";
-      const modelText = result.model ? ` · 실행 ${escapeHtml(result.model)}` : "";
       const powerText = result.avg_power_W === null || result.avg_power_W === undefined
         ? ""
         : ` · 평균 ${formatNumber(result.avg_power_W, 2)}W / 최대 ${formatNumber(result.peak_power_W, 2)}W`;
@@ -601,15 +599,12 @@
           ${generationLabel(result)}
           <span class="meta-text">
             유사도 ${formatNumber(result.similarity, 4)}
-            · QA ${formatNumber(result.cache_similarity, 4)}
-            · 검색 ${formatNumber(result.retrieval_similarity, 4)}
           </span>
         </div>
         <div class="msg-meta">
           <span class="meta-text">
             응답 ${formatNumber(result.latency, 1)}ms
-            · CI ${formatNumber(result.ci_g_per_kwh, 0)}g/kWh
-            · CO₂ ${formatNumber(result.co2_grams, 4)}g${selectedModelText}${modelText}${powerText}
+            · CO₂ ${formatNumber(result.co2_grams, 4)}g${powerText}
           </span>
         </div>
         ${result.generation_error ? `<div class="msg-meta"><span class="fallback-badge">LLM 오류</span><span class="meta-text">${escapeHtml(result.generation_error)}</span></div>` : ""}
