@@ -19,6 +19,7 @@ class ChatResult(BaseModel):
     latency: Optional[float] = None
     co2_grams: Optional[float] = None
     ci_g_per_kwh: Optional[float] = None
+    alpha_used: Optional[float] = None
     sources: List[SourceLink] = Field(default_factory=list)
     timings: List[Dict[str, Any]] = Field(default_factory=list)
 

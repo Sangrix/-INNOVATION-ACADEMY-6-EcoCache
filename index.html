@@ -617,10 +617,11 @@
     if (meta.cache_hit) {
       metaText = `유사도 ${Number(meta.similarity).toFixed(2)} · 응답 ${latency_s}s · <span class="${co2Class}">${co2Sign}${co2Abs}${co2Unit} CO₂eq</span>`;
     } else {
-      const ciVal  = meta.ci_g_per_kwh ?? meta.ci_gkwh;
-      const ci     = ciVal ? Math.round(ciVal) + 'g/kWh' : '';
-      const ciPart = ci ? ` · CI ${ci}` : '';
-      metaText = `응답 ${latency_s}s${ciPart} · <span class="${co2Class}">${co2Sign}${co2Abs}${co2Unit} CO₂eq</span>`;
+      const ciVal    = meta.ci_g_per_kwh ?? meta.ci_gkwh;
+      const ci       = ciVal ? Math.round(ciVal) + 'g/kWh' : '';
+      const ciPart   = ci ? ` · CI ${ci}` : '';
+      const alphaPart = meta.alpha_used != null ? ` · α ${Number(meta.alpha_used).toFixed(3)}` : '';
+      metaText = `응답 ${latency_s}s${ciPart}${alphaPart} · <span class="${co2Class}">${co2Sign}${co2Abs}${co2Unit} CO₂eq</span>`;
     }
 
     const badgeHtml = meta.cache_hit

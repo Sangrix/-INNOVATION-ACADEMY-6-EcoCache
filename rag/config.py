@@ -58,6 +58,9 @@ CIASC_THETA_MIN      = float(os.getenv("CIASC_THETA_MIN", "0.70"))
 CIASC_THETA_MAX      = float(os.getenv("CIASC_THETA_MAX", "0.95"))
 _ciasc_fixed         = os.getenv("CIASC_FIXED_CI", "").strip()
 CIASC_FIXED_CI       = float(_ciasc_fixed) if _ciasc_fixed else None
+# @MX:NOTE: k=0.5 means ±25% α amplification at CI extremes (350 or 500 g/kWh)
+# @MX:NOTE: neutral CI ≈ 425 g/kWh (CI_norm=0.5) gives zero amplification
+CIASC_ALPHA_K        = float(os.getenv("CIASC_ALPHA_K", "0.5"))
 
 # ── PostgreSQL (공유 DB 설정) ─────────────────────────────────────────────────
 DB_CONFIG = {

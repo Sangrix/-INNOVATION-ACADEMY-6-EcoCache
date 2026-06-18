@@ -135,6 +135,7 @@ def _stream_chat_generator(query: str):
     cache_hit  = result["source"] == "qa_pairs"
     top1_score = result["results"][0]["score"] if result["results"] else None
     sources    = _extract_sources(result)
+    alpha_used = result.get("alpha_used")
     llm_co2    = 0.0
 
     if cache_hit:
@@ -160,6 +161,7 @@ def _stream_chat_generator(query: str):
         "latency_ms":   latency_ms,
         "co2_grams":    co2_total,
         "ci_g_per_kwh": current_ci,
+        "alpha_used":   alpha_used,
         "sources":      sources,
     }
     yield f"data: {json.dumps(meta, ensure_ascii=False)}\n\n"
@@ -211,6 +213,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
         top1_score = result["results"][0]["score"] if result["results"] else None
         cache_hit  = result["source"] == "qa_pairs"
         sources    = _extract_sources(result)
+        alpha_used = result.get("alpha_used")
 
         response_text: str | None = None
         if cache_hit:
@@ -261,6 +264,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
                 latency=latency_ms,
                 co2_grams=co2_grams,
                 ci_g_per_kwh=current_ci,
+                alpha_used=alpha_used,
                 sources=sources,
                 timings=timings,
             ),
