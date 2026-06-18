@@ -156,10 +156,13 @@ curl -X POST http://localhost:8000/chat \
     "latency": 142.3,
     "co2_grams": 0.000012,
     "ci_g_per_kwh": 420.0,
+    "alpha_used": 0.1525,
     "sources": ["inha_notice_001"]
   }
 }
 ```
+
+`alpha_used`: CIASC 모드에서 실제 사용된 동적 α 값. B1/B2 모드에서는 `null`.
 
 ### 9. CI 수집 데몬 (선택)
 
@@ -182,6 +185,7 @@ python collector.py
 **CIASC 동작 원리:**
 - CI가 높을수록(탄소 배출 多) → θ 낮아짐 → 캐시 히트 쉬워짐 (전력 절감)
 - CI가 낮을수록 → θ 높아짐 → 더 정확한 문서 검색
+- **동적 α**: `α(CI) = α_base × (1 + k × |CI_norm − 0.5|)` — CI 극단값일수록 α 민감도 증폭
 
 ---
 
@@ -194,6 +198,7 @@ python collector.py
 | `ELECTRICITY_MAPS_API_KEY` | (없음) | 실시간 CI 조회 (없으면 정적 프록시) |
 | `CARBON_MONITOR_ENABLED` | `true` | 탄소 측정 활성화 |
 | `CIASC_FIXED_CI` | (없음) | CI 고정값 (테스트용) |
+| `CIASC_ALPHA_K` | `0.5` | 동적 α 증폭 계수 (k=0이면 고정 α) |
 | `LM_STUDIO_MODEL` | (없음) | LLM 모델명 (`--generate` 필요) |
 
 ---
